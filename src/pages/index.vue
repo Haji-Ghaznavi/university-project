@@ -1,7 +1,7 @@
 
 <template>
   <VRow class="match-height">
- 
+    <h1>this is the home</h1>
   </VRow>
 </template>
 
