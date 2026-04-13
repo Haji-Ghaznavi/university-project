@@ -27,16 +27,19 @@ const tableRecords = [
     name: 'سمیع الله',
     last_name: 'حسینی',
     phone_number: '07980789',
+    email:'email@gmail.com'
   },
   {
     name: 'هادی',
     last_name: 'مظفری',
     phone_number: '07980789',
+    email:'email@gmail.com'
   },
   {
     name: 'ذکریا',
     last_name: 'فانوس',
     phone_number: '07980789',
+    email:'email@gmail.com'
   },
 ]
 
