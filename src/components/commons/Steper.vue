@@ -1,8 +1,8 @@
 <template>
   <v-card
     class="mx-auto"
-    height="650"
-    width="1100"
+    height="600"
+    width="1000"
   >
     <v-card-title class="text-title-large font-weight-regular justify-space-between">
       <span>{{ currentTitle }}</span>
