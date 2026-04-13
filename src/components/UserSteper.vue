@@ -7,6 +7,9 @@
     <Steper
       :steps="steps"
       @onClose="closeDialog"
+      @onSubmit="submit"
+      :onDone="onDone"
+      :loading="loading"
     ></Steper>
   </v-dialog>
 </template>
@@ -24,26 +27,31 @@ const secondStep = markRaw(Step2)
 const thirdStep = markRaw(Step3)
 const doneStep = markRaw(DoneStep)
 
-const payload = ref({
+const onDone = ref(false)
+const loading = ref(false)
+const defaultPayload = () => ({
   name: '',
   last_name: '',
+  permissions:[]
 })
+
+const payload =ref(defaultPayload());
 
 const steps = ref([
   {
     title: 'ایجاد حساب',
     component: firstStep,
-    payload
+    payload,
   },
   {
     title: 'تنظیمات',
     component: secondStep,
-    payload
+    payload,
   },
   {
     title: 'ایمیل',
     component: thirdStep,
-    payload
+    payload,
   },
   {
     title: 'تشکر از حوصله مندی شما',
@@ -53,12 +61,25 @@ const steps = ref([
 
 const showDialog = ref(false)
 
+const submit = () => {
+  try {
+    loading.value = true
+    onDone.value = true
+    console.log('form submited')
+  } catch (error) {
+    console.log('error while submiting the form', error)
+  }
+  loading.value = false
+}
+
 const openDialog = () => {
   showDialog.value = true
 }
 
 const closeDialog = () => {
-  showDialog.value = false
+  showDialog.value = false;
+  loading.value  = false;
+  payload.value = defaultPayload();
 }
 
 defineExpose({

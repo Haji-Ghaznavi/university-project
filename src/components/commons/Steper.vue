@@ -28,7 +28,11 @@
         :value="i"
       >
         <v-card-text>
-            <component :is="step.component" :payload="step?.payload"></component>
+          <component
+            :is="step.component"
+            :payload="step?.payload"
+            :ref="el => (stepRefs[i] = el)"
+          ></component>
         </v-card-text>
       </v-window-item>
     </v-window>
@@ -45,10 +49,11 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        v-if="step < props.steps?.length -1"
+        v-if="step < props.steps?.length - 1"
         color="primary"
         variant="flat"
-        @click="step++"
+        @click="onNext"
+        :loading="props.loading"
       >
         {{ step < props.steps?.length - 2 ? 'بعدی' : 'ثبت' }}
       </v-btn>
@@ -57,19 +62,51 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue';
 
-const emit = defineEmits(['onClose'])
+const emit = defineEmits(['onClose', 'onSubmit'])
 const props = defineProps({
   steps: {
     type: Array,
     default: () => [],
   },
+
+  onDone: {
+    type: Boolean,
+    default: false,
+  },
+
+   loading: {
+    type: Boolean,
+    default: false,
+
+  },
 })
 
 const step = ref(0)
+const stepRefs = ref([])
 
 const currentTitle = computed(() => {
   return props.steps[step.value]?.title
 })
+
+const onNext = async () => {
+  const currentStep = stepRefs.value[step.value]
+  if (currentStep?.validate) {
+    const val = await currentStep.validate()
+    if (!val) return
+  }
+
+  step.value < props.steps?.length - 2 ? step.value++ : emit("onSubmit")
+}
+
+watch(
+  () => props.onDone,
+  value => {
+    if (value) {
+      step.value++
+    }
+  },
+)
+
 </script>
