@@ -1,13 +1,13 @@
 <template>
-  <div class="my-0 mx-auto">
-    <v-img :src="checkmark" cover></v-img>
+ <div class="pt-16">
+
+  <div class="d-flex align-center justify-center pt-16">
+    <v-icon color="primary" size="50">mdi-check-circle-outline</v-icon>
   </div>
+
+   <h2 class="text-primary text-center pt-5">معلومات موفقانه ثبت شد</h2>
+
+ </div>
 </template>
 
-
-<script setup>
-import checkmark from "@/assets/images/check-image.jpg";
-
-
-
-</script>
+<script setup></script>

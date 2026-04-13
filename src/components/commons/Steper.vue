@@ -1,19 +1,20 @@
 <template>
   <v-card
     class="mx-auto"
-    height="600"
-    width="800"
+    height="650"
+    width="1100"
   >
     <v-card-title class="text-title-large font-weight-regular justify-space-between">
       <span>{{ currentTitle }}</span>
       <v-btn
         @click="emit('onClose')"
         class="float-end mt-1"
-        width="25"
-        height="25"
+        width="28"
+        height="28"
         icon
         variant="text"
-        ><v-icon>mdi-close-circle-outline</v-icon></v-btn
+        color="black"
+        ><v-icon size="28">mdi-close-circle-outline</v-icon></v-btn
       >
     </v-card-title>
     <v-divider></v-divider>
@@ -41,7 +42,7 @@
 
     <v-card-actions class="pt-3">
       <v-btn
-        v-if="step > 0"
+        v-if="step > 0 && step < props.steps?.length - 1"
         variant="text"
         @click="step--"
       >

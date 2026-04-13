@@ -54,7 +54,7 @@ const steps = ref([
     payload,
   },
   {
-    title: 'تشکر از حوصله مندی شما',
+    title: 'پایان',
     component: doneStep,
   },
 ])
@@ -80,6 +80,7 @@ const closeDialog = () => {
   showDialog.value = false;
   loading.value  = false;
   payload.value = defaultPayload();
+  onDone.value = false;
 }
 
 defineExpose({
