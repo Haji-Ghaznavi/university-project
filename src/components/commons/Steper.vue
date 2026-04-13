@@ -19,25 +19,24 @@
     </v-card-title>
     <v-divider></v-divider>
 
-    <v-window
-      v-model="step"
-      style="height: 100% !important"
-    >
-      <v-window-item
-        v-for="(step, i) in props.steps"
-        :key="i"
-        :value="i"
+    <v-card-text>
+      <v-window
+        v-model="step"
+        style="height: 100% !important"
       >
-        <v-card-text>
+        <v-window-item
+          v-for="(step, i) in props.steps"
+          :key="i"
+          :value="i"
+        >
           <component
             :is="step.component"
             :payload="step?.payload"
             :ref="el => (stepRefs[i] = el)"
           ></component>
-        </v-card-text>
-      </v-window-item>
-    </v-window>
-
+        </v-window-item>
+      </v-window>
+    </v-card-text>
     <v-divider></v-divider>
 
     <v-card-actions class="pt-3">
@@ -63,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue'
 
 const emit = defineEmits(['onClose', 'onSubmit'])
 const props = defineProps({
@@ -77,10 +76,9 @@ const props = defineProps({
     default: false,
   },
 
-   loading: {
+  loading: {
     type: Boolean,
     default: false,
-
   },
 })
 
@@ -98,7 +96,7 @@ const onNext = async () => {
     if (!val) return
   }
 
-  step.value < props.steps?.length - 2 ? step.value++ : emit("onSubmit")
+  step.value < props.steps?.length - 2 ? step.value++ : emit('onSubmit')
 }
 
 watch(
@@ -109,5 +107,4 @@ watch(
     }
   },
 )
-
 </script>
