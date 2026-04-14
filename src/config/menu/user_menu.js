@@ -12,6 +12,14 @@ const breadCrumbs = [
 ]
 
 const headers = [
+   {
+    title: 'آی دی',
+    key: 'id',
+  },
+   {
+    title: 'عملیات',
+    key: 'actions',
+  },
   {
     title: 'اسم',
     key: 'name',

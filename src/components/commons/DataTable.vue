@@ -7,14 +7,7 @@
   >
     <div
       v-if="props.loading"
-      style="
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-      "
+      style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10"
     >
       <v-progress-circular indeterminate />
     </div>
@@ -36,13 +29,18 @@
       <tbody>
         <tr
           v-for="record in props.tableRecords"
-          :key="record.name"
+          :key="record.id"
         >
           <td
             v-for="header in props.headers"
             :key="header.key"
           >
-            {{ record[header.key] }}
+            <slot
+              :name="header.key"
+              :record="record"
+            >
+              {{ record[header.key] }}
+            </slot>
           </td>
         </tr>
       </tbody>
