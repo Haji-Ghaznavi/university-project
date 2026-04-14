@@ -17,6 +17,7 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
+        "ignoreDeprecations" : "6.0",  
         "jsx": "preserve",
         "paths": {
             "@/*": [
