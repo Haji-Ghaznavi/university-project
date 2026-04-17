@@ -16,15 +16,13 @@
 
 <script setup>
 import { markRaw, ref } from 'vue'
-import DoneStep from './commons/DoneStep.vue'
-import Steper from './commons/Steper.vue'
-import Step1 from './Step1.vue'
-import Step2 from './Step2.vue'
-import Step3 from './Step3.vue'
+import DoneStep from '../commons/DoneStep.vue'
+import Steper from '../commons/Steper.vue'
+import Step1 from './UserStep1.vue'
+import Step2 from './UserStep2.vue'
 
 const firstStep = markRaw(Step1)
 const secondStep = markRaw(Step2)
-const thirdStep = markRaw(Step3)
 const doneStep = markRaw(DoneStep)
 
 const onDone = ref(false)
@@ -32,7 +30,6 @@ const loading = ref(false)
 const defaultPayload = () => ({
   name: '',
   last_name: '',
-  permissions:[]
 })
 
 const payload =ref(defaultPayload());
@@ -46,11 +43,6 @@ const steps = ref([
   {
     title: 'تنظیمات',
     component: secondStep,
-    payload,
-  },
-  {
-    title: 'ایمیل',
-    component: thirdStep,
     payload,
   },
   {
