@@ -27,7 +27,7 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import UserSteper from '@/components/UserSteper/UserSteper.vue'
-import usePageConfig from '@/config/menu/user_menu'
+import usePageConfig from '@/page-configs/user'
 import { ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
 
