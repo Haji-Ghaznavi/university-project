@@ -3,6 +3,7 @@
   <BreadCrumbs
     :items="breadCrumbs"
     @onCreate="addRecord"
+    @onRefresh="fetchRecord"
   />
   <DataTable
     :headers="headers"
@@ -58,6 +59,12 @@ const tableRecords = [
     email: 'email@gmail.com',
   },
 ]
+
+
+
+const fetchRecord = () => {
+  
+}
 
 const addRecord = () => {
   SteperRef.value.openDialog()
