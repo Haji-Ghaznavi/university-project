@@ -7,15 +7,16 @@
     >
       &copy;
       {{ new Date().getFullYear() }} 
-      توسعه توسط شرکت تکنالوژی
+      توسعه توسط محصلین   
 
       <a
-        href="tel:+93745145758"
-        class="ms-3 mb-1"
-      >Company Name
+        href="tel:+93775773197"
+        class="ms-3"
+      >پوهنتون بلخ 
         <VIcon
           style="direction: rtl"
           icon="mdi-phone"
+          class="ms-1"
         /></a>
     </span>
   </div>

@@ -45,6 +45,13 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' },
       }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'کاربران',
+        to: 'users',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
 
     <!-- <VerticalNavLink
       :item="{

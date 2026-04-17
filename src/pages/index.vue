@@ -1,19 +1,3 @@
-
 <template>
-  <VRow class="match-height">
-    <h1>this is the home</h1>
-  </VRow>
+  <h1>this is the dashboard page</h1>
 </template>
-
-<script setup>
-
-
-</script>
-
-
-
-<route lang="yaml">
-meta:
-  auth: true
-</route>
-

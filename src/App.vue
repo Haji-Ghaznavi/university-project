@@ -18,3 +18,13 @@ const rtl = computed(() => {
   return store.rtl
 })
 </script>
+
+
+
+<style>
+* {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+</style>
