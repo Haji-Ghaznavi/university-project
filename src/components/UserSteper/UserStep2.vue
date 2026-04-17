@@ -1,7 +1,6 @@
 <template>
-  <h1>step 1</h1>
   <v-form ref="formRef">
-    <v-text-field v-model="payload.name" :rules="[requiredValidator]"></v-text-field>
+    <v-text-field v-model="payload.last_name" :rules="[requiredValidator]"  label="Last Name" variant="outlined"></v-text-field>
   </v-form>
 </template>
 

@@ -52,13 +52,6 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-account-multiple-outline' },
       }"
     />
-     <VerticalNavLink
-      :item="{
-        title: 'سفارشات',
-        to: 'orders',
-        icon: { icon: 'mdi-cart' },
-      }"
-    />
 
     <!-- <VerticalNavLink
       :item="{

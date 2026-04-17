@@ -16,25 +16,33 @@
 
 <script setup>
 import { markRaw, ref } from 'vue'
-import DoneStep from './commons/DoneStep.vue'
-import Steper from './commons/Steper.vue'
-import Step1 from './OrderStep1.vue'
+import DoneStep from '../commons/DoneStep.vue'
+import Steper from '../commons/Steper.vue'
+import Step1 from './UserStep1.vue'
+import Step2 from './UserStep2.vue'
 
 const firstStep = markRaw(Step1)
+const secondStep = markRaw(Step2)
 const doneStep = markRaw(DoneStep)
 
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   name: '',
+  last_name: '',
 })
 
 const payload =ref(defaultPayload());
 
 const steps = ref([
   {
-    title: 'ایجاد',
+    title: 'ایجاد حساب',
     component: firstStep,
+    payload,
+  },
+  {
+    title: 'تنظیمات',
+    component: secondStep,
     payload,
   },
   {
@@ -49,7 +57,7 @@ const submit = () => {
   try {
     loading.value = true
     onDone.value = true
-    // const res = await axios.post("", props.payload);
+    console.log('form submited')
   } catch (error) {
     console.log('error while submiting the form', error)
   }
