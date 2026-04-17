@@ -30,6 +30,7 @@ const loading = ref(false)
 const defaultPayload = () => ({
   name: '',
   last_name: '',
+  email:''
 })
 
 const payload =ref(defaultPayload());
