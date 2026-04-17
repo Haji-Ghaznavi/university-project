@@ -29,7 +29,7 @@
         >
         <v-tooltip activator="parent">تازه سازی</v-tooltip>
           <v-icon
-            size="25"
+            size="22"
             >mdi-refresh</v-icon
           ></v-btn
         >
