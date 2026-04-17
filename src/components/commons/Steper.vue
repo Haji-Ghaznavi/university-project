@@ -5,7 +5,7 @@
     width="1000"
   >
     <v-card-title class="text-title-large font-weight-regular justify-space-between">
-      <span>{{ currentTitle }}</span>
+      <span>{{ steperTitle }}</span>
       <v-btn
         @click="emit('onClose')"
         class="float-end mt-1"
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const emit = defineEmits(['onClose', 'onSubmit'])
 const props = defineProps({
@@ -80,14 +80,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  steperTitle: {
+    type: String,
+    default: '',
+  },
 })
 
 const step = ref(0)
 const stepRefs = ref([])
-
-const currentTitle = computed(() => {
-  return props.steps[step.value]?.title
-})
 
 const onNext = async () => {
   const currentStep = stepRefs.value[step.value]
