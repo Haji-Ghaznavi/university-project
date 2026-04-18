@@ -14,7 +14,7 @@ const upgradeBanner = computed(() => {
 
 <template>
   <!-- 👉 Nav header -->
-  <div class="nav-header ps-2 d-flex align-center">
+  <div class="nav-header ps-1 d-flex align-center">
     <RouterLink
       to="/"
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
@@ -30,7 +30,7 @@ const upgradeBanner = computed(() => {
           class="font-weight-semibold leading-normal text-xl text-uppercase"
           style="color: #ddd942"
         >
-        company name
+        Ahmad Shah
         </h1>
       </Transition>
     </RouterLink>
