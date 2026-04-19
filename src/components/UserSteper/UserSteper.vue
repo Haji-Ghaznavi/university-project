@@ -16,23 +16,25 @@
 </template>
 
 <script setup>
+import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
 import Step1 from './UserStep1.vue'
-import Step2 from './UserStep2.vue'
 
 const firstStep = markRaw(Step1)
-const secondStep = markRaw(Step2)
 const doneStep = markRaw(DoneStep)
 
 const steperTitle = ref('ایجاد کاربر')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
+  id: null,
   name: '',
   last_name: '',
-  email: '',
+  profile: null,
+  password: '',
+  role: '',
 })
 
 const payload = ref(defaultPayload())
@@ -43,29 +45,42 @@ const steps = ref([
     payload,
   },
   {
-    component: secondStep,
-    payload,
-  },
-  {
     component: doneStep,
   },
 ])
 
 const showDialog = ref(false)
 
-const submit = () => {
+const submit = async () => {
   try {
     loading.value = true
+    const formData = new FormData()
+    formData.append('name', payload.value.name)
+    formData.append('last_name', payload.value.last_name)
+    formData.append('profile', payload.value.profile)
+    formData.append('role', payload.value.role)
+    formData.append('password', payload.value.password)
+    if (payload.value.id) {
+      await axios.post('', formData)
+    } else {
+      await axios.post('', formData)
+    }
     onDone.value = true
-    console.log('form submited')
   } catch (error) {
     console.log('error while submiting the form', error)
+    onDone.value = false;
   }
   loading.value = false
 }
 
 const openDialog = () => {
   showDialog.value = true
+}
+
+const openEditDialog = record => {
+  showDialog.value = true
+  steperTitle.value = 'ویرایش کاربر'
+  payload.value.id = record.id
 }
 
 const closeDialog = () => {
@@ -77,5 +92,6 @@ const closeDialog = () => {
 
 defineExpose({
   openDialog,
+  openEditDialog,
 })
 </script>

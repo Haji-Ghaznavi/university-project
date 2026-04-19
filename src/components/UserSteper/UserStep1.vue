@@ -3,6 +3,13 @@
     <v-row>
       <v-col
         cols="12"
+        md="12"
+        class="d-flex justify-center"
+      >
+        <profile-selector @onUpload="payload.profile = $event" />
+      </v-col>
+      <v-col
+        cols="12"
         md="6"
       >
         <v-text-field
@@ -23,6 +30,32 @@
           label="تخلص"
         ></v-text-field>
       </v-col>
+
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-select
+          v-model="payload.role"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-shield-key-outline"
+          label="نقش"
+          :items="roles"
+          item-title="name"
+          item-value="id"
+        ></v-select>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.password"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="پسورد"
+        ></v-text-field>
+      </v-col>
     </v-row>
   </v-form>
 </template>
@@ -30,6 +63,7 @@
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
+import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -38,7 +72,10 @@ const props = defineProps({
 })
 
 const formRef = ref()
-
+const roles = ref([
+  { id: 'admin', name: 'ادمین' },
+  { id: 'user', name: 'کاربر' },
+])
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {

@@ -31,6 +31,7 @@
     </v-btn>
     <v-btn
       v-if="showDelete"
+      :loading="isDeleting"
       @click="emit('onDelete')"
       icon
       width="20"
@@ -58,6 +59,10 @@ const props = defineProps({
     default: false,
   },
   showView: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleting: {
     type: Boolean,
     default: false,
   },

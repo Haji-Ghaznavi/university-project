@@ -18,6 +18,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="true"
+        :isDeleting="isDeleting"
       />
     </template>
   </DataTable>
@@ -29,62 +30,51 @@ import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import UserSteper from '@/components/UserSteper/UserSteper.vue'
 import usePageConfig from '@/page-configs/user'
-import { ref } from 'vue'
+import { axios } from '@/plugins/axios-plugin'
+import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
 const loading = ref(false)
-
-const tableRecords = [
-  {
-    id: 1,
-    name: 'سمیع الله',
-    last_name: 'حسینی',
-    phone_number: '07980789',
-    email: 'email@gmail.com',
-  },
-  {
-    id: 2,
-
-    name: 'هادی',
-    last_name: 'مظفری',
-    phone_number: '07980789',
-    email: 'email@gmail.com',
-  },
-  {
-    id: 3,
-    name: 'ذکریا',
-    last_name: 'فانوس',
-    phone_number: '07980789',
-    email: 'email@gmail.com',
-  },
-]
-
-
-
-const fetchRecord = () => {
-  
+const isDeleting = ref(false)
+const tableRecords = ref([]);
+const fetchRecord = async () => {
+  try {
+    loading.value = true
+    const {data} = await axios.get('');
+    tableRecords.value = data
+  } catch (error) {
+    console.log('error while fetching the date', error)
+  }
+  loading.value = false
 }
 
 const addRecord = () => {
   SteperRef.value.openDialog()
 }
 
-const editRecord = () => {
-console.log('record edited');
+const editRecord = record => {
+  SteperRef.value.openEditDialog(record)
 }
 
-
-const deleteRecord = () => {
-console.log('record deleted');
-  
+const deleteRecord = async record => {
+  try {
+    isDeleting.value = true
+    await axios.delete('' + record.id)
+  } catch (error) {
+    console.log('error while deleting the record', error)
+  }
+  isDeleting.value = false
 }
-
 
 const viewRecord = () => {
-console.log('view record');
-  
+  console.log('view record')
 }
+
+
+onMounted(() => {
+  fetchRecord()
+})
 </script>
 
 <route lang="yaml">
