@@ -1,5 +1,6 @@
 <template>
   <UserSteper ref="SteperRef" />
+  <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
     @onCreate="addRecord"
@@ -27,6 +28,7 @@
 <script setup>
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
+import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import UserSteper from '@/components/UserSteper/UserSteper.vue'
 import usePageConfig from '@/page-configs/user'
@@ -35,9 +37,11 @@ import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
+const ConfirmDialogRef = ref();
 const loading = ref(false)
 const isDeleting = ref(false)
 const tableRecords = ref([]);
+const selectedRecord = ref(null);
 const fetchRecord = async () => {
   try {
     loading.value = true
@@ -57,14 +61,20 @@ const editRecord = record => {
   SteperRef.value.openEditDialog(record)
 }
 
-const deleteRecord = async record => {
-  try {
+const deleteRecord =  record => {
+  selectedRecord.value = record;
+  ConfirmDialogRef.value.showDialog('delete');
+}
+
+const onConfirm = async () =>{
+    try {
     isDeleting.value = true
-    await axios.delete('' + record.id)
+    await axios.delete('' + selectedRecord.value?.id)
   } catch (error) {
     console.log('error while deleting the record', error)
   }
   isDeleting.value = false
+  selectedRecord.value = null;
 }
 
 const viewRecord = () => {
