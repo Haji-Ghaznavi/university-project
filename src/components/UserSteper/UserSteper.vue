@@ -64,7 +64,11 @@ const submit = async () => {
     if (payload.value.id) {
       await axios.post('', formData)
     } else {
-      const res = await axios.post('users', formData)
+      const res = await axios.post('users', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       if (res.request.status === 200) {
         onDone.value = true
       }

@@ -11,7 +11,7 @@
 
       <a
         href="tel:+93775773197"
-        class="ms-3"
+        class="ms-2"
       >پوهنتون بلخ 
         <VIcon
           style="direction: rtl"

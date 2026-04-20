@@ -6,7 +6,7 @@
         md="12"
         class="d-flex justify-center"
       >
-        <profile-selector @onUpload="handleFileUpload" />
+        <profile-selector @onUpload="handleFileUpload" :uploadedFile="uploadedFile"/>
       </v-col>
       <v-col
         cols="12"
@@ -72,15 +72,18 @@ const props = defineProps({
 })
 
 const formRef = ref()
+const uploadedFile = ref(null)
 const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
 
-
-const handleFileUpload = (file) => {
-  props.payload.profile = file;
-  console.log('file', props.payload.profile)
+const handleFileUpload = file => {
+  if (file.target?.files?.length > 0) {
+    props.payload.profile = file.target.files[0]
+    uploadedFile.value = URL.createObjectURL(props.payload.profile)
+    console.log('file', props.payload.profile)
+  }
 }
 const validate = async () => {
   const val = await formRef.value.validate()

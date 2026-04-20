@@ -34,7 +34,7 @@ import avatar from '@/assets/images/avatars/avatar-1.png'
 import { computed, ref } from 'vue'
 const emit = defineEmits(['onUpload'])
 const props = defineProps({
-  profile: {
+  uploadedFile: {
     type: String,
     default: null,
   },
@@ -48,17 +48,11 @@ const props = defineProps({
   },
 })
 
-const localFile = ref(null)
 
 const imageSource = computed(() => {
-  if (localFile.value) {
-    return URL.createObjectURL(localFile.value)
+  if (props.uploadedFile) {
+    return props.uploadedFile
   }
-
-  if (props.profile) {
-    return props.profile
-  }
-
   return avatar
 })
 
@@ -66,10 +60,8 @@ const fileInputRef = ref()
 const triggerFileInput = () => {
   fileInputRef.value.click()
 }
-const onFileChange = e => {
-  const file = e.target.files[0];
-  localFile.value = file
-  emit('onUpload', localFile.value);
+const onFileChange = (file) => {
+  emit('onUpload', file);
 }
 </script>
 
