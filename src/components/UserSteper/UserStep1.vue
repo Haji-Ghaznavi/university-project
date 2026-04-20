@@ -6,7 +6,7 @@
         md="12"
         class="d-flex justify-center"
       >
-        <profile-selector @onUpload="payload.profile = $event" />
+        <profile-selector @onUpload="handleFileUpload" />
       </v-col>
       <v-col
         cols="12"
@@ -77,6 +77,11 @@ const roles = ref([
   { id: 'user', name: 'کاربر' },
 ])
 
+
+const handleFileUpload = (file) => {
+  props.payload.profile = file;
+  console.log('file', props.payload.profile)
+}
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
