@@ -53,6 +53,14 @@ const upgradeBanner = computed(() => {
       }"
     />
 
+      <VerticalNavLink
+      :item="{
+        title: 'کارمندان',
+        to: 'stuffs',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
+
     <!-- <VerticalNavLink
       :item="{
         title: 'تنظیمات حساب',
