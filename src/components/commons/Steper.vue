@@ -1,8 +1,8 @@
 <template>
   <v-card
     class="mx-auto"
-    height="600"
-    width="1000"
+    height="650"
+    width="1100"
   >
     <v-card-title class="text-title-large font-weight-regular justify-space-between">
       <span>{{ steperTitle }}</span>

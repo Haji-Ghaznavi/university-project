@@ -25,6 +25,7 @@
     ref="fileInputRef"
     v-show="false"
     @change="onFileChange"
+    :multiple="false"
   ></v-file-input>
 </template>
 
@@ -66,9 +67,9 @@ const triggerFileInput = () => {
   fileInputRef.value.click()
 }
 const onFileChange = e => {
-  const file = e.target.files[0]
+  const file = e.target.files[0];
   localFile.value = file
-  emit('onUpload', file);
+  emit('onUpload', localFile.value);
 }
 </script>
 

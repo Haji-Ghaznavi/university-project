@@ -1,5 +1,5 @@
 <template>
-  <UserSteper ref="SteperRef" />
+  <UserSteper ref="SteperRef" @fetchRecord="fetchRecord" />
   <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
@@ -45,7 +45,7 @@ const selectedRecord = ref(null);
 const fetchRecord = async () => {
   try {
     loading.value = true
-    const {data} = await axios.get('');
+    const {data} = await axios.get('users');
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the date', error)

@@ -26,7 +26,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="!loading">
         <tr
           v-for="record in props.tableRecords"
           :key="record.id"

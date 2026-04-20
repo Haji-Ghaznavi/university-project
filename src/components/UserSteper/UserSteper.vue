@@ -22,6 +22,7 @@ import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
 import Step1 from './UserStep1.vue'
 
+const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
 const doneStep = markRaw(DoneStep)
 
@@ -63,12 +64,14 @@ const submit = async () => {
     if (payload.value.id) {
       await axios.post('', formData)
     } else {
-      await axios.post('', formData)
+      const res = await axios.post('users', formData)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     }
-    onDone.value = true
+    emit('fetchRecord')
   } catch (error) {
     console.log('error while submiting the form', error)
-    onDone.value = false;
   }
   loading.value = false
 }

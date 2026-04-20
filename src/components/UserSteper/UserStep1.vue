@@ -76,6 +76,7 @@ const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
+
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
