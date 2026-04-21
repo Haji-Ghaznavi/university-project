@@ -1,13 +1,7 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-      <v-col
-        cols="12"
-        md="12"
-        class="d-flex justify-center"
-      >
-        <profile-selector @onUpload="handleFileUpload" :uploadedFile="uploadedFile"/>
-      </v-col>
+
       <v-col
         cols="12"
         md="6"
@@ -16,7 +10,7 @@
           v-model="payload.name"
           prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          label="اسم"
+          label="نام حساب"
         ></v-text-field>
       </v-col>
       <v-col
@@ -24,10 +18,10 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.last_name"
+          v-model="payload.currency"
           :rules="[requiredValidator]"
           prepend-icon="mdi-account-outline"
-          label="تخلص"
+          label="واحد پولی"
         ></v-text-field>
       </v-col>
 
@@ -35,25 +29,11 @@
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.role"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
-          label="نقش"
-          :items="roles"
-          item-title="name"
-          item-value="id"
-        ></v-select>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
         <v-text-field
-          v-model="payload.password"
+          v-model="payload.amount"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="پسورد"
+          label="مقدار پول"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -71,19 +51,12 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const uploadedFile = ref(null)
 const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
 
-const handleFileUpload = file => {
-  if (file.target?.files?.length > 0) {
-    props.payload.profile = file.target.files[0]
-    uploadedFile.value = URL.createObjectURL(props.payload.profile)
-    console.log('file', props.payload.profile)
-  }
-}
+
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {

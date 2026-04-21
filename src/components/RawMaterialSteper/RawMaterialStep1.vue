@@ -1,13 +1,7 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-      <v-col
-        cols="12"
-        md="12"
-        class="d-flex justify-center"
-      >
-        <profile-selector @onUpload="handleFileUpload" :uploadedFile="uploadedFile"/>
-      </v-col>
+  
       <v-col
         cols="12"
         md="6"
@@ -16,18 +10,7 @@
           v-model="payload.name"
           prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          label="اسم"
-        ></v-text-field>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.last_name"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="تخلص"
+          label="نام"
         ></v-text-field>
       </v-col>
 
@@ -35,12 +18,25 @@
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.role"
+        <v-text-field
+          v-model="payload.quantity"
           :rules="[requiredValidator]"
+          prepend-icon="mdi-account-outline"
+          label="مقدار"
+        ></v-text-field>
+      </v-col>
+
+
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-select
+          v-model="payload.unit"
+          :="[requiredValidator]"
           prepend-icon="mdi-shield-key-outline"
-          label="نقش"
-          :items="roles"
+          label="واحد"
+          :items="UniteTypes"
           item-title="name"
           item-value="id"
         ></v-select>
@@ -50,12 +46,48 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.password"
+          v-model="payload.price_per_unit"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="پسورد"
+          label="واحد اندازه گیری"
         ></v-text-field>
       </v-col>
+
+          <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.currency"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="واحد پولی"
+        ></v-text-field>
+      </v-col>
+
+                <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.date"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="تاریخ "
+        ></v-text-field>
+      </v-col>
+                <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea
+          v-model="payload.description"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="تفصیلات "
+        ></v-textarea>
+      </v-col>
+
     </v-row>
   </v-form>
 </template>
@@ -70,20 +102,16 @@ const props = defineProps({
   },
 })
 
+const UniteTypes = ref(["Box" , "Liter" , "Kg" , "Ton" , "Piece"])
+
 const formRef = ref()
-const uploadedFile = ref(null)
 const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
 
-const handleFileUpload = file => {
-  if (file.target?.files?.length > 0) {
-    props.payload.profile = file.target.files[0]
-    uploadedFile.value = URL.createObjectURL(props.payload.profile)
-    console.log('file', props.payload.profile)
-  }
-}
+
+
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {

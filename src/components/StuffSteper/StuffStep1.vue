@@ -6,7 +6,7 @@
         md="12"
         class="d-flex justify-center"
       >
-        <profile-selector @onUpload="handleFileUpload" :uploadedFile="uploadedFile"/>
+        <profile-selector @onUpload="handleFileUpload" />
       </v-col>
       <v-col
         cols="12"
@@ -14,9 +14,20 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-circle"
           :rules="[requiredValidator]"
           label="اسم"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.father_name"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-card-account-details"
+          label="نام پدر"
         ></v-text-field>
       </v-col>
       <v-col
@@ -30,32 +41,42 @@
           label="تخلص"
         ></v-text-field>
       </v-col>
-
       <v-col
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.role"
+        <v-text-field
+          v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
-          label="نقش"
-          :items="roles"
-          item-title="name"
-          item-value="id"
-        ></v-select>
+          prepend-icon="mdi-phone-outline"
+          label="شماره تماس"
+        ></v-text-field>
       </v-col>
       <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.password"
+          v-model="payload.contract_type"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
-          label="پسورد"
+          prepend-icon="mdi-file-sign"
+          label="نوع قرارداد"
         ></v-text-field>
       </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.contract_start_date"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-rocket-launch"
+          label="شروع قرارداد"
+        ></v-text-field>
+      </v-col>
+  
+
+
     </v-row>
   </v-form>
 </template>
@@ -63,6 +84,7 @@
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
+import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -71,18 +93,14 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const uploadedFile = ref(null)
 const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
 
 const handleFileUpload = file => {
-  if (file.target?.files?.length > 0) {
-    props.payload.profile = file.target.files[0]
-    uploadedFile.value = URL.createObjectURL(props.payload.profile)
-    console.log('file', props.payload.profile)
-  }
+  props.payload.profile = file
+  console.log('file', props.payload.profile)
 }
 const validate = async () => {
   const val = await formRef.value.validate()

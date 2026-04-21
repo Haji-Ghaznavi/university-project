@@ -61,19 +61,69 @@ const upgradeBanner = computed(() => {
       }"
     />
 
-    <VerticalNavLink
+      <VerticalNavLink
       :item="{
-        title: 'محصولات',
-        to: 'products',
-        icon: { icon: 'mdi-cart-outline' },
+        title: 'کارمندان',
+        to: 'stuffs',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
+          <VerticalNavLink
+      :item="{
+        title: 'مواد خام',
+        to: 'raw_materials',
+        icon: { icon: 'mdi-cube-outline' },
+      }"
+    />
+     <VerticalNavLink
+      :item="{
+        title: 'مصارف کارخانه  ',
+        to: 'Office_Warehouse_Expense',
+        icon: { icon: 'mdi-factory' },
+      }"
+    />
+         <VerticalNavLink
+      :item="{
+        title: ' مصارف روزانه  ',
+        to: 'DailyExpense',
+        icon: { icon: 'mdi-cash-minus' },
+      }"
+    />
+       <VerticalNavLink
+      :item="{
+        title: ' اموال شرکت ',
+        to: 'CompanyTools',
+        icon: { icon: 'mdi-cash-minus' },
+      }"
+    />
+           <VerticalNavLink
+      :item="{
+        title: ' حسابات بانکی',
+        to: 'BankAccounts',
+        icon: { icon: 'mdi-cash-minus' },
+      }"
+    />
+       <VerticalNavLink
+      :item="{
+        title: 'اموال شخصی',
+        to: 'PersonalGoods',
+        icon: { icon: 'mdi-cash-minus' },
       }"
     />
 
-    <VerticalNavLink
+        
+       <VerticalNavLink
       :item="{
-        title: 'محصولات فروخته شده',
-        to: 'product-sales',
-        icon: { icon: 'mdi-cart-outline' },
+        title: 'پسورد ها',
+        to: 'Passwords',
+        icon: { icon: 'mdi-cash-minus' },
+      }"
+    />
+           <VerticalNavLink
+      :item="{
+        title: 'وظایف روزانه',
+        to: 'DailyTask',
+        icon: { icon: 'mdi-cash-minus' },
       }"
     />
 
