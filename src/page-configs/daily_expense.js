@@ -5,7 +5,7 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'مصارف روزمره',
+    title: 'مصارف روزانه',
     disabled: true,
     href: 'DailyExpense',
   },

@@ -1,8 +1,11 @@
 <template>
-  <v-avatar
-    :image="profile"
-    :size="size"
-  ></v-avatar>
+  <v-img
+    :src="profile"
+    cover
+    :width="size"
+    :height="size"
+    class="rounded"
+  ></v-img>
 </template>
 
 <script setup>
@@ -23,7 +26,7 @@ const props = defineProps({
 
 const profile = computed(() => {
   if (props.imageUrl) {
-    return import.meta.env.VITE_API_URL + "storage/" + props.imageUrl
+    return import.meta.env.VITE_API_URL + 'storage/' + props.imageUrl
   }
 
   return avatar

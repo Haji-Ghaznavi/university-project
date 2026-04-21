@@ -5,9 +5,9 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'کاربران',
+    title: 'حسابات بانکی',
     disabled: true,
-    href: 'users',
+    href: 'bank-accounts',
   },
 ]
 

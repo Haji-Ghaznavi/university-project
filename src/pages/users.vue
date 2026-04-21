@@ -32,7 +32,7 @@
     <template #profile="{ record }">
       <Profile
         :imageUrl="record.profile"
-        :size="40"
+        size="40"
       />
     </template>
 

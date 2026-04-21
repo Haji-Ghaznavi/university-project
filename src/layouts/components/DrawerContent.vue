@@ -110,21 +110,21 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'اموال شرکت',
         to: 'company-tools',
-        icon: { icon: 'mdi-cash-minus' },
+        icon: { icon: 'mdi-package-variant' },
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'حسابات بانکی',
         to: 'bank-accounts',
-        icon: { icon: 'mdi-cash-minus' },
+        icon: { icon: 'mdi-credit-card-outline' },
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'اموال شخصی',
         to: 'personal-goods',
-        icon: { icon: 'mdi-cash-minus' },
+        icon: { icon: 'mdi-package-variant' },
       }"
     />
 
@@ -132,14 +132,14 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'پسورد ها',
         to: 'passwords',
-        icon: { icon: 'mdi-cash-minus' },
+        icon: { icon: 'mdi-lock-outline' },
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'وظایف روزانه',
         to: 'daily-tasks',
-        icon: { icon: 'mdi-cash-minus' },
+        icon: { icon: 'mdi-calendar-check' },
       }"
     />
 
