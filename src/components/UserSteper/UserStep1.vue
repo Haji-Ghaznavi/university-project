@@ -1,13 +1,7 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-      <v-col
-        cols="12"
-        md="12"
-        class="d-flex justify-center"
-      >
-        <profile-selector @onUpload="handleFileUpload" />
-      </v-col>
+
       <v-col
         cols="12"
         md="6"
@@ -63,7 +57,6 @@
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
-import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
     type: Object,

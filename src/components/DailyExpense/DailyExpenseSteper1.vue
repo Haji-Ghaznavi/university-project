@@ -1,38 +1,64 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-              <v-col
+
+      <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.contract_end_date"
+          v-model="payload.type"
+          prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-stop"
-          label="ختم قرارداد"
+          label="نوع مصرف"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.salary"
+          v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label="معاش"
+          prepend-icon="mdi-account-outline"
+          label="مقدارمصرف"
         ></v-text-field>
+
       </v-col>
             <v-col
         cols="12"
-        md=""
+        md="6"
       >
         <v-text-field
           v-model="payload.currency"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label="واحد پول "
+          prepend-icon="mdi-account-outline"
+          label="واحد پولی"
         ></v-text-field>
+      </v-col>
+
+
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.date"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="تاریخ"
+        ></v-text-field>
+      </v-col>
+            <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea
+          v-model="payload.description"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-account-outline"
+          label="توضیحات"
+        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>
@@ -53,7 +79,6 @@ const roles = ref([
   { id: 'admin', name: 'ادمین' },
   { id: 'user', name: 'کاربر' },
 ])
-
 
 
 const validate = async () => {

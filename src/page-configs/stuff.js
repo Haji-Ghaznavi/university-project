@@ -25,39 +25,39 @@ const headers = [
     key: 'name',
   },
   {
-    title: 'father name',
+    title: 'نام پدر',
     key: 'father_name',
   },
   {
-    title: 'last name',
+    title: 'تخلص ',
     key: 'last_name',
   },
   {
-    title: 'شماره تماس',
+    title: ' شماره تماس',
     key: 'phone_number',
   },
   {
-    title: 'contract type',
+    title: 'نوع قرارداد ',
     key: 'contract_type',
   },
   {
-    title: 'start date',
+    title: 'شروع قرارداد',
     key: 'contract_start_date',
   },
   {
-    title: 'end date',
+    title: ' ختم قرارداد',
     key: 'contract_end_date',
   },
   {
-    title: 'salary',
+    title: 'معاش',
     key: 'salary',
   },
   {
-    title: 'currency',
+    title: 'واحد پول',
     key: 'currency',
   },
   {
-    title: 'profile',
+    title: 'عکس پروفایل',
     key: 'profile',
   },
 ]

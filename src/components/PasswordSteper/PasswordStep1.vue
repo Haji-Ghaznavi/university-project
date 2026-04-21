@@ -1,38 +1,54 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-              <v-col
+
+      <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.contract_end_date"
+          v-model="payload.account_name"
+          prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-stop"
-          label="ختم قرارداد"
+          label="نام حساب"
         ></v-text-field>
       </v-col>
-            <v-col
+
+      <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.salary"
+          v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label="معاش"
+          prepend-icon="mdi-account-outline"
+          label="شماره تلفن"
         ></v-text-field>
       </v-col>
-            <v-col
+
+       <v-col
         cols="12"
-        md=""
+        md="6"
       >
         <v-text-field
-          v-model="payload.currency"
+          v-model="payload.password"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label="واحد پول "
+          prepend-icon="mdi-account-outline"
+          label="پسورد"
         ></v-text-field>
+      </v-col>
+
+
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea
+          v-model="payload.description"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="توضیحات"
+        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>
