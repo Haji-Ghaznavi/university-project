@@ -1,6 +1,6 @@
 <template>
   <VApp>
-    <VLocaleProvider>
+    <VLocaleProvider rtl>
       <VLayout class="layout-wrapper layout-nav-type-vertical">
         <RouterView />
       </VLayout>
