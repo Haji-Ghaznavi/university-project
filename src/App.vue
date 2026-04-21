@@ -1,7 +1,6 @@
-
 <template>
   <VApp>
-    <VLocaleProvider rtl>
+    <VLocaleProvider>
       <VLayout class="layout-wrapper layout-nav-type-vertical">
         <RouterView />
       </VLayout>
@@ -18,8 +17,6 @@ const rtl = computed(() => {
   return store.rtl
 })
 </script>
-
-
 
 <style>
 * {
