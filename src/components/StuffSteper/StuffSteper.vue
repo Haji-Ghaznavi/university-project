@@ -25,7 +25,7 @@ import Step2 from './StuffStep2.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
-const secondStep = markRaw(Step2);
+const secondStep = markRaw(Step2)
 const doneStep = markRaw(DoneStep)
 
 const steperTitle = ref('ایجاد کارمند')
@@ -38,14 +38,13 @@ const defaultPayload = () => ({
   name: '',
   father_name: '',
   last_name: '',
-  phone_number:'',
-  contract_type:'',
-  contract_start_date:'',
-  contract_end_date:'',
+  phone_number: '',
+  contract_type: '',
+  contract_start_date: '',
+  contract_end_date: '',
   salary: null,
   currency: '',
   profile: '',
-
 })
 
 const payload = ref(defaultPayload())
@@ -55,7 +54,7 @@ const steps = ref([
     component: firstStep,
     payload,
   },
-   {
+  {
     component: secondStep,
     payload,
   },

@@ -6,7 +6,10 @@
         md="12"
         class="d-flex justify-center"
       >
-        <profile-selector @onUpload="handleFileUpload" :uploadedFile="uploadedFile"/>
+        <profile-selector
+          @onUpload="handleFileUpload"
+          :uploadedFile="uploadedFile"
+        />
       </v-col>
       <v-col
         cols="12"
@@ -63,6 +66,7 @@
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
+import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -92,7 +96,10 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
 defineExpose({
   validate,
+  onLoad,
 })
 </script>

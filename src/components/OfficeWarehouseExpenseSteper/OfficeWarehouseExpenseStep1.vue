@@ -1,7 +1,6 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-
       <v-col
         cols="12"
         md="6"
@@ -25,7 +24,7 @@
         ></v-text-field>
       </v-col>
 
-       <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -37,7 +36,7 @@
         ></v-text-field>
       </v-col>
 
-             <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -48,7 +47,6 @@
           label="تاریخ"
         ></v-text-field>
       </v-col>
-
 
       <v-col
         cols="12"
@@ -76,13 +74,6 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const roles = ref([
-  { id: 'admin', name: 'ادمین' },
-  { id: 'user', name: 'کاربر' },
-])
-
-
-
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -91,7 +82,11 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad
 })
 </script>

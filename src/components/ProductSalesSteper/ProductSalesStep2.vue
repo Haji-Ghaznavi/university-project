@@ -46,7 +46,11 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad,
 })
 </script>

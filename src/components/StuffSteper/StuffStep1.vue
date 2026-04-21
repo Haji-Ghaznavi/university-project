@@ -74,9 +74,6 @@
           label="شروع قرارداد"
         ></v-text-field>
       </v-col>
-  
-
-
     </v-row>
   </v-form>
 </template>
@@ -110,7 +107,11 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad,
 })
 </script>
