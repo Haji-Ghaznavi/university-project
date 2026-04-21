@@ -20,7 +20,7 @@ import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
-import Step1 from './Office_warehouseStep1.vue'
+import Step1 from './OfficeWarehouseExpenseStep1.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)

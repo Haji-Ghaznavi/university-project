@@ -1,5 +1,5 @@
 <template>
-  <Office_Warehouse_Expense ref="SteperRef" @fetchRecord="fetchRecord" />
+  <BankAccountSteper ref="SteperRef" @fetchRecord="fetchRecord" />
   <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
@@ -26,12 +26,12 @@
 </template>
 
 <script setup>
+import BankAccountSteper from '@/components/BankAccountSteper/BankAccountSteper.vue'
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import Office_Warehouse_Expense from '@/components/Office_WarehouseExpenseSteper/Office_Warehouse_ExpenseSteper.vue'
-import usePageConfig from '@/page-configs/Office_Warehouse_Expense'
+import usePageConfig from '@/page-configs/bank_accounts'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()

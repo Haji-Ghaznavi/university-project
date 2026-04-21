@@ -55,74 +55,90 @@ const upgradeBanner = computed(() => {
 
     <VerticalNavLink
       :item="{
+        title: 'کارمندان',
+        to: 'stuffs',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
         title: 'مشتریان',
         to: 'customers',
         icon: { icon: 'mdi-account-multiple-outline' },
       }"
     />
 
-      <VerticalNavLink
+    <VerticalNavLink
       :item="{
-        title: 'کارمندان',
-        to: 'stuffs',
-        icon: { icon: 'mdi-account-multiple-outline' },
+        title: 'محصولات',
+        to: 'products',
+        icon: { icon: 'mdi-cart-outline' },
       }"
     />
-          <VerticalNavLink
+
+    <VerticalNavLink
+      :item="{
+        title: 'محصولات فروخته شده',
+        to: 'product-sales',
+        icon: { icon: 'mdi-cart-outline' },
+      }"
+    />
+
+    <VerticalNavLink
       :item="{
         title: 'مواد خام',
-        to: 'raw_materials',
+        to: 'raw-materials',
         icon: { icon: 'mdi-cube-outline' },
       }"
     />
-     <VerticalNavLink
+    <VerticalNavLink
       :item="{
-        title: 'مصارف کارخانه  ',
-        to: 'Office_Warehouse_Expense',
+        title: 'مصارف کارخانه',
+        to: 'office-warehouse-expense',
         icon: { icon: 'mdi-factory' },
       }"
     />
-         <VerticalNavLink
+    <VerticalNavLink
       :item="{
-        title: ' مصارف روزانه  ',
-        to: 'DailyExpense',
+        title: 'مصارف روزانه',
+        to: 'daily-expense',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />
-       <VerticalNavLink
+    <VerticalNavLink
       :item="{
-        title: ' اموال شرکت ',
-        to: 'CompanyTools',
+        title: 'اموال شرکت',
+        to: 'company-tools',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />
-           <VerticalNavLink
+    <VerticalNavLink
       :item="{
-        title: ' حسابات بانکی',
-        to: 'BankAccounts',
+        title: 'حسابات بانکی',
+        to: 'bank-accounts',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />
-       <VerticalNavLink
+    <VerticalNavLink
       :item="{
         title: 'اموال شخصی',
-        to: 'PersonalGoods',
+        to: 'personal-goods',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />
 
-        
-       <VerticalNavLink
+    <VerticalNavLink
       :item="{
         title: 'پسورد ها',
-        to: 'Passwords',
+        to: 'passwords',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />
-           <VerticalNavLink
+    <VerticalNavLink
       :item="{
         title: 'وظایف روزانه',
-        to: 'DailyTask',
+        to: 'daily-tasks',
         icon: { icon: 'mdi-cash-minus' },
       }"
     />

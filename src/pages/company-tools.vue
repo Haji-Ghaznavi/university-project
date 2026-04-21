@@ -1,5 +1,5 @@
 <template>
-  <PersonalGoodsSteper ref="SteperRef" @fetchRecord="fetchRecord" />
+  <CompanyToolsSteper ref="SteperRef" @fetchRecord="fetchRecord" />
   <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
@@ -30,8 +30,8 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import PersonalGoodsSteper from '@/components/PersonalGoodsStper/PersonalGoodsSteper.vue'
-import usePageConfig from '@/page-configs/personalGood'
+import CompanyToolsSteper from '@/components/CompanyToolsSteper/CompanyToolsSteper.vue'
+import usePageConfig from '@/page-configs/company_tools'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()

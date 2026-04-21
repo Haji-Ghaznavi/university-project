@@ -1,5 +1,5 @@
 <template>
-  <BankAccountSteper ref="SteperRef" @fetchRecord="fetchRecord" />
+  <DailyTaskSteper ref="SteperRef" @fetchRecord="fetchRecord" />
   <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
@@ -30,8 +30,8 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import BankAccountSteper from '@/components/BankAccountSteper/BankAccountSteper.vue'
-import usePageConfig from '@/page-configs/BankAccounts'
+import DailyTaskSteper from '@/components/DailyTaskSteper/DailyTaskSteper.vue'
+import usePageConfig from '@/page-configs/daily_task'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
