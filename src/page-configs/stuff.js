@@ -21,7 +21,11 @@ const headers = [
     key: 'actions',
   },
   {
-    title: 'اسم',
+    title: 'پروفایل',
+    key: 'profile',
+  },
+  {
+    title: 'نام',
     key: 'name',
   },
   {
@@ -55,10 +59,6 @@ const headers = [
   {
     title: 'واحد پول',
     key: 'currency',
-  },
-  {
-    title: 'عکس پروفایل',
-    key: 'profile',
   },
 ]
 

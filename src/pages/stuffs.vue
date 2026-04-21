@@ -1,6 +1,12 @@
 <template>
-  <StuffSteper ref="SteperRef" @fetchRecord="fetchRecord" />
-  <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
+  <StuffSteper
+    ref="SteperRef"
+    @fetchRecord="fetchRecord"
+  />
+  <ConfirmDialog
+    ref="ConfirmDialogRef"
+    @confirm="onConfirm"
+  />
   <BreadCrumbs
     :items="breadCrumbs"
     @onCreate="addRecord"
@@ -22,6 +28,12 @@
         :isDeleting="isDeleting"
       />
     </template>
+    <template #profile="{ record }">
+      <Profile
+        :imageUrl="record.profile"
+        size="40"
+      />
+    </template>
   </DataTable>
 </template>
 
@@ -30,6 +42,7 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
+import Profile from '@/components/commons/Profile.vue'
 import StuffSteper from '@/components/StuffSteper/StuffSteper.vue'
 import usePageConfig from '@/page-configs/stuff'
 import { axios } from '@/plugins/axios-plugin'
@@ -37,15 +50,15 @@ import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
-const ConfirmDialogRef = ref();
+const ConfirmDialogRef = ref()
 const loading = ref(false)
 const isDeleting = ref(false)
-const tableRecords = ref([]);
-const selectedRecord = ref(null);
+const tableRecords = ref([])
+const selectedRecord = ref(null)
 const fetchRecord = async () => {
   try {
     loading.value = true
-    const {data} = await axios.get('users');
+    const { data } = await axios.get('users')
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the date', error)
@@ -61,26 +74,25 @@ const editRecord = record => {
   SteperRef.value.openEditDialog(record)
 }
 
-const deleteRecord =  record => {
-  selectedRecord.value = record;
-  ConfirmDialogRef.value.showDialog('delete');
+const deleteRecord = record => {
+  selectedRecord.value = record
+  ConfirmDialogRef.value.showDialog('delete')
 }
 
-const onConfirm = async () =>{
-    try {
+const onConfirm = async () => {
+  try {
     isDeleting.value = true
     await axios.delete('' + selectedRecord.value?.id)
   } catch (error) {
     console.log('error while deleting the record', error)
   }
   isDeleting.value = false
-  selectedRecord.value = null;
+  selectedRecord.value = null
 }
 
 const viewRecord = () => {
   console.log('view record')
 }
-
 
 onMounted(() => {
   fetchRecord()
