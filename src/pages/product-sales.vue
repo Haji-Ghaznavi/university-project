@@ -1,5 +1,5 @@
 <template>
-  <UserSteper
+  <ProductSalesSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
@@ -28,17 +28,6 @@
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
-
-    <template #profile="{ record }">
-      <Profile
-        :imageUrl="record.profile"
-        :size="40"
-      />
-    </template>
-
-    <template #role="{record}">
-      {{ record.role == 'admin' ? 'ادمین' : 'کاربر' }}
-    </template>
   </DataTable>
 </template>
 
@@ -47,9 +36,8 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import Profile from '@/components/commons/Profile.vue'
-import UserSteper from '@/components/UserSteper/UserSteper.vue'
-import usePageConfig from '@/page-configs/user'
+import ProductSalesSteper from '@/components/ProductSalesSteper/ProductSalesSteper.vue'
+import usePageConfig from '@/page-configs/product_sales'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()

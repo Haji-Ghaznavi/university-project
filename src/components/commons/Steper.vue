@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 const emit = defineEmits(['onClose', 'onSubmit'])
 const props = defineProps({
@@ -97,7 +97,7 @@ const onNext = async () => {
     if (!val) return
   }
 
-  step.value < props.steps?.length - 2 ? step.value++ : emit('onSubmit')
+  step.value < props.steps?.length - 2 ? onNextClick() : emit('onSubmit')
 }
 
 watch(
@@ -108,4 +108,19 @@ watch(
     }
   },
 )
+
+const onload = () => {
+  const currentStep = stepRefs.value[step.value]
+  currentStep.onLoad()
+}
+
+const onNextClick = () => {
+  step.value++
+  const currentStep = stepRefs.value[step.value]
+  currentStep.onLoad()
+}
+
+onMounted(() => {
+  onload()
+})
 </script>

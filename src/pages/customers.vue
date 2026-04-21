@@ -1,5 +1,5 @@
 <template>
-  <UserSteper
+  <CustomerSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
@@ -28,17 +28,6 @@
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
-
-    <template #profile="{ record }">
-      <Profile
-        :imageUrl="record.profile"
-        :size="40"
-      />
-    </template>
-
-    <template #role="{record}">
-      {{ record.role == 'admin' ? 'ادمین' : 'کاربر' }}
-    </template>
   </DataTable>
 </template>
 
@@ -47,9 +36,8 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import Profile from '@/components/commons/Profile.vue'
-import UserSteper from '@/components/UserSteper/UserSteper.vue'
-import usePageConfig from '@/page-configs/user'
+import CustomerSteper from '@/components/CustomerSteper/CustomerSteper.vue'
+import usePageConfig from '@/page-configs/customer'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers } = usePageConfig()
@@ -63,7 +51,7 @@ const isDeleting = ref(false)
 const fetchRecord = async () => {
   try {
     loading.value = true
-    const { data } = await axios.get('users')
+    const { data } = await axios.get('customers')
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the data', error)
@@ -87,7 +75,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    const res = await axios.delete('users/' + selectedRecord.value?.id)
+    const res = await axios.delete('customers/' + selectedRecord.value?.id)
     if (res.request.status === 206) {
       fetchRecord()
     }

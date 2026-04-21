@@ -30,7 +30,7 @@ const upgradeBanner = computed(() => {
           class="font-weight-semibold leading-normal text-xl text-uppercase"
           style="color: #ddd942"
         >
-        Ahmad Shah
+          Ahmad Shah
         </h1>
       </Transition>
     </RouterLink>
@@ -49,7 +49,31 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'کاربران',
         to: 'users',
+        icon: { icon: 'mdi-user-multiple-outline' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'مشتریان',
+        to: 'customers',
         icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'محصولات',
+        to: 'products',
+        icon: { icon: 'mdi-cart-outline' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'محصولات فروخته شده',
+        to: 'product-sales',
+        icon: { icon: 'mdi-cart-outline' },
       }"
     />
 
@@ -130,5 +154,3 @@ const upgradeBanner = computed(() => {
   // transform: translateX(-50%);
 }
 </style>
-
-
