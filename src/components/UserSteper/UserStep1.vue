@@ -77,8 +77,8 @@ const props = defineProps({
 const formRef = ref()
 const uploadedFile = ref(null)
 const roles = ref([
-  { id: 'admin', name: 'ادمین' },
-  { id: 'user', name: 'کاربر' },
+  { id: 'ادمین', name: 'ادمین' },
+  { id: 'کاربر', name: 'کاربر' },
 ])
 
 const handleFileUpload = file => {

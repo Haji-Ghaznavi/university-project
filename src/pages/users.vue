@@ -9,6 +9,8 @@
   />
   <BreadCrumbs
     :items="breadCrumbs"
+    :searchColums="filteredSearchColums"
+    v-model:searchBy="searchBy"
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
     @onSearch="searchRecord"
@@ -40,10 +42,6 @@
         size="40"
       />
     </template>
-
-    <template #role="{ record }">
-      {{ record.role == 'admin' ? 'ادمین' : 'کاربر' }}
-    </template>
   </DataTable>
 </template>
 
@@ -56,7 +54,7 @@ import Profile from '@/components/commons/Profile.vue'
 import UserSteper from '@/components/UserSteper/UserSteper.vue'
 import usePageConfig from '@/page-configs/user'
 import { axios } from '@/plugins/axios-plugin'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
@@ -66,12 +64,20 @@ const loading = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
 const isDeleting = ref(false)
-const fetchRecord = async (searchValue = null) => {
+const searchBy = ref('id');
+
+const filteredSearchColums = computed(() => {
+  const excludedColums = ['actions', 'profile']
+  return headers.filter(item => !excludedColums.includes(item.key))
+})
+
+const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
     const { data } = await axios.get('users', {
       params: {
         search: searchValue,
+        searchBy:searchBy
       },
     })
     tableRecords.value = data
@@ -109,7 +115,7 @@ const onConfirm = async () => {
 }
 
 const searchRecord = searchValue => {
-  fetchRecord(searchValue)
+  fetchRecord(searchValue, searchBy.value)
 }
 
 const copyRecord = async (record, th) => {

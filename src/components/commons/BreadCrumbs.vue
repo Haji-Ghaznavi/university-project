@@ -20,21 +20,30 @@
           class="me-3 mb-1"
           style="min-width: 270px !important"
           @keyup.enter="emit('onSearch', search)"
+          clearable
         ></v-text-field>
-        <!-- <v-btn color="primary">
-          جستجو بر اساس
+        <v-btn
+          color="primary"
+          class="me-2"
+          prepend-icon="mdi-chevron-down"
+          variant="outlined"
+        >
+          <v-tooltip activator="parent">جستجو بر اساس</v-tooltip>
+          {{ selectedSearchType }}
           <v-menu activator="parent">
             <v-list>
               <v-list-item
-                v-for="(item, index) in items"
+                v-for="(item, index) in props.searchColums"
                 :key="index"
-                :value="index"
+                :value="item.key"
+                @click="handleSearchTypeSelect(item)"
+                density="compact"
               >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title class="text-primary">{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-        </v-btn> -->
+        </v-btn>
         <v-btn
           @click="emit('onRefresh')"
           class="float-start"
@@ -58,15 +67,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const emit = defineEmits(['onCreate', 'onRefresh', 'onSearch'])
+const emit = defineEmits(['onCreate', 'onRefresh', 'onSearch', 'update:searchBy'])
 const props = defineProps({
   items: {
     type: Array,
     required: true,
   },
+  searchColums: {
+    type: Array,
+    default: [],
+  },
 })
 
 const search = ref(null)
+const selectedSearchType = ref(props.searchColums[0]?.title)
+
+const handleSearchTypeSelect = item => {
+  selectedSearchType.value = item.title
+  emit('update:searchBy', item.key)
+}
 </script>
