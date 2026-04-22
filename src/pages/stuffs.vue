@@ -90,10 +90,6 @@ const onConfirm = async () => {
   selectedRecord.value = null
 }
 
-const viewRecord = () => {
-  console.log('view record')
-}
-
 onMounted(() => {
   fetchRecord()
 })

@@ -38,6 +38,7 @@
             <slot
               :name="header.key"
               :record="record"
+              :th="props.headers"
             >
               {{ record[header.key] }}
             </slot>

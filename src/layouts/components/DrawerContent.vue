@@ -87,7 +87,7 @@ const upgradeBanner = computed(() => {
 
     <VerticalNavLink
       :item="{
-        title: 'مواد خام',
+        title: 'مواد خام و گدام',
         to: 'raw-materials',
         icon: { icon: 'mdi-cube-outline' },
       }"

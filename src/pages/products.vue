@@ -24,7 +24,7 @@
         @onView="viewRecord(record)"
         :show-edit="true"
         :show-delete="true"
-        :show-view="true"
+        :show-view="false"
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
@@ -84,10 +84,6 @@ const onConfirm = async () => {
   }
   isDeleting.value = false
   selectedRecord.value = null
-}
-
-const viewRecord = () => {
-  console.log('view record')
 }
 
 onMounted(() => {
