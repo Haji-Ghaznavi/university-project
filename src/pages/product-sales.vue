@@ -51,7 +51,7 @@ const isDeleting = ref(false)
 const fetchRecord = async () => {
   try {
     loading.value = true
-    const { data } = await axios.get('users')
+    const { data } = await axios.get('product-sales')
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the data', error)
@@ -75,7 +75,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    const res = await axios.delete('users/' + selectedRecord.value?.id)
+    const res = await axios.delete('product-sales/' + selectedRecord.value?.id)
     if (res.request.status === 206) {
       fetchRecord()
     }

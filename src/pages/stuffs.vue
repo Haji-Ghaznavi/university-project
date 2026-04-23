@@ -58,7 +58,7 @@ const selectedRecord = ref(null)
 const fetchRecord = async () => {
   try {
     loading.value = true
-    const { data } = await axios.get('users')
+    const { data } = await axios.get('stuffs')
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the date', error)
@@ -82,7 +82,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    await axios.delete('' + selectedRecord.value?.id)
+    await axios.delete('stuffs/' + selectedRecord.value?.id)
   } catch (error) {
     console.log('error while deleting the record', error)
   }

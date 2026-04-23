@@ -70,14 +70,20 @@ const submit = async () => {
     loading.value = true
     const formData = new FormData()
     formData.append('name', payload.value.name)
+    formData.append('father_name', payload.value.father_name)
     formData.append('last_name', payload.value.last_name)
+    formData.append('phone_number', payload.value.phone_number)
+    formData.append('contract_type', payload.value.contract_type)
+    formData.append('contract_start_date', payload.value.contract_start_date)
+    formData.append('contract_end_date', payload.value.contract_end_date)
+    formData.append('salary', payload.value.salary)
+    formData.append('currency', payload.value.currency)
     formData.append('profile', payload.value.profile)
-    formData.append('role', payload.value.role)
-    formData.append('password', payload.value.password)
+
     if (payload.value.id) {
       await axios.post('', formData)
     } else {
-      const res = await axios.post('users', formData)
+      const res = await axios.post('stuffs', formData)
       if (res.request.status === 200) {
         onDone.value = true
       }

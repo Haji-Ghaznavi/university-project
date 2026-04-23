@@ -94,7 +94,7 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
-        title: 'مصارف کارخانه',
+        title: 'مصارف کارخانه و دفتر',
         to: 'office-warehouse-expense',
         icon: { icon: 'mdi-factory' },
       }"
