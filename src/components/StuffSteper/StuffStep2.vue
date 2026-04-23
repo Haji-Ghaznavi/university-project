@@ -34,6 +34,28 @@
           label="واحد پول "
         ></v-text-field>
       </v-col>
+            <v-col
+        cols="12"
+        md=""
+      >
+        <v-text-field
+          v-model="payload.identity_card_number"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-cash"
+          label=" نمبر تذکره "
+        ></v-text-field>
+      </v-col>
+            <v-col
+        cols="12"
+        md=""
+      >
+        <v-text-field
+          v-model="payload.full_address"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-cash"
+          label=" آدرس کامل "
+        ></v-text-field>
+      </v-col>
     </v-row>
   </v-form>
 </template>

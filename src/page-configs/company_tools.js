@@ -28,6 +28,10 @@ const headers = [
     title: 'تعداد مال',
     key: 'quantity',
   },
+    {
+    title: 'قیمت فی مال',
+    key: 'price_per_tool',
+  },
   {
     title: 'توضیحات',
     key: 'description',

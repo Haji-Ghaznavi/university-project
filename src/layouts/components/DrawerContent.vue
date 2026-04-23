@@ -142,6 +142,13 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-calendar-check' },
       }"
     />
+        <VerticalNavLink
+      :item="{
+        title: 'مخاطبین ',
+        to: 'contacts',
+        icon: { icon: 'mdi-contact' },
+      }"
+    />
 
     <!-- <VerticalNavLink
       :item="{

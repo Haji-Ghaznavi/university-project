@@ -20,22 +20,23 @@ import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
-import Step1 from './CustomerStep1.vue'
+import Step1 from './ContactStep1.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
 const doneStep = markRaw(DoneStep)
 
-const steperTitle = ref('ایجاد مشتری')
+const steperTitle = ref('ایجاد مخاطب')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
-  name: '',
-  last_name: '',
-  phone_number: '',
-  address: '',
-  category: '',
+  name:'',
+  last_name:'',
+  phone_number:'',
+  address:'',
+  position:''
+
 })
 
 const payload = ref(defaultPayload())
@@ -55,10 +56,15 @@ const showDialog = ref(false)
 const submit = async () => {
   try {
     loading.value = true
+ 
     if (payload.value.id) {
       await axios.post('', payload.value)
     } else {
-      const res = await axios.post('customers', payload.value)
+      const res = await axios.post('users', payload.value, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       if (res.request.status === 200) {
         onDone.value = true
       }
@@ -76,7 +82,7 @@ const openDialog = () => {
 
 const openEditDialog = record => {
   showDialog.value = true
-  steperTitle.value = 'ویرایش مشتری'
+  steperTitle.value = 'ویرایش مخاطب'
   payload.value.id = record.id
 }
 

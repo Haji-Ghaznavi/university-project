@@ -3,8 +3,11 @@
   <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
   <BreadCrumbs
     :items="breadCrumbs"
+    :searchColums="filteredSearchColums"
+    v-model:searchBy="searchBy"
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
+    @onSearch="searchRecord"
   />
   <DataTable
     :headers="headers"
@@ -34,6 +37,7 @@ import CompanyToolsSteper from '@/components/CompanyToolsSteper/CompanyToolsStep
 import usePageConfig from '@/page-configs/company_tools'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
+import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
@@ -42,10 +46,21 @@ const loading = ref(false)
 const isDeleting = ref(false)
 const tableRecords = ref([]);
 const selectedRecord = ref(null);
-const fetchRecord = async () => {
+const searchBy = ref('id');
+const filteredSearchColums = computed(() => {
+  const excludedColums = ['actions'];
+  return headers.filter(item => !excludedColums.includes(item.key))
+});
+
+const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const {data} = await axios.get('company-goods');
+    const {data} = await axios.get('company-goods' , {
+      params: {
+        search: searchValue,
+        searchBy:searchBy
+      },
+    });
     tableRecords.value = data
   } catch (error) {
     console.log('error while fetching the date', error)
@@ -75,6 +90,30 @@ const onConfirm = async () =>{
   }
   isDeleting.value = false
   selectedRecord.value = null;
+};
+
+const searchRecord = searchValue => {
+  fetchRecord(searchValue, searchBy.value)
+}
+
+const copyRecord = async (record, th) => {
+  try {
+    const excludedKeys = ['actions', 'profile']
+    const text = th
+      .filter(item => !excludedKeys.includes(item.key))
+      .map(item => {
+        return `${item.title} : ${record[item.key]}`
+      })
+      .join('\n')
+    await navigator.clipboard.writeText(text)
+    toast.success('کاپی شد')
+  } catch (error) {
+    console.error('Failed to copy:', error)
+  }
+}
+
+const printRecord = record => {
+  console.log('record')
 }
 
 

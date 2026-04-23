@@ -5,9 +5,9 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'مشتریان',
+    title: 'مخاطبین',
     disabled: true,
-    href: 'users',
+    href: 'contacts',
   },
 ]
 
@@ -20,8 +20,9 @@ const headers = [
     title: 'عملیات',
     key: 'actions',
   },
+
   {
-    title: 'اسم',
+    title: 'نام',
     key: 'name',
   },
   {
@@ -32,13 +33,13 @@ const headers = [
     title: 'شماره تماس',
     key: 'phone_number',
   },
-    {
-    title: ' آدرس',
+  {
+    title: 'آدرس',
     key: 'address',
   },
-   {
-    title: 'کتگوری',
-    key: 'category',
+    {
+    title: 'مقام',
+    key: 'position',
   },
 ]
 

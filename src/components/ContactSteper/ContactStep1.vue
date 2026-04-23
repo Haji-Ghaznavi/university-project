@@ -1,6 +1,7 @@
 <template>
   <v-form ref="formRef">
     <v-row>
+
       <v-col
         cols="12"
         md="6"
@@ -9,7 +10,7 @@
           v-model="payload.name"
           prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          label="نام مال"
+          label="اسم"
         ></v-text-field>
       </v-col>
       <v-col
@@ -17,10 +18,33 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.quantity"
+          v-model="payload.last_name"
           :rules="[requiredValidator]"
           prepend-icon="mdi-account-outline"
-          label="تعداد"
+          label="تخلص"
+        ></v-text-field>
+      </v-col>
+
+       <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.phone_number"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-account-outline"
+          label="شماره تماس"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.address"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="آدرس"
         ></v-text-field>
       </v-col>
             <v-col
@@ -28,23 +52,11 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.price_per_tool"
+          v-model="payload.position"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="قیمت فی مال"
+          prepend-icon="mdi-lock-outline"
+          label="مقام"
         ></v-text-field>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-textarea
-          v-model="payload.description"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="توضیحات"
-        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>
@@ -61,6 +73,8 @@ const props = defineProps({
 })
 
 const formRef = ref()
+
+
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -71,7 +85,6 @@ const validate = async () => {
 }
 
 const onLoad = () => {}
-
 defineExpose({
   validate,
   onLoad,
