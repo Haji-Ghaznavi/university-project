@@ -12,11 +12,11 @@ const breadCrumbs = [
 ]
 
 const headers = [
-   {
+  {
     title: 'آی دی',
     key: 'id',
   },
-   {
+  {
     title: 'عملیات',
     key: 'actions',
   },
@@ -33,46 +33,46 @@ const headers = [
     key: 'unit',
   },
   {
-    title: 'قیمت هر واحد ',
+    title: 'قیمت هر واحد',
     key: 'price_per_unit',
   },
-    {
+  {
     title: 'واحد پول',
     key: 'currency',
   },
-      {
-    title: 'بیل نمبر ',
+  {
+    title: 'نمبر بیل',
     key: 'bill_number',
   },
-      {
-    title: ' نام خریدنده',
+  {
+    title: 'نام خریدار',
     key: 'buyer_name',
   },
-      {
-    title: 'نام فروشنده ',
+  {
+    title: 'نام فروشنده',
     key: 'sealer_name',
   },
-      {
+  {
     title: 'شماره تماس فروشنده ',
     key: 'sealer_phone_number',
   },
-      {
-    title: ' نام شرکت',
+  {
+    title: 'نام شرکت',
     key: 'company_name',
   },
-    {
-    title: ' تاریخ  ',
+  {
+    title: 'تاریخ',
     key: 'date',
   },
-    {
-    title: ' تفصیلات  ',
-    key: 'description   ',
+  {
+    title: 'تفصیلات',
+    key: 'description',
   },
 ]
 
 export default function usePageConfig() {
   return {
     breadCrumbs,
-    headers
+    headers,
   }
 }

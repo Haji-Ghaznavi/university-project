@@ -21,7 +21,7 @@ const headers = [
     key: 'actions',
   },
     {
-    title: 'کاربر ',
+    title: 'دارنده حساب',
     key: 'user_name',
   },
   {
