@@ -21,7 +21,7 @@ const headers = [
     key: 'actions',
   },
   {
-    title: 'مشتری',
+    title: 'اسم مشتری',
     key: 'customer_name',
   },
   {
@@ -41,15 +41,15 @@ const headers = [
     key: 'currency',
   },
   {
-    title: ' نام دکان  ',
+    title: 'نام دکان',
     key: 'shop_name',
   },
     {
-    title: ' مقدار پرداخت شده ',
+    title: 'مقدار پرداخت شده',
     key: 'paid_amount',
   },
     {
-    title: ' مقدار باقی مانده ',
+    title: 'مقدار باقی مانده',
     key: 'remaining_amount',
   },
     {

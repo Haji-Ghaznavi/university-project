@@ -33,7 +33,7 @@ const headers = [
     key: 'father_name',
   },
   {
-    title: 'تخلص ',
+    title: 'تخلص',
     key: 'last_name',
   },
   {

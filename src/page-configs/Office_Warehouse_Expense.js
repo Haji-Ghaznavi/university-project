@@ -37,7 +37,7 @@ const headers = [
     key: 'date',
   },
     {
-    title: ' توضیحات',
+    title: 'توضیحات',
     key: 'description',
   },
 

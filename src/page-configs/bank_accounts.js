@@ -34,7 +34,7 @@ const headers = [
   },
   {
     title: 'واحد پولی',
-    key: 'currency ',
+    key: 'currency',
   },
   {
     title: 'مقدار پول',
