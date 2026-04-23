@@ -39,6 +39,8 @@ const defaultPayload = () => ({
   father_name: '',
   last_name: '',
   phone_number: '',
+  identity_card_number:'',
+  full_address: '',
   contract_type: '',
   contract_start_date: '',
   contract_end_date: '',

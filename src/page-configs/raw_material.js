@@ -40,6 +40,26 @@ const headers = [
     title: 'واحد پول',
     key: 'currency',
   },
+      {
+    title: 'بیل نمبر ',
+    key: 'bill_number',
+  },
+      {
+    title: ' نام خریدنده',
+    key: 'buyer_name',
+  },
+      {
+    title: 'نام فروشنده ',
+    key: 'sealer_name',
+  },
+      {
+    title: 'شماره تماس فروشنده ',
+    key: 'sealer_phone_number',
+  },
+      {
+    title: ' نام شرکت',
+    key: 'company_name',
+  },
     {
     title: ' تاریخ  ',
     key: 'date',

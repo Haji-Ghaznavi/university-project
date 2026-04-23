@@ -40,6 +40,9 @@ const defaultPayload = () => ({
   currency: '',
   price_per_unit: '',
   date: '',
+  shop_name:'',
+  paid_amount:'',
+  remaining_amount: '',
   description: '',
 })
 

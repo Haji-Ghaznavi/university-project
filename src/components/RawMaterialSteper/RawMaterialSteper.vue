@@ -21,9 +21,11 @@ import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
 import Step1 from './RawMaterialStep1.vue'
+import step2 from './RawMaterialStep2.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
+const secondStep = markRaw(step2)
 const doneStep = markRaw(DoneStep)
 
 const steperTitle = ref('ایجاد مواد خام')
@@ -35,7 +37,12 @@ name:"",
 quantity:"",
 unit:'',
 price_per_unit:null,
-currency:'',
+currency:'',  
+bill_number:'',
+buyer_name:'',
+sealer_name:'',
+sealer_phone_number:'',
+company_name:'',
 date:'',
 description:''
 
@@ -47,6 +54,10 @@ const payload = ref(defaultPayload())
 const steps = ref([
   {
     component: firstStep,
+    payload,
+  },
+    {
+    component: secondStep,
     payload,
   },
   {

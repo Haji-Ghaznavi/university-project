@@ -31,9 +31,14 @@ const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
+  user_name:'',
   name:'',
+  account_number:'',
   currency:'',
-  amount: ''
+  amount: '',
+  produced_date:'',
+  expired_date:''
+
 })
 
 const payload = ref(defaultPayload())

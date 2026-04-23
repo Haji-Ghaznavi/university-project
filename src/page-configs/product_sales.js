@@ -41,6 +41,18 @@ const headers = [
     key: 'currency',
   },
   {
+    title: ' نام دکان  ',
+    key: 'shop_name',
+  },
+    {
+    title: ' مقدار پرداخت شده ',
+    key: 'paid_amount',
+  },
+    {
+    title: ' مقدار باقی مانده ',
+    key: 'remaining_amount',
+  },
+    {
     title: 'قیمت هر واحد',
     key: 'price_per_unit',
   },

@@ -33,6 +33,7 @@ const defaultPayload = () => ({
 id: null,
 name: '',
 quantity: null,
+price_per_tool:'',
 description : ''
 })
 

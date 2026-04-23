@@ -6,21 +6,11 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          v-model="payload.bill_number"
+          prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          label="نام مال"
-        ></v-text-field>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.quantity"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="تعداد"
+          type="date"
+          label="نمبر بیل"
         ></v-text-field>
       </v-col>
             <v-col
@@ -28,22 +18,45 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.price_per_tool"
+          v-model="payload.buyer_name"
+          prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="قیمت فی مال"
+          type="date"
+          label=" نام خریدار"
         ></v-text-field>
       </v-col>
-
+            <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.sealer_name"
+          prepend-icon="mdi-calendar"
+          :rules="[requiredValidator]"
+          type="date"
+          label="  نام فروشنده"
+        ></v-text-field>
+      </v-col>
+            <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.sealer_phone_number"
+          prepend-icon="mdi-calendar"
+          :rules="[requiredValidator]"
+          type="date"
+          label="  شماره تماس فروشنده"
+        ></v-text-field>
+      </v-col>
       <v-col
         cols="12"
         md="6"
       >
         <v-textarea
-          v-model="payload.description"
-          :rules="[requiredValidator]"
+          v-model="payload.company_name"
           prepend-icon="mdi-account-outline"
-          label="توضیحات"
+          label="نام شرکت"
         ></v-textarea>
       </v-col>
     </v-row>

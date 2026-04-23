@@ -41,6 +41,14 @@ const headers = [
     key: 'phone_number',
   },
   {
+    title: 'نمبر تذکره',
+    key:"identity_card_number"
+  },
+  {
+    title:'',
+    key:'full_address'
+  },
+  {
     title: 'نوع قرارداد ',
     key: 'contract_type',
   },
