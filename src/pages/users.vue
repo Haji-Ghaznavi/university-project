@@ -9,6 +9,7 @@
   />
   <BreadCrumbs
     :items="breadCrumbs"
+    
     :searchColums="filteredSearchColums"
     v-model:searchBy="searchBy"
     @onCreate="addRecord"
@@ -69,7 +70,7 @@ const searchBy = ref('id');
 const filteredSearchColums = computed(() => {
   const excludedColums = ['actions', 'profile']
   return headers.filter(item => !excludedColums.includes(item.key))
-})
+});
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {

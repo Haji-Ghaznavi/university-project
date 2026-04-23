@@ -41,6 +41,7 @@ import DataTable from '@/components/commons/DataTable.vue'
 import usePageConfig from '@/page-configs/bank_accounts'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
+import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
@@ -51,7 +52,13 @@ const tableRecords = ref([]);
 const selectedRecord = ref(null);
 const searchBy = ref('id');
 
-const fetchRecord = async () => {
+const filteredSearchColums = computed(() => {
+  const excludedColums = ['actions', 'profile']
+  return headers.filter(item => !excludedColums.includes(item.key))
+})
+
+
+const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
     const {data} = await axios.get('users', {

@@ -13,6 +13,8 @@
     v-model:searchBy="searchBy"
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
+    @onSearch="searchRecord"
+
   />
   <DataTable
     :headers="headers"
