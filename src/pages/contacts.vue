@@ -85,7 +85,7 @@ const fetchRecord = async (searchValue = null, searchBy) => {
         page: currentPage.value,
       },
     })
-    tableRecords.value = data
+    tableRecords.value = data.data
     totalPages.value = data.last_page
   } catch (error) {
     console.log('error while fetching the data', error)
