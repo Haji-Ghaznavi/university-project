@@ -9,7 +9,6 @@
   />
   <BreadCrumbs
     :items="breadCrumbs"
-    
     :searchColums="filteredSearchColums"
     v-model:searchBy="searchBy"
     @onCreate="addRecord"
@@ -20,6 +19,8 @@
     :headers="headers"
     :tableRecords="tableRecords"
     :loading="loading"
+    :totalPages="totalPages"
+    @onPaginate="onPaginate"
   >
     <template #actions="{ record, th }">
       <ActionButton
@@ -65,12 +66,14 @@ const loading = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
 const isDeleting = ref(false)
-const searchBy = ref('id');
+const searchBy = ref('id')
+const currentPage = ref(1)
+const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
   const excludedColums = ['actions', 'profile']
   return headers.filter(item => !excludedColums.includes(item.key))
-});
+})
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
@@ -78,10 +81,12 @@ const fetchRecord = async (searchValue = null, searchBy) => {
     const { data } = await axios.get('users', {
       params: {
         search: searchValue,
-        searchBy:searchBy
+        searchBy: searchBy,
+        page: currentPage.value,
       },
     })
     tableRecords.value = data
+    totalPages.value = data.last_page
   } catch (error) {
     console.log('error while fetching the data', error)
   }
@@ -137,6 +142,11 @@ const copyRecord = async (record, th) => {
 
 const printRecord = record => {
   console.log('record')
+}
+
+const onPaginate = page => {
+  currentPage.value = page
+  fetchRecord()
 }
 
 onMounted(() => {

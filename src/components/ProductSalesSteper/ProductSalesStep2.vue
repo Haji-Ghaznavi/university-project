@@ -13,7 +13,7 @@
           label="تاریخ"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -25,7 +25,7 @@
           label="نام دکان"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -37,7 +37,7 @@
           label="مقدار پرداخت شده"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >

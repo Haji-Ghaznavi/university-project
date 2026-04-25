@@ -1,20 +1,20 @@
 <template>
+  {{ customers.length }}
   <v-form ref="formRef">
     <v-row>
       <v-col
         cols="12"
         md="6"
       >
-        <v-autocomplete
+        <v-select
           v-model="payload.customer_id"
           :rules="[requiredValidator]"
           prepend-icon="mdi-account-outline"
           label="مشتری"
           :items="customers"
-          :loading="loadingCustomer"
-          :item-title="e => e.name + ' ' + e.last_name"
+          item-title="name"
           item-value="id"
-        ></v-autocomplete>
+        ></v-select>
       </v-col>
       <v-col
         cols="12"
@@ -82,7 +82,7 @@
 <script setup>
 import { axios } from '@/plugins/axios-plugin'
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -91,12 +91,23 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const customers = ref([])
+const customers = ref([
+  {
+    id: 1,
+    name: 'sami',
+  },
+])
+
+watch(
+  customers,
+  val => {
+    console.log('updated', val)
+  },
+  { deep: true },
+)
 const products = ref([])
 const loadingCustomer = ref(false)
 const loadingProduct = ref(false)
-
-
 
 const validate = async () => {
   const val = await formRef.value.validate()
@@ -111,8 +122,15 @@ const fetchCustomers = async () => {
   try {
     loadingCustomer.value = true
     const res = await axios.get('customers')
-    customers.value = res.data
-    console.log('customers', customers.value)
+    // customers.value = res.data
+    customers.value = [
+      ...customers.value,
+      {
+        id: 2,
+        name: 'hussain',
+      },
+    ]
+    console.log('customers', customers.value.length)
   } catch (error) {
     console.log('error in fetching customers', error)
   }
@@ -124,6 +142,7 @@ const fetchProducts = async () => {
     loadingProduct.value = true
     const res = await axios.get('products')
     products.value = res.data
+    // console.log('customers', products.value)
   } catch (error) {
     console.log('error in fetching products', error)
   }
@@ -138,4 +157,6 @@ defineExpose({
   validate,
   onLoad,
 })
+
+onMounted(() => {})
 </script>
