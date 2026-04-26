@@ -48,7 +48,6 @@ const props = defineProps({
   },
 })
 
-
 const imageSource = computed(() => {
   if (props.uploadedFile) {
     return props.uploadedFile
@@ -60,8 +59,8 @@ const fileInputRef = ref()
 const triggerFileInput = () => {
   fileInputRef.value.click()
 }
-const onFileChange = (file) => {
-  emit('onUpload', file);
+const onFileChange = file => {
+  emit('onUpload', file)
 }
 </script>
 

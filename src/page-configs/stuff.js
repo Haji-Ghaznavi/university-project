@@ -42,12 +42,9 @@ const headers = [
   },
   {
     title: 'نمبر تذکره',
-    key:"identity_card_number"
+    key: 'identity_card_number',
   },
-  {
-    title:'آدرس تکمیل',
-    key:'full_address'
-  },
+
   {
     title: 'نوع قرارداد ',
     key: 'contract_type',
@@ -67,6 +64,14 @@ const headers = [
   {
     title: 'واحد پول',
     key: 'currency',
+  },
+  {
+    title: 'ضمانت',
+    key: 'guarantee',
+  },
+  {
+    title: 'آدرس تکمیل',
+    key: 'full_address',
   },
 ]
 

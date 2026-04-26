@@ -20,7 +20,7 @@
           <th
             v-for="header in props.headers"
             :key="header.key"
-            style="font-size: 13px !important"
+            style="font-size: 13px !important; text-wrap: nowrap !important"
           >
             {{ header.title }}
           </th>
@@ -34,6 +34,7 @@
           <td
             v-for="header in props.headers"
             :key="header.key"
+            style="text-wrap: nowrap !important; white-space: nowrap !important; width: 1%"
           >
             <slot
               :name="header.key"

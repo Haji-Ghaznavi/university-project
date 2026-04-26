@@ -6,7 +6,10 @@
         md="12"
         class="d-flex justify-center"
       >
-        <profile-selector @onUpload="handleFileUpload" />
+        <profile-selector
+          @onUpload="handleFileUpload"
+          :uploadedFile="uploadedFile"
+        />
       </v-col>
       <v-col
         cols="12"
@@ -57,6 +60,17 @@
         md="6"
       >
         <v-text-field
+          v-model="payload.identity_card_number"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-account-outline"
+          label="نمبر تذکره"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
           v-model="payload.contract_type"
           :rules="[requiredValidator]"
           prepend-icon="mdi-file-sign"
@@ -68,10 +82,21 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.contract_start_date"
+          v-model="payload.full_address"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-home-outline"
+          label="آدرس تکمیل"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.responsiblity"
           :rules="[requiredValidator]"
           prepend-icon="mdi-rocket-launch"
-          label="شروع قرارداد"
+          label="مسولیت"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -90,14 +115,13 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const roles = ref([
-  { id: 'admin', name: 'ادمین' },
-  { id: 'user', name: 'کاربر' },
-])
+const uploadedFile = ref(null)
 
 const handleFileUpload = file => {
-  props.payload.profile = file
-  console.log('file', props.payload.profile)
+  if (file.target?.files?.length > 0) {
+    props.payload.profile = file.target.files[0]
+    uploadedFile.value = URL.createObjectURL(props.payload.profile)
+  }
 }
 const validate = async () => {
   const val = await formRef.value.validate()
@@ -113,5 +137,11 @@ const onLoad = () => {}
 defineExpose({
   validate,
   onLoad,
+})
+
+onMounted(() => {
+  if (props.payload.profile) {
+    uploadedFile.value = import.meta.env.VITE_API_URL + 'storage/' + props.payload.profile
+  }
 })
 </script>

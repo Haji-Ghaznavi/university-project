@@ -65,7 +65,7 @@
 
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
@@ -85,7 +85,6 @@ const handleFileUpload = file => {
   if (file.target?.files?.length > 0) {
     props.payload.profile = file.target.files[0]
     uploadedFile.value = URL.createObjectURL(props.payload.profile)
-    console.log('file', props.payload.profile)
   }
 }
 const validate = async () => {
@@ -101,5 +100,11 @@ const onLoad = () => {}
 defineExpose({
   validate,
   onLoad,
+})
+
+onMounted(() => {
+  if (props.payload.profile) {
+    uploadedFile.value = import.meta.env.VITE_API_URL + 'storage/' + props.payload.profile
+  }
 })
 </script>

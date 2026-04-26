@@ -12,40 +12,39 @@ const breadCrumbs = [
 ]
 
 const headers = [
-   {
+  {
     title: 'آی دی',
     key: 'id',
   },
-   {
+  {
     title: 'عملیات',
     key: 'actions',
   },
   {
-    title: 'نوع',
+    title: 'نوع مصرف',
     key: 'type',
   },
   {
-    title: 'مقدار',
+    title: 'پول مصرف شده',
     key: 'amount',
   },
   {
-    title: 'واحد پولی',
+    title: 'واحد پول',
     key: 'currency',
   },
   {
     title: 'تاریخ ',
     key: 'date',
   },
-    {
+  {
     title: 'توضیحات',
     key: 'description',
   },
-
 ]
 
 export default function usePageConfig() {
   return {
     breadCrumbs,
-    headers
+    headers,
   }
 }

@@ -62,7 +62,14 @@ const submit = async () => {
     formData.append('role', payload.value.role)
     formData.append('password', payload.value.password)
     if (payload.value.id) {
-      await axios.post('', formData)
+      const res = await axios.post(`users/${payload.value.id}?_method=PUT`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('users', formData, {
         headers: {
@@ -88,6 +95,10 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش کاربر'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.last_name = record.last_name
+  payload.value.role = record.role
+  payload.value.profile = record.profile
 }
 
 const closeDialog = () => {
