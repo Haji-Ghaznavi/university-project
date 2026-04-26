@@ -70,12 +70,15 @@ const filteredSearchColums = computed(() => {
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
+    const params = {}
+    if (searchBy && searchValue) {
+      params.search = searchValue
+      params.searchBy = searchBy
+    } else {
+      params.page = currentPage.value
+    }
     const { data } = await axios.get('products', {
-      params: {
-        search: searchValue,
-        searchBy: searchBy,
-        page: currentPage.value,
-      },
+      params,
     })
     tableRecords.value = data.data
     totalPages.value = data.last_page
