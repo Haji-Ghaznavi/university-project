@@ -1,5 +1,5 @@
 <template>
-  <ProductSalesSteper
+  <UserSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
@@ -9,19 +9,19 @@
   />
   <BreadCrumbs
     :items="breadCrumbs"
+    
     :searchColums="filteredSearchColums"
     v-model:searchBy="searchBy"
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
     @onSearch="searchRecord"
-
   />
   <DataTable
     :headers="headers"
     :tableRecords="tableRecords"
     :loading="loading"
   >
-    <template #actions="{ record }">
+    <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
         @onDelete="deleteRecord(record)"
@@ -36,6 +36,13 @@
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
+
+    <template #profile="{ record }">
+      <Profile
+        :imageUrl="record.profile"
+        size="40"
+      />
+    </template>
   </DataTable>
 </template>
 
@@ -43,11 +50,12 @@
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
-import DataTable from '../components/commons/DataTable.vue'
-import ProductSalesSteper from '@/components/ProductSalesSteper/ProductSalesSteper.vue'
-import usePageConfig from '@/page-configs/product_sales'
+import DataTable from '@/components/commons/DataTable.vue'
+import Profile from '@/components/commons/Profile.vue'
+import UserSteper from '@/components/UserSteper/UserSteper.vue'
+import usePageConfig from '@/page-configs/user'
 import { axios } from '@/plugins/axios-plugin'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
@@ -60,9 +68,10 @@ const isDeleting = ref(false)
 const searchBy = ref('id');
 
 const filteredSearchColums = computed(() => {
-  const excludedColums = ['actions']
+  const excludedColums = ['actions', 'profile']
   return headers.filter(item => !excludedColums.includes(item.key))
 });
+
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
@@ -104,8 +113,7 @@ const onConfirm = async () => {
   }
   isDeleting.value = false
   selectedRecord.value = null
-};
-
+}
 
 const searchRecord = searchValue => {
   fetchRecord(searchValue, searchBy.value)
@@ -113,7 +121,7 @@ const searchRecord = searchValue => {
 
 const copyRecord = async (record, th) => {
   try {
-    const excludedKeys = ['actions']
+    const excludedKeys = ['actions', 'profile']
     const text = th
       .filter(item => !excludedKeys.includes(item.key))
       .map(item => {
@@ -130,7 +138,6 @@ const copyRecord = async (record, th) => {
 const printRecord = record => {
   console.log('record')
 }
-
 
 onMounted(() => {
   fetchRecord()
