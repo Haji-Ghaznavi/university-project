@@ -70,7 +70,7 @@ const submit = async () => {
     if (payload.value.id) {
       await axios.post('', payload.value)
     } else {
-      const res = await axios.post('customers', payload.value)
+      const res = await axios.post('product-sales', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }

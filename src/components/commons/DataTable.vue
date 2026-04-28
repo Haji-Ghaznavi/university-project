@@ -49,16 +49,18 @@
     <v-divider></v-divider>
     <v-card-actions class="pt-2">
       <v-pagination
+        v-on:update:model-value="onPageChange"
         v-model="page"
-        :length="15"
+        :length="props.totalPages"
         :total-visible="7"
       ></v-pagination>
     </v-card-actions>
   </v-card>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
+const emit = defineEmits(['onPaginate'])
 const props = defineProps({
   headers: {
     type: Array,
@@ -74,7 +76,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  totalPages: {
+    type: Number,
+    default: 1,
+  },
 })
 
 const page = ref(1)
+
+const onPageChange = value => {
+  emit('onPaginate', value)
+}
 </script>

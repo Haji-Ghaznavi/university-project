@@ -33,11 +33,11 @@ const headers = [
     key: 'father_name',
   },
   {
-    title: 'تخلص ',
+    title: 'تخلص',
     key: 'last_name',
   },
   {
-    title: ' شماره تماس',
+    title: 'شماره تماس',
     key: 'phone_number',
   },
   {
@@ -45,7 +45,7 @@ const headers = [
     key:"identity_card_number"
   },
   {
-    title:'',
+    title:'آدرس تکمیل',
     key:'full_address'
   },
   {
@@ -57,7 +57,7 @@ const headers = [
     key: 'contract_start_date',
   },
   {
-    title: ' ختم قرارداد',
+    title: 'ختم قرارداد',
     key: 'contract_end_date',
   },
   {

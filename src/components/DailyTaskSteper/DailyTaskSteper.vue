@@ -56,7 +56,7 @@ const submit = async () => {
     if (payload.value.id) {
       await axios.post('', payload.value)
     } else {
-      const res = await axios.post('users', payload.value)
+      const res = await axios.post('daily-tasks', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }

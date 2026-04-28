@@ -1,21 +1,28 @@
 <template>
-  <Passwords ref="SteperRef" @fetchRecord="fetchRecord" />
-  <ConfirmDialog ref="ConfirmDialogRef" @confirm="onConfirm"/>
+  <Passwords
+    ref="SteperRef"
+    @fetchRecord="fetchRecord"
+  />
+  <ConfirmDialog
+    ref="ConfirmDialogRef"
+    @confirm="onConfirm"
+  />
   <BreadCrumbs
     :items="breadCrumbs"
     :searchColums="filteredSearchColums"
     v-model:searchBy="searchBy"
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
-     @onSearch="searchRecord"
-
+    @onSearch="searchRecord"
   />
   <DataTable
     :headers="headers"
     :tableRecords="tableRecords"
     :loading="loading"
+    :totalPages="totalPages"
+    @onPaginate="onPaginate"
   >
-    <template #actions="{ record }">
+    <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
         @onDelete="deleteRecord(record)"
@@ -46,30 +53,32 @@ import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
-const ConfirmDialogRef = ref();
+const ConfirmDialogRef = ref()
 const loading = ref(false)
 const isDeleting = ref(false)
-const tableRecords = ref([]);
-const selectedRecord = ref(null);
-const searchBy = ref('id');
-
+const tableRecords = ref([])
+const selectedRecord = ref(null)
+const searchBy = ref('id')
+const currentPage = ref(1)
+const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
   const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
-});
- 
+})
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const {data} = await axios.get('users', {
+    const { data } = await axios.get('my-passwords', {
       params: {
         search: searchValue,
-        searchBy:searchBy
+        searchBy: searchBy,
+        page: currentPage.value,
       },
-    });
-    tableRecords.value = data
+    })
+    tableRecords.value = data.data
+    totalPages.value = data.last_page
   } catch (error) {
     console.log('error while fetching the date', error)
   }
@@ -84,21 +93,21 @@ const editRecord = record => {
   SteperRef.value.openEditDialog(record)
 }
 
-const deleteRecord =  record => {
-  selectedRecord.value = record;
-  ConfirmDialogRef.value.showDialog('delete');
+const deleteRecord = record => {
+  selectedRecord.value = record
+  ConfirmDialogRef.value.showDialog('delete')
 }
 
-const onConfirm = async () =>{
-    try {
+const onConfirm = async () => {
+  try {
     isDeleting.value = true
-    await axios.delete('' + selectedRecord.value?.id)
+    await axios.delete('my-passwords/' + selectedRecord.value?.id)
   } catch (error) {
     console.log('error while deleting the record', error)
   }
   isDeleting.value = false
-  selectedRecord.value = null;
-};
+  selectedRecord.value = null
+}
 
 const searchRecord = searchValue => {
   fetchRecord(searchValue, searchBy.value)
@@ -124,6 +133,10 @@ const printRecord = record => {
   console.log('record')
 }
 
+const onPaginate = page => {
+  currentPage.value = page
+  fetchRecord()
+}
 
 onMounted(() => {
   fetchRecord()

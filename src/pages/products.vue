@@ -14,14 +14,15 @@
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
     @onSearch="searchRecord"
-
   />
   <DataTable
     :headers="headers"
     :tableRecords="tableRecords"
     :loading="loading"
+    :totalPages="totalPages"
+    @onPaginate="onPaginate"
   >
-    <template #actions="{ record }">
+    <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
         @onDelete="deleteRecord(record)"
@@ -31,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-         :show-print="true"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
@@ -57,13 +58,14 @@ const loading = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
 const isDeleting = ref(false)
-const searchBy = ref('id');
+const searchBy = ref('id')
+const currentPage = ref(1)
+const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
   const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
-});
-
+})
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
@@ -71,10 +73,12 @@ const fetchRecord = async (searchValue = null, searchBy) => {
     const { data } = await axios.get('products', {
       params: {
         search: searchValue,
-        searchBy:searchBy
+        searchBy: searchBy,
+        page: currentPage.value,
       },
     })
-    tableRecords.value = data
+    tableRecords.value = data.data
+    totalPages.value = data.last_page
   } catch (error) {
     console.log('error while fetching the data', error)
   }
@@ -106,7 +110,7 @@ const onConfirm = async () => {
   }
   isDeleting.value = false
   selectedRecord.value = null
-};
+}
 
 const searchRecord = searchValue => {
   fetchRecord(searchValue, searchBy.value)
@@ -132,6 +136,10 @@ const printRecord = record => {
   console.log('record')
 }
 
+const onPaginate = page => {
+  currentPage.value = page
+  fetchRecord()
+}
 
 onMounted(() => {
   fetchRecord()

@@ -14,14 +14,15 @@
     @onCreate="addRecord"
     @onRefresh="fetchRecord"
     @onSearch="searchRecord"
-
   />
   <DataTable
     :headers="headers"
     :tableRecords="tableRecords"
     :loading="loading"
+    :totalPages="totalPages"
+    @onPaginate="onPaginate"
   >
-    <template #actions="{ record }">
+    <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
         @onDelete="deleteRecord(record)"
@@ -63,25 +64,27 @@ const loading = ref(false)
 const isDeleting = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
-const searchBy = ref('id');
+const searchBy = ref('id')
+const currentPage = ref(1)
+const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
   const excludedColums = ['actions', 'profile']
   return headers.filter(item => !excludedColums.includes(item.key))
 })
 
-
-
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const { data } = await axios.get('users', {
+    const { data } = await axios.get('stuffs', {
       params: {
         search: searchValue,
         searchBy: searchBy,
+        page: currentPage.value,
       },
     })
-    tableRecords.value = data
+    tableRecords.value = data.data
+    totalPages.value = data.last_page
   } catch (error) {
     console.log('error while fetching the date', error)
   }
@@ -104,7 +107,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    await axios.delete('' + selectedRecord.value?.id)
+    await axios.delete('stuffs/' + selectedRecord.value?.id)
   } catch (error) {
     console.log('error while deleting the record', error)
   }
@@ -136,6 +139,10 @@ const printRecord = record => {
   console.log('record')
 }
 
+const onPaginate = page => {
+  currentPage.value = page
+  fetchRecord()
+}
 onMounted(() => {
   fetchRecord()
 })
