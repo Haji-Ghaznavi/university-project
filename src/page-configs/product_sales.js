@@ -22,7 +22,7 @@ const headers = [
   },
   {
     title: 'اسم مشتری',
-    key: 'customer_name',
+    key: 'customer_id',
   },
   {
     title: 'محصول',
@@ -37,24 +37,28 @@ const headers = [
     key: 'unit',
   },
   {
-    title: 'واحد پولی',
+    title: 'واحد پول',
     key: 'currency',
   },
   {
-    title: 'نام دکان',
+    title: 'نام دوکان',
     key: 'shop_name',
   },
-    {
+  {
     title: 'مقدار پرداخت شده',
     key: 'paid_amount',
   },
-    {
+  {
     title: 'مقدار باقی مانده',
     key: 'remaining_amount',
   },
-    {
+  {
     title: 'قیمت هر واحد',
     key: 'price_per_unit',
+  },
+  {
+    title: 'قیمت به افغانی',
+    key: 'price_in_afg',
   },
   {
     title: 'تاریخ',

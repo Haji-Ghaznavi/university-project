@@ -1,4 +1,12 @@
 <template>
+  <AddMoney
+    ref="addMoneyRef"
+    @onAdd="fetchRecord"
+  />
+  <GetMoney
+    ref="getMoneyRef"
+    @onTake="fetchRecord"
+  />
   <BankAccountSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
@@ -37,21 +45,55 @@
         :show-copy="true"
       />
     </template>
+    <template #taken_amount="{ record }">
+      <div class="d-flex">
+        <v-btn
+          @click="takeMoney(record)"
+          size="16"
+          variant="outlined"
+          icon
+          class="me-2"
+        >
+          <v-tooltip activator="parent">برداشت کردن</v-tooltip>
+          <v-icon>mdi-minus</v-icon>
+        </v-btn>
+        {{ record.taken_amount }}
+      </div>
+    </template>
+    <template #added_amount="{ record }">
+      <div class="d-flex">
+        <v-btn
+          @click="addMoney(record)"
+          size="16"
+          variant="outlined"
+          icon
+          class="me-2"
+        >
+          <v-tooltip activator="parent">اضافه کردن</v-tooltip>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+        {{ record.added_amount }}
+      </div>
+    </template>
   </DataTable>
 </template>
 
 <script setup>
+import AddMoney from '@/components/AddMoney.vue'
 import BankAccountSteper from '@/components/BankAccountSteper/BankAccountSteper.vue'
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
+import GetMoney from '@/components/GetMoney.vue'
 import usePageConfig from '@/page-configs/bank_accounts'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
+const addMoneyRef = ref()
+const getMoneyRef = ref()
 const SteperRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
@@ -136,6 +178,14 @@ const printRecord = record => {
 const onPaginate = page => {
   currentPage.value = page
   fetchRecord()
+}
+
+const addMoney = record => {
+  addMoneyRef.value.showDialog(record.id)
+}
+
+const takeMoney = record => {
+  getMoneyRef.value.showDialog(record.id)
 }
 
 onMounted(() => {

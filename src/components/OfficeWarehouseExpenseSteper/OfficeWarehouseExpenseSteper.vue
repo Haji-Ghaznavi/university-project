@@ -57,7 +57,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('office-warehouse-expense/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('office-warehouse-expense', payload.value)
       if (res.request.status === 200) {
@@ -79,6 +82,11 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش مصارف'
   payload.value.id = record.id
+  payload.value.type = record.type
+  payload.value.amount = record.amount
+  payload.value.currency = record.currency
+  payload.value.date = record.date
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

@@ -37,6 +37,12 @@
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
+    <template #customer_id="{record}">
+      {{ record.customer.name }}
+    </template>
+      <template #product_id="{record}">
+      {{ record.product.name }}
+    </template>
   </DataTable>
 </template>
 

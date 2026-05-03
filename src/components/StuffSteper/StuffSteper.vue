@@ -48,8 +48,6 @@ const defaultPayload = () => ({
   currency: '',
   profile: '',
   responsiblity: '',
-  identity_card_number: '',
-  full_address: '',
   guarantee: '',
 })
 

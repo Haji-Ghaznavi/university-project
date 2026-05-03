@@ -71,14 +71,14 @@ const currentPage = ref(1)
 const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
-  const excludedColums = ['actions', 'profile']
+  const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
 })
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const { data } = await axios.get('users', {
+    const { data } = await axios.get('contacts', {
       params: {
         search: searchValue,
         searchBy: searchBy,
@@ -109,7 +109,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    const res = await axios.delete('users/' + selectedRecord.value?.id)
+    const res = await axios.delete('contacts/' + selectedRecord.value?.id)
     if (res.request.status === 206) {
       fetchRecord()
     }
@@ -126,7 +126,7 @@ const searchRecord = searchValue => {
 
 const copyRecord = async (record, th) => {
   try {
-    const excludedKeys = ['actions', 'profile']
+    const excludedKeys = ['actions']
     const text = th
       .filter(item => !excludedKeys.includes(item.key))
       .map(item => {

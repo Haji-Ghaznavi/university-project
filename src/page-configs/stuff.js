@@ -65,13 +65,17 @@ const headers = [
     title: 'واحد پول',
     key: 'currency',
   },
-  {
-    title: 'ضمانت',
-    key: 'guarantee',
+   {
+    title: 'مسولیت',
+    key: 'responsiblity',
   },
   {
     title: 'آدرس تکمیل',
     key: 'full_address',
+  },
+   {
+    title: 'ضمانت',
+    key: 'guarantee',
   },
 ]
 

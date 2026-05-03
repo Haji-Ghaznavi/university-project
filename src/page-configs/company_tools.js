@@ -33,6 +33,10 @@ const headers = [
     key: 'price_per_tool',
   },
   {
+    title: 'واحد پول',
+    key: 'currency',
+  },
+  {
     title: 'توضیحات',
     key: 'description',
   },

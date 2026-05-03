@@ -31,14 +31,17 @@ const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
-  user_name:'',
-  name:'',
-  account_number:'',
-  currency:'',
+  user_name: '',
+  bank_name: '',
+  account_number: '',
+  currency: '',
   amount: '',
-  produced_date:'',
-  expired_date:''
-
+  produced_date: '',
+  expired_date: '',
+  taken_amount: '',
+  taken_date: '',
+  added_amount: '',
+  added_date: '',
 })
 
 const payload = ref(defaultPayload())
@@ -60,7 +63,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('bank-accounts/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('bank-accounts', payload.value)
       if (res.request.status === 200) {
@@ -82,6 +88,17 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش نمودن حساب بانکی '
   payload.value.id = record.id
+  payload.value.user_name = record.user_name
+  payload.value.bank_name = record.bank_name
+  payload.value.account_number = record.account_number
+  payload.value.currency = record.currency
+  payload.value.amount = record.amount
+  payload.value.produced_date = record.produced_date
+  payload.value.expired_date = record.expired_date
+  payload.value.taken_amount = record.taken_amount
+  payload.value.taken_date = record.taken_date
+  payload.value.added_amount = record.added_amount
+  payload.value.added_date = record.added_date
 }
 
 const closeDialog = () => {

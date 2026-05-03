@@ -52,7 +52,10 @@ const submit = async () => {
   try {
     loading.value = true
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('products/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('products', payload.value)
       if (res.request.status === 200) {
@@ -74,6 +77,7 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش محصول'
   payload.value.id = record.id
+  payload.value.name = record.name
 }
 
 const closeDialog = () => {

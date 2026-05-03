@@ -34,7 +34,7 @@
           :rules="[requiredValidator]"
           prepend-icon="mdi-shield-key-outline"
           label="واحد"
-          :items="UniteTypes"
+          :items="units"
           item-title="name"
           item-value="id"
         ></v-select>
@@ -47,7 +47,7 @@
           v-model="payload.price_per_unit"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="واحد اندازه گیری"
+          label="قیمت هر واحد"
         ></v-text-field>
       </v-col>
 
@@ -55,14 +55,28 @@
         cols="12"
         md="6"
       >
-        <v-text-field
+        <v-select
           v-model="payload.currency"
           :rules="[requiredValidator]"
+          :items="currencies"
+          item-title="name"
+          item-value="id"
           prepend-icon="mdi-lock-outline"
-          label="واحد پولی"
+          label="واحد پول"
+        ></v-select>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-if="payload.currency !== 'افغانی'"
+          v-model="payload.currency_price_in_afg"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="نرخ ارز به افغانی"
         ></v-text-field>
       </v-col>
-
       <v-col
         cols="12"
         md="6"
@@ -71,6 +85,7 @@
           v-model="payload.date"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
+          type="date"
           label="تاریخ "
         ></v-text-field>
       </v-col>
@@ -82,7 +97,7 @@
           v-model="payload.description"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="تفصیلات "
+          label="توضیحات"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -99,9 +114,52 @@ const props = defineProps({
   },
 })
 
-const UniteTypes = ref(['Box', 'Liter', 'Kg', 'Ton', 'Piece'])
-
 const formRef = ref()
+const currencies = ref([
+  {
+    id: 'دالر امریکایی',
+    name: 'دالر امریکایی',
+  },
+  {
+    id: 'دالر آسترالیایی',
+    name: 'دالر آسترالیایی',
+  },
+  {
+    id: 'افغانی',
+    name: 'افغانی',
+  },
+  {
+    id: 'یورو',
+    name: 'یورو',
+  },
+])
+
+const units = ref([
+  {
+    id: 'کیلوگرم',
+    name: 'کیلوگرم',
+  },
+  {
+    id: 'لیتر',
+    name: 'لیتر',
+  },
+  {
+    id: 'متر',
+    name: 'متر',
+  },
+  {
+    id: 'تن',
+    name: 'تن',
+  },
+  {
+    id: 'بسته',
+    name: 'بسته',
+  },
+  {
+    id: 'عدد',
+    name: 'عدد',
+  },
+])
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
