@@ -94,6 +94,27 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
+        title: 'تامین کننده گان شرکت',
+        to: 'investors',
+        icon: { icon: 'mdi-company' },
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'ظرفیت تولید روزانه',
+        to: 'production-capacities',
+        icon: { icon: 'mdi-cube-outline' },
+      }"
+    />
+       <VerticalNavLink
+      :item="{
+        title: 'معاملات روزانه',
+        to: 'daily-transactions',
+        icon: { icon: 'mdi-cash' },
+      }"
+    />
+    <VerticalNavLink
+      :item="{
         title: 'مصارف کارخانه و دفتر',
         to: 'office-warehouse-expense',
         icon: { icon: 'mdi-factory' },
@@ -142,7 +163,7 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-calendar-check' },
       }"
     />
-        <VerticalNavLink
+    <VerticalNavLink
       :item="{
         title: 'مخاطبین ',
         to: 'contacts',
