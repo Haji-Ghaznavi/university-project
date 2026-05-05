@@ -1,5 +1,5 @@
 <template>
-  <ProductSalesSteper
+  <InvestorSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
@@ -37,12 +37,6 @@
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
     </template>
-    <template #customer_id="{record}">
-      {{ record.customer.name }}
-    </template>
-      <template #product_id="{record}">
-      {{ record.product.name }}
-    </template>
   </DataTable>
 </template>
 
@@ -50,11 +44,11 @@
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
-import DataTable from '../components/commons/DataTable.vue'
-import ProductSalesSteper from '@/components/ProductSalesSteper/ProductSalesSteper.vue'
-import usePageConfig from '@/page-configs/product_sales'
+import DataTable from '@/components/commons/DataTable.vue'
+import InvestorSteper from '@/components/InvestorSteper/InvestorSteper.vue'
+import usePageConfig from '@/page-configs/investors'
 import { axios } from '@/plugins/axios-plugin'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
@@ -72,10 +66,11 @@ const filteredSearchColums = computed(() => {
   const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
 })
+
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const { data } = await axios.get('product-sales', {
+    const { data } = await axios.get('investors', {
       params: {
         search: searchValue,
         searchBy: searchBy,
@@ -106,7 +101,7 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    const res = await axios.delete('product-sales/' + selectedRecord.value?.id)
+    const res = await axios.delete('investors/' + selectedRecord.value?.id)
     if (res.request.status === 206) {
       fetchRecord()
     }

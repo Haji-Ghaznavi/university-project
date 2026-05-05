@@ -5,38 +5,12 @@
         cols="12"
         md="6"
       >
-        <v-text-field
-          v-model="payload.name"
-          prepend-icon="mdi-account-outline"
-          :rules="[requiredValidator]"
-          label="نام"
-        ></v-text-field>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.quantity"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
-          label="مقدار"
-        ></v-text-field>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
         <v-select
-          v-model="payload.unit"
+          v-model="payload.transaction_type"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
-          label="واحد"
-          :items="units"
-          item-title="name"
-          item-value="id"
+          :items="['دریافت', 'پرداخت']"
+          prepend-icon="mdi-lock-outline"
+          label="نوع معامله"
         ></v-select>
       </v-col>
       <v-col
@@ -44,13 +18,12 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.price_per_unit"
+          v-model="payload.amount"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="قیمت هر واحد"
+          label="مقدار"
         ></v-text-field>
       </v-col>
-
       <v-col
         cols="12"
         md="6"
@@ -61,21 +34,9 @@
           :items="currencies"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول"
         ></v-select>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-if="payload.currency !== 'افغانی'"
-          v-model="payload.currency_price_in_afg"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
-          label="نرخ ارز به افغانی"
-        ></v-text-field>
       </v-col>
       <v-col
         cols="12"
@@ -85,13 +46,13 @@
           v-model="payload.date"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
+          label="تاریخ"
           type="date"
-          label="تاریخ "
         ></v-text-field>
       </v-col>
       <v-col
         cols="12"
-        md="6"
+        md="12"
       >
         <v-textarea
           v-model="payload.description"
@@ -133,33 +94,6 @@ const currencies = ref([
     name: 'یورو',
   },
 ])
-
-const units = ref([
-  {
-    id: 'کیلوگرم',
-    name: 'کیلوگرم',
-  },
-  {
-    id: 'لیتر',
-    name: 'لیتر',
-  },
-  {
-    id: 'متر',
-    name: 'متر',
-  },
-  {
-    id: 'تن',
-    name: 'تن',
-  },
-  {
-    id: 'بسته',
-    name: 'بسته',
-  },
-  {
-    id: 'عدد',
-    name: 'عدد',
-  },
-])
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -170,7 +104,6 @@ const validate = async () => {
 }
 
 const onLoad = () => {}
-
 defineExpose({
   validate,
   onLoad,

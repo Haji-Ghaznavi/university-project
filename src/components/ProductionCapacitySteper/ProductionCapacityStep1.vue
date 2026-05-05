@@ -6,21 +6,6 @@
         md="6"
       >
         <v-autocomplete
-          v-model="payload.customer_id"
-          :rules="[requiredValidator]"
-          :loading="loadingCustomer"
-          prepend-icon="mdi-account-outline"
-          label="مشتری"
-          :items="customers"
-          item-title="name"
-          item-value="id"
-        ></v-autocomplete>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-autocomplete
           v-model="payload.product_id"
           :rules="[requiredValidator]"
           :loading="loadingProduct"
@@ -36,38 +21,25 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.quantity"
-          prepend-icon="mdi-counter"
+          v-model="payload.amount"
           :rules="[requiredValidator]"
-          label="تعداد"
+          prepend-icon="mdi-account-outline"
+          label="مقدار"
         ></v-text-field>
       </v-col>
+
       <v-col
         cols="12"
         md="6"
       >
-        <v-select
+         <v-select
           v-model="payload.unit"
           :rules="[requiredValidator]"
           :items="units"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-ruler"
-          label="واحد اندازه گیری"
-        ></v-select>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-select
-          v-model="payload.currency"
-          :rules="[requiredValidator]"
-          :items="currencies"
-          item-title="name"
-          item-value="id"
-          prepend-icon="mdi-currency-usd"
-          label="واحد پول"
+          prepend-icon="mdi-lock-outline"
+          label="واحد"
         ></v-select>
       </v-col>
       <v-col
@@ -75,10 +47,11 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.price_per_unit"
+          v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-currency-usd-circle"
-          label="قیمت هر واحد"
+          prepend-icon="mdi-lock-outline"
+          label="تاریخ"
+          type="date"
         ></v-text-field>
       </v-col>
       <v-col
@@ -86,11 +59,10 @@
         md="6"
       >
         <v-text-field
-          v-if="payload.currency != 'افغانی'"
-          v-model="payload.currency_price_in_afg"
+          v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-currency-usd-circle"
-          label="نرخ ارز به افغانی"
+          prepend-icon="mdi-lock-outline"
+          label="توضیحات"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -109,29 +81,8 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const customers = ref([])
 const products = ref([])
-const loadingCustomer = ref(false)
 const loadingProduct = ref(false)
-const currencies = ref([
-  {
-    id: 'دالر امریکایی',
-    name: 'دالر امریکایی',
-  },
-  {
-    id: 'دالر آسترالیایی',
-    name: 'دالر آسترالیایی',
-  },
-  {
-    id: 'افغانی',
-    name: 'افغانی',
-  },
-  {
-    id: 'یورو',
-    name: 'یورو',
-  },
-])
-
 const units = ref([
   {
     id: 'کیلوگرم',
@@ -159,8 +110,6 @@ const units = ref([
   },
 ])
 
-
-
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -168,17 +117,6 @@ const validate = async () => {
   } else {
     return false
   }
-}
-
-const fetchCustomers = async () => {
-  try {
-    loadingCustomer.value = true
-    const res = await axios.get('customers/list')
-    customers.value = res.data
-  } catch (error) {
-    console.log('error in fetching customers', error)
-  }
-  loadingCustomer.value = false
 }
 
 const fetchProducts = async () => {
@@ -199,7 +137,6 @@ defineExpose({
 })
 
 onMounted(() => {
-  fetchCustomers()
   fetchProducts()
 })
 </script>

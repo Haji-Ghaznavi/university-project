@@ -5,9 +5,9 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'مصارف کارخانه',
+    title: 'تامین کننده گان',
     disabled: true,
-    href: 'Office_Warehouse_Expense',
+    href: 'investor',
   },
 ]
 
@@ -21,11 +21,27 @@ const headers = [
     key: 'actions',
   },
   {
-    title: 'نوع مصرف',
-    key: 'type',
+    title: 'اسم',
+    key: 'name',
   },
   {
-    title: 'پول مصرف شده',
+    title: 'تخلص',
+    key: 'last_name',
+  },
+  {
+    title: 'شماره تماس',
+    key: 'phone_number',
+  },
+  {
+    title: 'آدرس',
+    key: 'address',
+  },
+  {
+    title: 'نوع معامله',
+    key: 'transaction_type',
+  },
+  {
+    title: 'مقدار',
     key: 'amount',
   },
   {
@@ -33,9 +49,10 @@ const headers = [
     key: 'currency',
   },
   {
-    title: 'تاریخ ',
+    title: 'تاریخ',
     key: 'date',
   },
+
   {
     title: 'توضیحات',
     key: 'description',

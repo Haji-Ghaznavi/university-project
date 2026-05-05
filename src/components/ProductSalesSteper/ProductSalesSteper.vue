@@ -35,14 +35,14 @@ const defaultPayload = () => ({
   id: null,
   customer_id: null,
   product_id: null,
-  quantity: '',
+  quantity: null,
   unit: '',
   currency: '',
-  price_per_unit: '',
+  price_per_unit: null,
+  currency_price_in_afg: null,
   date: '',
-  shop_name:'',
-  paid_amount:'',
-  remaining_amount: '',
+  shop_name: '',
+  paid_amount: null,
   description: '',
 })
 
@@ -53,7 +53,7 @@ const steps = ref([
     component: firstStep,
     payload,
   },
-   {
+  {
     component: secondStep,
     payload,
   },
@@ -68,7 +68,10 @@ const submit = async () => {
   try {
     loading.value = true
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('product-sales/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('product-sales', payload.value)
       if (res.request.status === 200) {
@@ -90,6 +93,17 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش فروش محصول'
   payload.value.id = record.id
+  payload.value.customer_id = record.customer_id
+  payload.value.product_id = record.product_id
+  payload.value.quantity = record.quantity
+  payload.value.unit = record.unit
+  payload.value.currency = record.currency
+  payload.value.price_per_unit = record.price_per_unit
+  payload.value.date = record.date
+  payload.value.shop_name = record.shop_name
+  payload.value.paid_amount = record.paid_amount
+  payload.value.description = record.description
+  payload.value.currency_price_in_afg = record.currency_price_in_afg
 }
 
 const closeDialog = () => {

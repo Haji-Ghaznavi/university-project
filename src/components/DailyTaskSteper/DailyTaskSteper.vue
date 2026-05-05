@@ -54,7 +54,10 @@ const submit = async () => {
     loading.value = true
    
     if (payload.value.id) {
-      await axios.post('', payload.value)
+     const res = await axios.put('daily-tasks/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('daily-tasks', payload.value)
       if (res.request.status === 200) {
@@ -76,6 +79,8 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش وظیفه'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

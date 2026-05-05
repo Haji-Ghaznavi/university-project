@@ -26,7 +26,7 @@ const headers = [
   },
   {
     title: 'مقدار',
-    key: 'last_name',
+    key: 'quantity',
   },
   {
     title: 'واحد',
@@ -39,6 +39,14 @@ const headers = [
   {
     title: 'واحد پول',
     key: 'currency',
+  },
+   {
+    title: 'نرخ ارز به افغانی',
+    key: 'currency_price_in_afg',
+  },
+   {
+    title: 'قیمت به افغانی',
+    key: 'price_in_afg',
   },
   {
     title: 'نمبر بیل',
@@ -65,7 +73,7 @@ const headers = [
     key: 'date',
   },
   {
-    title: 'تفصیلات',
+    title: 'توضیحات',
     key: 'description',
   },
 ]

@@ -3,23 +3,13 @@
     <v-row>
       <v-col
         cols="12"
-        md="12"
-        class="d-flex justify-center"
-      >
-        <profile-selector
-          @onUpload="handleFileUpload"
-          :uploadedFile="uploadedFile"
-        />
-      </v-col>
-      <v-col
-        cols="12"
         md="6"
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          label="اسم"
+          prepend-icon="mdi-cart-outline"
+          label="نام"
         ></v-text-field>
       </v-col>
       <v-col
@@ -38,25 +28,22 @@
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.role"
+        <v-text-field
+          v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
-          label="نقش"
-          :items="roles"
-          item-title="name"
-          item-value="id"
-        ></v-select>
+          prepend-icon="mdi-lock-outline"
+          label="شماره تماس"
+        ></v-text-field>
       </v-col>
       <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.password"
+          v-model="payload.address"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="پسورد"
+          label="آدرس"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -65,8 +52,7 @@
 
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
-import { onMounted, ref } from 'vue'
-import ProfileSelector from '../commons/ProfileSelector.vue'
+import { ref } from 'vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -75,18 +61,24 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const uploadedFile = ref(null)
-const roles = ref([
-  { id: 'ادمین', name: 'ادمین' },
-  { id: 'کاربر', name: 'کاربر' },
+const currencies = ref([
+  {
+    id: 'دالر امریکایی',
+    name: 'دالر امریکایی',
+  },
+  {
+    id: 'دالر آسترالیایی',
+    name: 'دالر آسترالیایی',
+  },
+  {
+    id: 'افغانی',
+    name: 'افغانی',
+  },
+  {
+    id: 'یورو',
+    name: 'یورو',
+  },
 ])
-
-const handleFileUpload = file => {
-  if (file.target?.files?.length > 0) {
-    props.payload.profile = file.target.files[0]
-    uploadedFile.value = URL.createObjectURL(props.payload.profile)
-  }
-}
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -100,11 +92,5 @@ const onLoad = () => {}
 defineExpose({
   validate,
   onLoad,
-})
-
-onMounted(() => {
-  if (props.payload.profile) {
-    uploadedFile.value = import.meta.env.VITE_API_URL + 'storage/' + props.payload.profile
-  }
 })
 </script>

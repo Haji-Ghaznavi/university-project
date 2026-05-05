@@ -20,22 +20,22 @@ import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
-import Step1 from './OfficeWarehouseExpenseStep1.vue'
+import Step1 from './ProductionCapacityStep1.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
 const doneStep = markRaw(DoneStep)
 
-const steperTitle = ref('ایجاد مصارف')
+const steperTitle = ref('ایجاد ظرفیت تولید')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
-  type:'',
-  amount: null,
-  currency: '',
+  product_id: '',
+  amount: '',
+  unit: '',
   date: '',
-  description:''
+  description: '',
 })
 
 const payload = ref(defaultPayload())
@@ -57,12 +57,12 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      const res = await axios.put('office-warehouse-expense/' + payload.value.id, payload.value)
+      const res = await axios.put('production-capacities/' + payload.value.id, payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
     } else {
-      const res = await axios.post('office-warehouse-expense', payload.value)
+      const res = await axios.post('production-capacities', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
@@ -80,11 +80,11 @@ const openDialog = () => {
 
 const openEditDialog = record => {
   showDialog.value = true
-  steperTitle.value = 'ویرایش مصارف'
+  steperTitle.value = 'ویرایش ظرفیت تولید'
   payload.value.id = record.id
-  payload.value.type = record.type
+  payload.value.product_id = record.product_id
   payload.value.amount = record.amount
-  payload.value.currency = record.currency
+  payload.value.unit = record.unit
   payload.value.date = record.date
   payload.value.description = record.description
 }

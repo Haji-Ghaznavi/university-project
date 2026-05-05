@@ -109,15 +109,16 @@ watch(
   },
 )
 
-const onload = () => {
+const onload = async () => {
   const currentStep = stepRefs.value[step.value]
-  currentStep.onLoad()
+  if (currentStep?.onLoad) {
+    await currentStep.onLoad()
+  }
 }
 
 const onNextClick = () => {
   step.value++
-  const currentStep = stepRefs.value[step.value]
-  currentStep.onLoad()
+  onload();
 }
 
 onMounted(() => {

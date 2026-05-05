@@ -20,22 +20,28 @@ import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
-import Step1 from './OfficeWarehouseExpenseStep1.vue'
+import Step1 from './DailyTransactionStep1.vue'
+import Step2 from './DailyTransactionStep2.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
+const secondStep = markRaw(Step2)
 const doneStep = markRaw(DoneStep)
 
-const steperTitle = ref('ایجاد مصارف')
+const steperTitle = ref('ایجاد معاملات روزانه')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
-  type:'',
-  amount: null,
+  name: '',
+  last_name: '',
+  phone_number: '',
+  address: '',
+  transaction_type: '',
+  amount: '',
   currency: '',
   date: '',
-  description:''
+  description: '',
 })
 
 const payload = ref(defaultPayload())
@@ -43,6 +49,10 @@ const payload = ref(defaultPayload())
 const steps = ref([
   {
     component: firstStep,
+    payload,
+  },
+  {
+    component: secondStep,
     payload,
   },
   {
@@ -57,12 +67,12 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      const res = await axios.put('office-warehouse-expense/' + payload.value.id, payload.value)
+      const res = await axios.put('daily-transactions/' + payload.value.id, payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
     } else {
-      const res = await axios.post('office-warehouse-expense', payload.value)
+      const res = await axios.post('daily-transactions', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
@@ -80,9 +90,13 @@ const openDialog = () => {
 
 const openEditDialog = record => {
   showDialog.value = true
-  steperTitle.value = 'ویرایش مصارف'
+  steperTitle.value = 'ویرایش معاملات روزانه'
   payload.value.id = record.id
-  payload.value.type = record.type
+  payload.value.name = record.name
+  payload.value.last_name = record.last_name
+  payload.value.phone_number = record.phone_number
+  payload.value.address = record.address
+  payload.value.transaction_type = record.transaction_type
   payload.value.amount = record.amount
   payload.value.currency = record.currency
   payload.value.date = record.date

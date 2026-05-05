@@ -6,9 +6,22 @@
         md="6"
       >
         <v-text-field
+          v-model="payload.contract_start_date"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-rocket-launch"
+          type="date"
+          label="شروع قرارداد"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
           v-model="payload.contract_end_date"
           :rules="[requiredValidator]"
           prepend-icon="mdi-stop"
+          type="date"
           label="ختم قرارداد"
         ></v-text-field>
       </v-col>
@@ -21,11 +34,12 @@
           :rules="[requiredValidator]"
           prepend-icon="mdi-cash"
           label="معاش"
+          type="number"
         ></v-text-field>
       </v-col>
       <v-col
         cols="12"
-        md=""
+        md="6"
       >
         <v-text-field
           v-model="payload.currency"
@@ -34,26 +48,15 @@
           label="واحد پول "
         ></v-text-field>
       </v-col>
-            <v-col
+       <v-col
         cols="12"
-        md=""
+        md="6"
       >
         <v-text-field
-          v-model="payload.identity_card_number"
+          v-model="payload.guarantee"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label=" نمبر تذکره "
-        ></v-text-field>
-      </v-col>
-            <v-col
-        cols="12"
-        md=""
-      >
-        <v-text-field
-          v-model="payload.full_address"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
-          label=" آدرس کامل "
+          prepend-icon="mdi-certificate"
+          label="ضمانت"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -71,10 +74,6 @@ const props = defineProps({
 })
 
 const formRef = ref()
-const roles = ref([
-  { id: 'admin', name: 'ادمین' },
-  { id: 'user', name: 'کاربر' },
-])
 
 const validate = async () => {
   const val = await formRef.value.validate()

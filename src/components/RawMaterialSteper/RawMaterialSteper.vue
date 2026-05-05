@@ -1,4 +1,4 @@
- <template>
+<template>
   <v-dialog
     v-model="showDialog"
     persistent
@@ -32,21 +32,20 @@ const steperTitle = ref('ایجاد مواد خام')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
-  id:null,
-name:"",
-quantity:"",
-unit:'',
-price_per_unit:null,
-currency:'',  
-bill_number:'',
-buyer_name:'',
-sealer_name:'',
-sealer_phone_number:'',
-company_name:'',
-date:'',
-description:''
-
-
+  id: null,
+  name: '',
+  quantity: null,
+  unit: '',
+  price_per_unit: null,
+  currency: '',
+  bill_number: '',
+  buyer_name: '',
+  sealer_name: '',
+  sealer_phone_number: '',
+  company_name: '',
+  date: '',
+  description: '',
+  currency_price_in_afg: null,
 })
 
 const payload = ref(defaultPayload())
@@ -56,7 +55,7 @@ const steps = ref([
     component: firstStep,
     payload,
   },
-    {
+  {
     component: secondStep,
     payload,
   },
@@ -72,7 +71,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('',payload.value )
+      const res = await axios.put('raw-materials/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('raw-materials', payload.value)
       if (res.request.status === 200) {
@@ -94,6 +96,19 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = ' ویرایش مواد خام'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.quantity = record.quantity
+  payload.value.unit = record.unit
+  payload.value.price_per_unit = record.price_per_unit
+  payload.value.currency = record.currency
+  payload.value.bill_number = record.bill_number
+  payload.value.buyer_name = record.buyer_name
+  payload.value.sealer_name = record.sealer_name
+  payload.value.sealer_phone_number = record.sealer_phone_number
+  payload.value.company_name = record.company_name
+  payload.value.date = record.date
+  payload.value.description = record.description
+  payload.value.currency_price_in_afg = record.currency_price_in_afg
 }
 
 const closeDialog = () => {

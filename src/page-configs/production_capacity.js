@@ -5,9 +5,9 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'مصارف کارخانه',
+    title: 'ظرفیت تولید روزانه',
     disabled: true,
-    href: 'Office_Warehouse_Expense',
+    href: 'production-capacities',
   },
 ]
 
@@ -21,19 +21,19 @@ const headers = [
     key: 'actions',
   },
   {
-    title: 'نوع مصرف',
-    key: 'type',
+    title: 'نام محصول',
+    key: 'product_id',
   },
   {
-    title: 'پول مصرف شده',
+    title: 'مقدار',
     key: 'amount',
   },
   {
-    title: 'واحد پول',
-    key: 'currency',
+    title: 'واحد',
+    key: 'unit',
   },
   {
-    title: 'تاریخ ',
+    title: 'تاریخ',
     key: 'date',
   },
   {

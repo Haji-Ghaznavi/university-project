@@ -9,11 +9,10 @@
           v-model="payload.bill_number"
           prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          type="date"
           label="نمبر بیل"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -21,11 +20,10 @@
           v-model="payload.buyer_name"
           prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          type="date"
           label=" نام خریدار"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -33,11 +31,10 @@
           v-model="payload.sealer_name"
           prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          type="date"
           label="  نام فروشنده"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
@@ -45,7 +42,6 @@
           v-model="payload.sealer_phone_number"
           prepend-icon="mdi-calendar"
           :rules="[requiredValidator]"
-          type="date"
           label="  شماره تماس فروشنده"
         ></v-text-field>
       </v-col>
@@ -53,11 +49,11 @@
         cols="12"
         md="6"
       >
-        <v-textarea
+        <v-text-field
           v-model="payload.company_name"
           prepend-icon="mdi-account-outline"
           label="نام شرکت"
-        ></v-textarea>
+        ></v-text-field>
       </v-col>
     </v-row>
   </v-form>

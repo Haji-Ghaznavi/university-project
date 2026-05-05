@@ -30,8 +30,10 @@
         >
           <v-tooltip activator="parent">جستجو بر اساس</v-tooltip>
           {{ selectedSearchType }}
-          <v-menu activator="parent">
-            <v-list>
+          <v-menu
+            activator="parent"
+          >
+            <v-list border>
               <v-list-item
                 v-for="(item, index) in props.searchColums"
                 :key="index"

@@ -36,7 +36,6 @@ const defaultPayload = () => ({
   phone_number:'',
   address:'',
   position:''
-
 })
 
 const payload = ref(defaultPayload())
@@ -58,13 +57,12 @@ const submit = async () => {
     loading.value = true
  
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('contacts/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
-      const res = await axios.post('users', payload.value, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      const res = await axios.post('contacts', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
@@ -84,6 +82,11 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش مخاطب'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.last_name = record.last_name
+  payload.value.phone_number = record.phone_number
+  payload.value.address = record.address
+  payload.value.position = record.position
 }
 
 const closeDialog = () => {

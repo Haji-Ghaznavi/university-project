@@ -31,7 +31,7 @@
         @onPrint="printRecord(record)"
         :show-edit="true"
         :show-delete="true"
-        :show-view="true"
+        :show-view="false"
         :show-print="true"
         :show-copy="true"
         :isDeleting="isDeleting"
@@ -56,6 +56,7 @@ import StuffSteper from '@/components/StuffSteper/StuffSteper.vue'
 import usePageConfig from '@/page-configs/stuff'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
+import { toast } from 'vue3-toastify'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()

@@ -30,11 +30,12 @@ const steperTitle = ref('اضافه نمودن اموال')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
-id: null,
-name: '',
-quantity: null,
-price_per_tool:'',
-description : ''
+  id: null,
+  name: '',
+  quantity: null,
+  price_per_tool: '',
+  description: '',
+  currency: '',
 })
 
 const payload = ref(defaultPayload())
@@ -56,7 +57,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('', payload.value)
+       const res = await axios.put('company-goods/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('company-goods', payload.value)
       if (res.request.status === 200) {
@@ -78,6 +82,11 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش امول'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.quantity = record.quantity
+  payload.value.price_per_tool = record.price_per_tool
+  payload.value.description = record.description
+  payload.value.currency = record.currency
 }
 
 const closeDialog = () => {

@@ -56,7 +56,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('my-passwords/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('my-passwords', payload.value)
       if (res.request.status === 200) {
@@ -78,6 +81,10 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش پسورد'
   payload.value.id = record.id
+  payload.value.account_name = record.account_name
+  payload.value.phone_number = record.phone_number
+  payload.value.password = record.password
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

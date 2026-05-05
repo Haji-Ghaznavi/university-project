@@ -9,7 +9,18 @@
           v-model="payload.name"
           prepend-icon="mdi-account-outline"
           :rules="[requiredValidator]"
-          label="نام"
+          label="اسم"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.last_name"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-account-outline"
+          label="تخلص"
         ></v-text-field>
       </v-col>
 
@@ -18,39 +29,34 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.quantity"
+          v-model="payload.phone_number"
           :rules="[requiredValidator]"
           prepend-icon="mdi-account-outline"
+          label="شماره تماس"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.address"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="آدرس"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.amount"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
           label="مقدار"
         ></v-text-field>
       </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-select
-          v-model="payload.unit"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
-          label="واحد"
-          :items="units"
-          item-title="name"
-          item-value="id"
-        ></v-select>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.price_per_unit"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
-          label="قیمت هر واحد"
-        ></v-text-field>
-      </v-col>
-
       <v-col
         cols="12"
         md="6"
@@ -70,11 +76,11 @@
         md="6"
       >
         <v-text-field
-          v-if="payload.currency !== 'افغانی'"
-          v-model="payload.currency_price_in_afg"
+          v-model="payload.date"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          label="نرخ ارز به افغانی"
+          label="تاریخ"
+          type="date"
         ></v-text-field>
       </v-col>
       <v-col
@@ -82,11 +88,10 @@
         md="6"
       >
         <v-text-field
-          v-model="payload.date"
+          v-model="payload.remark"
           :rules="[requiredValidator]"
           prepend-icon="mdi-lock-outline"
-          type="date"
-          label="تاریخ "
+          label="ملاحضات"
         ></v-text-field>
       </v-col>
       <v-col
@@ -134,32 +139,6 @@ const currencies = ref([
   },
 ])
 
-const units = ref([
-  {
-    id: 'کیلوگرم',
-    name: 'کیلوگرم',
-  },
-  {
-    id: 'لیتر',
-    name: 'لیتر',
-  },
-  {
-    id: 'متر',
-    name: 'متر',
-  },
-  {
-    id: 'تن',
-    name: 'تن',
-  },
-  {
-    id: 'بسته',
-    name: 'بسته',
-  },
-  {
-    id: 'عدد',
-    name: 'عدد',
-  },
-])
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -170,7 +149,6 @@ const validate = async () => {
 }
 
 const onLoad = () => {}
-
 defineExpose({
   validate,
   onLoad,

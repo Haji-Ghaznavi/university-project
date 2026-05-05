@@ -21,9 +21,11 @@
         @onEdit="editRecord(record)"
         @onDelete="deleteRecord(record)"
         @onView="viewRecord(record)"
+        @onCopy="copyRecord(record, th)"
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
+        :show-copy="true"
         :isDeleting="isDeleting"
       />
     </template>

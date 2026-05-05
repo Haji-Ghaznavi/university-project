@@ -55,7 +55,10 @@ const submit = async () => {
     loading.value = true
 
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('personal-goods/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('personal-goods', payload.value)
       if (res.request.status === 200) {
@@ -77,6 +80,9 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش اموال شخصی'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.quantity = record.quantity
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {
