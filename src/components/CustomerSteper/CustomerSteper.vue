@@ -34,6 +34,7 @@ const defaultPayload = () => ({
   name: '',
   last_name: '',
   phone_number: '',
+  address: '',
   category: '',
 })
 
@@ -55,7 +56,10 @@ const submit = async () => {
   try {
     loading.value = true
     if (payload.value.id) {
-      await axios.post('', payload.value)
+      const res = await axios.put('customers/' + payload.value.id, payload.value)
+      if (res.request.status === 200) {
+        onDone.value = true
+      }
     } else {
       const res = await axios.post('customers', payload.value)
       if (res.request.status === 200) {
@@ -77,6 +81,11 @@ const openEditDialog = record => {
   showDialog.value = true
   steperTitle.value = 'ویرایش مشتری'
   payload.value.id = record.id
+  payload.value.name = record.name
+  payload.value.last_name = record.last_name
+  payload.value.phone_number = record.phone_number
+  payload.value.address = record.address
+  payload.value.category = record.category
 }
 
 const closeDialog = () => {

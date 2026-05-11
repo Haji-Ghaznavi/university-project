@@ -32,6 +32,10 @@ const headers = [
     title: 'شماره تماس',
     key: 'phone_number',
   },
+    {
+    title: ' آدرس',
+    key: 'address',
+  },
    {
     title: 'کتگوری',
     key: 'category',

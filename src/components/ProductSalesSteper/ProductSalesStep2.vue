@@ -17,6 +17,28 @@
         cols="12"
         md="6"
       >
+        <v-text-field
+          v-model="payload.shop_name"
+          prepend-icon="mdi-shopping"
+          :rules="[requiredValidator]"
+          label="نام دوکان"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.paid_amount"
+          prepend-icon="mdi-cash-outline"
+          :rules="[requiredValidator]"
+          label="مقدار پرداخت شده"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-textarea
           v-model="payload.description"
           prepend-icon="mdi-account-outline"
@@ -46,7 +68,11 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad,
 })
 </script>

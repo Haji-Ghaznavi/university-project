@@ -50,7 +50,7 @@ axios.interceptors.response.use(
     //   toast.error(message??'دیتا اشتباه است')
     // }
 
-    // return Promise.reject(error)
+    return Promise.reject(error)
   },
 )
 function updateToken(token) {

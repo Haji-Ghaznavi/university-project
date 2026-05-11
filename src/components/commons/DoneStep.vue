@@ -1,13 +1,16 @@
 <template>
  <div class="pt-16">
 
-  <div class="d-flex align-center justify-center pt-16">
-    <v-icon color="primary" size="50">mdi-check-circle-outline</v-icon>
+  <div class="d-flex align-center justify-center pt-10">
+    <v-img :src="SuccessTick" contain width="200" height="200"></v-img>
   </div>
-
-   <h2 class="text-primary text-center pt-5">معلومات موفقانه ثبت شد</h2>
-
  </div>
 </template>
 
-<script setup></script>
+<script setup>
+
+import SuccessTick from '@/assets/images/successTick.gif';
+
+
+
+</script>

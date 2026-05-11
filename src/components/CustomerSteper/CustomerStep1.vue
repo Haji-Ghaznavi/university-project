@@ -34,6 +34,17 @@
           label="شماره تماس"
         ></v-text-field>
       </v-col>
+            <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.address"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-phone-outline"
+          label=" آدرس"
+        ></v-text-field>
+      </v-col>
       <v-col
         cols="12"
         md="6"
@@ -85,7 +96,12 @@ const validate = async () => {
     return false
   }
 }
+
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad
 })
 </script>
