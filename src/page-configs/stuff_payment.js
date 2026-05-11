@@ -22,7 +22,7 @@ const headers = [
   },
 
   {
-    title: 'نام کامند',
+    title: 'نام کارمند',
     key: 'stuff_id',
   },
   {

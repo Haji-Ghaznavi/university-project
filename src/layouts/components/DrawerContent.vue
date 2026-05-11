@@ -91,11 +91,17 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-cart-outline' },
       }"
     />
-
     <VerticalNavLink
       :item="{
         title: 'مواد خام خریداری شده ',
         to: 'raw-materials',
+        icon: { icon: 'mdi-cube-outline' },
+      }"
+    />
+     <VerticalNavLink
+      :item="{
+        title: 'مواد خام باقی مانده',
+        to: 'remaining-raw-material',
         icon: { icon: 'mdi-cube-outline' },
       }"
     />

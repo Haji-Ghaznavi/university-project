@@ -1,4 +1,5 @@
 <template>
+  <daily-report-dialog ref="dailyReportRef"/>
   <div class="pa-4">
     <v-row v-if="loaded">
       <v-col
@@ -7,7 +8,7 @@
         v-for="[key, value] in reports"
         :key="key"
       >
-        <v-card style="cursor: pointer">
+        <v-card style="cursor: pointer" @click="viewDetails(key)">
           <v-card-title class="d-flex align-center pt-3">
             <v-chip
               variant="tonal"
@@ -23,9 +24,9 @@
             {{ applyStyle(key).title }}
           </v-card-title>
 
-          <v-card-text class="pt-2">
-            {{ value.length }}
-          </v-card-text>
+          <v-card-item class="pt-2 pb-0">
+            <p style="font-size: 24px !important; font-weight: 600 !important">{{ value }}</p>
+          </v-card-item>
         </v-card>
       </v-col>
     </v-row>
@@ -42,11 +43,13 @@
 </template>
 
 <script setup>
+import DailyReportDialog from '@/components/DailyReportDialog.vue'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 
 const reports = ref([])
 const loaded = ref(false)
+const dailyReportRef = ref()
 
 const applyStyle = key => {
   switch (key) {
@@ -57,14 +60,14 @@ const applyStyle = key => {
         title: 'حسابات بانکی',
       }
 
-    case 'companies':
+    case 'company':
       return {
         color: '#1565C0',
         icon: 'mdi-domain',
         title: 'شرکت‌ها',
       }
 
-    case 'company_goods':
+    case 'company_tools':
       return {
         color: '#3949AB',
         icon: 'mdi-package-variant-closed',
@@ -85,28 +88,28 @@ const applyStyle = key => {
         title: 'مخاطبین',
       }
 
-    case 'customers':
+    case 'customer':
       return {
         color: '#5E35B1',
         icon: 'mdi-account-group',
         title: 'مشتریان',
       }
 
-    case 'daily_expenses':
+    case 'daily_expense':
       return {
         color: '#C62828',
         icon: 'mdi-cash-remove',
         title: 'مصارف روزانه',
       }
 
-    case 'daily_tasks':
+    case 'daily_task':
       return {
         color: '#00ACC1',
         icon: 'mdi-clipboard-check-outline',
         title: 'وظایف روزانه',
       }
 
-    case 'daily_transactions':
+    case 'daily_transaction':
       return {
         color: '#43A047',
         icon: 'mdi-cash-sync',
@@ -127,35 +130,35 @@ const applyStyle = key => {
         title: 'سرمایه‌گذاران',
       }
 
-    case 'my_passwords':
+    case 'passwords':
       return {
         color: '#424242',
         icon: 'mdi-lock-outline',
         title: 'رمزها',
       }
 
-    case 'office_warehouse_expenses':
+    case 'office_warehouse_expense':
       return {
         color: '#FB8C00',
         icon: 'mdi-warehouse',
         title: 'مصارف دفتر و کارخانه',
       }
 
-    case 'personal_goods':
+    case 'personal_good':
       return {
         color: '#D81B60',
         icon: 'mdi-bag-personal',
         title: 'اموال شخصی',
       }
 
-    case 'products':
+    case 'product':
       return {
         color: '#8E24AA',
         icon: 'mdi-package-variant',
         title: 'محصولات',
       }
 
-    case 'production_capacities':
+    case 'production_capacity':
       return {
         color: '#039BE5',
         icon: 'mdi-factory',
@@ -169,28 +172,28 @@ const applyStyle = key => {
         title: 'فروشات محصولات',
       }
 
-    case 'raw_materials':
+    case 'raw_material':
       return {
         color: '#546E7A',
         icon: 'mdi-cube-outline',
         title: 'مواد خام',
       }
 
-    case 'stuffs':
+    case 'stuff':
       return {
         color: '#303F9F',
         icon: 'mdi-account-hard-hat',
         title: 'کارمندان',
       }
 
-    case 'stuff_payment_salaries':
+    case 'stuff_payment':
       return {
         color: '#388E3C',
         icon: 'mdi-cash-check',
         title: 'معاشات کارمندان',
       }
 
-    case 'users':
+    case 'user':
       return {
         color: '#1976D2',
         icon: 'mdi-account-multiple-outline',
@@ -216,6 +219,10 @@ const fetchData = async () => {
   }
 }
 
+
+const viewDetails = (item) => {
+  dailyReportRef.value.showDialog(item);
+}
 onMounted(() => {
   fetchData()
 })
