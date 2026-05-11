@@ -27,11 +27,8 @@
           @click="emit('onRefresh')"
           class="float-start"
         >
-        <v-tooltip activator="parent">تازه سازی</v-tooltip>
-          <v-icon
-            size="22"
-            >mdi-refresh</v-icon
-          ></v-btn
+          <v-tooltip activator="parent">تازه سازی</v-tooltip>
+          <v-icon size="22">mdi-refresh</v-icon></v-btn
         >
       </div>
     </v-card-title>
