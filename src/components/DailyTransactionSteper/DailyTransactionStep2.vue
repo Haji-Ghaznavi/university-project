@@ -9,7 +9,7 @@
           v-model="payload.transaction_type"
           :rules="[requiredValidator]"
           :items="['دریافت', 'پرداخت']"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-money"
           label="نوع معامله"
         ></v-select>
       </v-col>
@@ -20,7 +20,7 @@
         <v-text-field
           v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-counter"
           label="مقدار"
         ></v-text-field>
       </v-col>
@@ -45,7 +45,7 @@
         <v-text-field
           v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ"
           type="date"
         ></v-text-field>
@@ -57,7 +57,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

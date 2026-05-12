@@ -66,7 +66,7 @@ const headers = [
     key: 'currency',
   },
    {
-    title: 'مسولیت',
+    title: 'مسوولیت',
     key: 'responsiblity',
   },
   {

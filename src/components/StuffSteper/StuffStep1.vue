@@ -17,7 +17,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-circle"
+          prepend-icon="mdi-card-account-details"
           :rules="[requiredValidator]"
           label="اسم"
         ></v-text-field>
@@ -62,7 +62,7 @@
         <v-text-field
           v-model="payload.identity_card_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-card"
           label="نمبر تذکره"
         ></v-text-field>
       </v-col>
@@ -95,7 +95,7 @@
         <v-text-field
           v-model="payload.responsiblity"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-rocket-launch"
+          prepend-icon="mdi-shield-account"
           label="مسولیت"
         ></v-text-field>
       </v-col>

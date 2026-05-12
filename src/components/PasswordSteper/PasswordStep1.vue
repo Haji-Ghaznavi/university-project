@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.account_name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account"
           :rules="[requiredValidator]"
           label="نام حساب"
         ></v-text-field>
@@ -20,7 +20,7 @@
         <v-text-field
           v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-phone"
           label="شماره تلفن"
         ></v-text-field>
       </v-col>
@@ -32,7 +32,7 @@
         <v-text-field
           v-model="payload.password"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-lock"
           label="پسورد"
         ></v-text-field>
       </v-col>
@@ -44,7 +44,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

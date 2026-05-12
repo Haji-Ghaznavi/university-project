@@ -8,7 +8,7 @@
         <v-text-field
           v-model="payload.name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cart-outline"
+          prepend-icon="mdi-cart"
           label="نام محصول"
         ></v-text-field>
       </v-col>

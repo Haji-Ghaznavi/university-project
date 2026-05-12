@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-shape"
           :rules="[requiredValidator]"
           label="نام اموال"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.quantity"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-counter"
           label="تعداد اموال"
         ></v-text-field>
       </v-col>
@@ -31,7 +31,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-details"
           :rules="[requiredValidator]"
           label="اسم"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.last_name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-card"
           label="تخلص"
         ></v-text-field>
       </v-col>
@@ -31,7 +31,7 @@
         <v-text-field
           v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-phone"
           label="شماره تماس"
         ></v-text-field>
       </v-col>
@@ -42,7 +42,7 @@
         <v-text-field
           v-model="payload.address"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-location"
           label="آدرس"
         ></v-text-field>
       </v-col>
@@ -53,7 +53,7 @@
         <v-text-field
           v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-counter"
           label="مقدار"
         ></v-text-field>
       </v-col>
@@ -67,7 +67,7 @@
           :items="currencies"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول"
         ></v-select>
       </v-col>
@@ -78,7 +78,7 @@
         <v-text-field
           v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ"
           type="date"
         ></v-text-field>
@@ -90,8 +90,8 @@
         <v-text-field
           v-model="payload.remark"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
-          label="ملاحضات"
+          prepend-icon="mdi-check"
+          label="ملاحظات"
         ></v-text-field>
       </v-col>
       <v-col
@@ -101,7 +101,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>
