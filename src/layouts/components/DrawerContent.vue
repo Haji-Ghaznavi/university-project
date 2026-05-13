@@ -114,7 +114,7 @@ const upgradeBanner = computed(() => {
     />
      <VerticalNavLink
       :item="{
-        title: 'پراخت معاشات کامندان',
+        title: 'پراخت معاشات کارمندان',
         to: 'stuff-payments',
         icon: { icon: 'mdi-account-multiple-outline' },
       }"

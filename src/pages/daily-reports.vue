@@ -25,7 +25,7 @@
           </v-card-title>
 
           <v-card-item class="pt-2 pb-0">
-            <p style="font-size: 24px !important; font-weight: 600 !important">{{ value }}</p>
+            <p style="font-size: 21px !important; font-weight: 600 !important">{{ value }}</p>
           </v-card-item>
         </v-card>
       </v-col>

@@ -74,7 +74,9 @@
 </template>
 
 <script setup>
+import Profile2 from '@/assets/images/hadi.jpeg';
 import Profile from '@/assets/images/profile.webp';
+
 import { ref } from 'vue';
 
 const developerDetails = ref([
@@ -116,11 +118,11 @@ const developerDetails = ref([
         icon: 'mdi-whatsapp',
       },
       {
-        key: 'mozaffarihadi442@gmail.com',
+        key: 'hadimozaffari1402@gmail.com',
         icon: 'mdi-email-outline',
       },
     ],
-    profile: Profile,
+    profile: Profile2,
   },
 ])
 </script>
