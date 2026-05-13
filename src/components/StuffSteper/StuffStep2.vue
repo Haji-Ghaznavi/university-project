@@ -8,7 +8,7 @@
         <v-text-field
           v-model="payload.contract_start_date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-rocket-launch"
+          prepend-icon="mdi-play"
           type="date"
           label="شروع قرارداد"
         ></v-text-field>
@@ -32,7 +32,7 @@
         <v-text-field
           v-model="payload.salary"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
+          prepend-icon="mdi-cash-check"
           label="معاش"
           type="number"
         ></v-text-field>
@@ -44,7 +44,7 @@
         <v-text-field
           v-model="payload.currency"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cash"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول "
         ></v-text-field>
       </v-col>
@@ -55,7 +55,7 @@
         <v-text-field
           v-model="payload.guarantee"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-certificate"
+          prepend-icon="mdi-document"
           label="ضمانت"
         ></v-text-field>
       </v-col>

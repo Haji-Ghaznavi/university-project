@@ -49,14 +49,14 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'روزنامچه',
         to: 'daily-reports',
-        icon: { icon: 'mdi-clock-outline' },
+        icon: { icon: 'mdi-notebook' },
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'کاربران',
         to: 'users',
-        icon: { icon: 'mdi-user-multiple-outline' },
+        icon: { icon: 'mdi-account-details' },
       }"
     />
 
@@ -64,7 +64,7 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'کارمندان',
         to: 'stuffs',
-        icon: { icon: 'mdi-account-multiple-outline' },
+        icon: { icon: 'mdi-account-multiple' },
       }"
     />
 
@@ -95,14 +95,14 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'مواد خام خریداری شده ',
         to: 'raw-materials',
-        icon: { icon: 'mdi-cube-outline' },
+        icon: { icon: 'mdi-material' },
       }"
     />
      <VerticalNavLink
       :item="{
         title: 'مواد خام باقی مانده',
         to: 'remaining-raw-material',
-        icon: { icon: 'mdi-cube-outline' },
+        icon: { icon: 'mdi-material' },
       }"
     />
     <VerticalNavLink

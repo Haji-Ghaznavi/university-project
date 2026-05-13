@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-details"
           :rules="[requiredValidator]"
           label="نام مال"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.quantity"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-counter"
           label="تعداد"
         ></v-text-field>
       </v-col>
@@ -30,7 +30,7 @@
         <v-text-field
           v-model="payload.price_per_tool"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-money"
           label="قیمت فی مال"
         ></v-text-field>
       </v-col>
@@ -44,7 +44,7 @@
           :items="currencies"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول"
         ></v-select>
       </v-col>
@@ -55,7 +55,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

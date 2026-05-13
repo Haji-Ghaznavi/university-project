@@ -8,7 +8,7 @@
         <v-text-field
           v-model="payload.name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cart-outline"
+          prepend-icon="mdi-account-details"
           label="نام"
         ></v-text-field>
       </v-col>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.last_name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account"
           label="تخلص"
         ></v-text-field>
       </v-col>
@@ -31,7 +31,7 @@
         <v-text-field
           v-model="payload.phone_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-phone"
           label="شماره تماس"
         ></v-text-field>
       </v-col>
@@ -42,7 +42,7 @@
         <v-text-field
           v-model="payload.address"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-location"
           label="آدرس"
         ></v-text-field>
       </v-col>

@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.bill_number"
-          prepend-icon="mdi-calendar"
+          prepend-icon="mdi-notebook"
           :rules="[requiredValidator]"
           label="نمبر بیل"
         ></v-text-field>
@@ -18,7 +18,7 @@
       >
         <v-text-field
           v-model="payload.buyer_name"
-          prepend-icon="mdi-calendar"
+          prepend-icon="mdi-account"
           :rules="[requiredValidator]"
           label=" نام خریدار"
         ></v-text-field>
@@ -29,7 +29,7 @@
       >
         <v-text-field
           v-model="payload.sealer_name"
-          prepend-icon="mdi-calendar"
+          prepend-icon="mdi-account"
           :rules="[requiredValidator]"
           label="  نام فروشنده"
         ></v-text-field>
@@ -40,7 +40,7 @@
       >
         <v-text-field
           v-model="payload.sealer_phone_number"
-          prepend-icon="mdi-calendar"
+          prepend-icon="mdi-phone"
           :rules="[requiredValidator]"
           label="  شماره تماس فروشنده"
         ></v-text-field>
@@ -51,7 +51,7 @@
       >
         <v-text-field
           v-model="payload.company_name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-company"
           label="نام شرکت"
         ></v-text-field>
       </v-col>
