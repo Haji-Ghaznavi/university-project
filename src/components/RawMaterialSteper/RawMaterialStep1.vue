@@ -22,6 +22,7 @@
           :rules="[requiredValidator]"
           prepend-icon="mdi-counter"
           label="مقدار"
+          type="number"
         ></v-text-field>
       </v-col>
 
@@ -48,6 +49,7 @@
           :rules="[requiredValidator]"
           prepend-icon="mdi-money"
           label="قیمت هر واحد"
+          type="number"
         ></v-text-field>
       </v-col>
 
@@ -75,6 +77,7 @@
           :rules="[requiredValidator]"
           prepend-icon="mdi-cash-usd"
           label="نرخ ارز به افغانی"
+          type="number"
         ></v-text-field>
       </v-col>
       <v-col
