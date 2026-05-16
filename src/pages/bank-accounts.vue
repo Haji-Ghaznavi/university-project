@@ -41,7 +41,7 @@
         :show-delete="true"
         :show-view="false"
         :isDeleting="isDeleting"
-        :show-print="true"
+        :show-print="false"
         :show-copy="true"
       />
     </template>

@@ -32,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="true"
+        :show-print="false"
         :show-copy="true"
         :isDeleting="isDeleting"
       />

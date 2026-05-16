@@ -26,6 +26,7 @@
         :show-delete="true"
         :show-view="false"
         :show-copy="true"
+        :show-print="false"
         :isDeleting="isDeleting"
       />
     </template>
