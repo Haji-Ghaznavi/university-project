@@ -3,6 +3,10 @@
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
+  <ChangeStatusDialog
+    ref="StatusDialogRef"
+    @fetchRecord="fetchRecord"
+  />
   <ConfirmDialog
     ref="ConfirmDialogRef"
     @confirm="onConfirm"
@@ -22,6 +26,16 @@
     :totalPages="totalPages"
     @onPaginate="onPaginate"
   >
+    <template #status="{ record }">
+      <v-chip
+        size="small"
+        variant="tonal"
+        :color="statusColor(record.status)"
+        @click="changeStatus(record)"
+      >
+        {{ statusLabel(record.status) }}
+      </v-chip>
+    </template>
     <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
@@ -32,7 +46,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="false"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="isDeleting"
       />
@@ -45,14 +59,17 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
+import ChangeStatusDialog from '@/components/DailyTaskSteper/ChangeStatusDialog.vue'
 import DailyTaskSteper from '@/components/DailyTaskSteper/DailyTaskSteper.vue'
 import usePageConfig from '@/page-configs/daily_task'
 import { axios } from '@/plugins/axios-plugin'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
-const { breadCrumbs, headers } = usePageConfig()
+const { breadCrumbs, headers, statusOptions } = usePageConfig()
 
 const SteperRef = ref()
+const StatusDialogRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
 const isDeleting = ref(false)
@@ -131,7 +148,26 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({
+    record,
+    headers,
+    title: breadCrumbs?.[breadCrumbs.length - 1]?.title,
+    formatters: {
+      status: statusLabel,
+    },
+  })
+}
+
+const changeStatus = record => {
+  StatusDialogRef.value.openDialog(record)
+}
+
+const statusLabel = status => {
+  return statusOptions.find(item => item.value === status)?.title ?? status ?? 'انتخاب وضعیت'
+}
+
+const statusColor = status => {
+  return statusOptions.find(item => item.value === status)?.color ?? 'secondary'
 }
 
 const onPaginate = page => {

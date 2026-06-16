@@ -1,62 +1,43 @@
 <template>
   <v-form ref="formRef">
     <v-row>
-
       <v-col
         cols="12"
         md="6"
       >
-        <v-text-field
-          v-model="payload.name"
-          prepend-icon="mdi-person"
+        <v-select
+          v-model="payload.transaction_type"
           :rules="[requiredValidator]"
-          label="اسم"
-        ></v-text-field>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.last_name"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-account-details"
-          label="تخلص"
-        ></v-text-field>
-      </v-col>
-
-       <v-col
-        cols="12"
-        md="6"
-      >
-        <v-text-field
-          v-model="payload.phone_number"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-phone"
-          label="شماره تماس"
-        ></v-text-field>
+          :items="transactionTypes"
+          item-title="title"
+          item-value="value"
+          prepend-icon="mdi-swap-horizontal"
+          label="نوع داد و گرفت"
+        ></v-select>
       </v-col>
       <v-col
         cols="12"
         md="6"
       >
         <v-text-field
-          v-model="payload.address"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-location"
-          label="آدرس"
+          v-model="payload.amount"
+          type="number"
+          prepend-icon="mdi-cash"
+          label="مقدار"
         ></v-text-field>
       </v-col>
-            <v-col
+      <v-col
         cols="12"
         md="6"
       >
-        <v-text-field
-          v-model="payload.position"
-          :rules="[requiredValidator]"
-          prepend-icon="mdi-rank"
-          label="مقام"
-        ></v-text-field>
+        <v-select
+          v-model="payload.currency"
+          :items="currencies"
+          item-title="title"
+          item-value="value"
+          prepend-icon="mdi-currency-usd"
+          label="واحد پول"
+        ></v-select>
       </v-col>
       <v-col cols="12">
         <v-textarea
@@ -72,8 +53,11 @@
 </template>
 
 <script setup>
+import usePageConfig from '@/page-configs/transaction'
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
+
+const { currencies, transactionTypes } = usePageConfig()
 const props = defineProps({
   payload: {
     type: Object,
@@ -82,7 +66,6 @@ const props = defineProps({
 })
 
 const formRef = ref()
-
 
 const validate = async () => {
   const val = await formRef.value.validate()
@@ -94,6 +77,7 @@ const validate = async () => {
 }
 
 const onLoad = () => {}
+
 defineExpose({
   validate,
   onLoad,

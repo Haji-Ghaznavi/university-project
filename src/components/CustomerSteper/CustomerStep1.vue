@@ -59,6 +59,15 @@
           item-value="id"
         ></v-select>
       </v-col>
+      <v-col cols="12">
+        <v-textarea
+          v-model="payload.description"
+          prepend-icon="mdi-text"
+          label="توضیحات"
+          rows="2"
+          auto-grow
+        ></v-textarea>
+      </v-col>
     </v-row>
   </v-form>
 </template>

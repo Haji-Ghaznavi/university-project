@@ -32,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="false"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
@@ -55,6 +55,7 @@ import DataTable from '@/components/commons/DataTable.vue'
 import Profile from '@/components/commons/Profile.vue'
 import UserSteper from '@/components/UserSteper/UserSteper.vue'
 import usePageConfig from '@/page-configs/user'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { computed, onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -141,7 +142,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

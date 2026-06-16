@@ -77,6 +77,10 @@ const headers = [
     title: 'ضمانت',
     key: 'guarantee',
   },
+  {
+    title: 'توضیحات',
+    key: 'description',
+  },
 ]
 
 export default function usePageConfig() {

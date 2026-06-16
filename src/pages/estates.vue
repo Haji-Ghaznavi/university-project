@@ -32,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="false"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
@@ -47,6 +47,7 @@ import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import EstateSteper from '@/components/EstateSteper/EstateSteper.vue'
 import usePageConfig from '@/page-configs/estates'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { computed, onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -133,7 +134,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

@@ -64,6 +64,10 @@ const headers = [
     title: 'تاریخ اضافه شده ',
     key: 'added_date',
   },
+  {
+    title: 'توضیحات',
+    key: 'description',
+  },
 ]
 
 export default function usePageConfig() {

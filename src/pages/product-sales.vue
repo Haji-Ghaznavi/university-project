@@ -32,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="false"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
@@ -52,6 +52,7 @@ import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import ProductSalesSteper from '@/components/ProductSalesSteper/ProductSalesSteper.vue'
 import usePageConfig from '@/page-configs/product_sales'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -138,7 +139,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

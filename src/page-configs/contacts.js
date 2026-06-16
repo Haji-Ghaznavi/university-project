@@ -41,6 +41,10 @@ const headers = [
     title: 'مقام',
     key: 'position',
   },
+  {
+    title: 'توضیحات',
+    key: 'description',
+  },
 ]
 
 export default function usePageConfig() {

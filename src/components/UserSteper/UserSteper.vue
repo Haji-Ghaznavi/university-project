@@ -36,6 +36,7 @@ const defaultPayload = () => ({
   profile: null,
   password: '',
   role: '',
+  description: '',
 })
 
 const payload = ref(defaultPayload())
@@ -61,6 +62,7 @@ const submit = async () => {
     formData.append('profile', payload.value.profile)
     formData.append('role', payload.value.role)
     formData.append('password', payload.value.password)
+    formData.append('description', payload.value.description)
     if (payload.value.id) {
       const res = await axios.post(`users/${payload.value.id}?_method=PUT`, formData, {
         headers: {
@@ -99,6 +101,7 @@ const openEditDialog = record => {
   payload.value.last_name = record.last_name
   payload.value.role = record.role
   payload.value.profile = record.profile
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

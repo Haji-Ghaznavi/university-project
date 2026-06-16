@@ -40,6 +40,10 @@ const headers = [
     title: 'کتگوری',
     key: 'category',
   },
+  {
+    title: 'توضیحات',
+    key: 'description',
+  },
 ]
 
 export default function usePageConfig() {

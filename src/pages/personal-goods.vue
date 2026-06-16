@@ -32,7 +32,7 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :show-print="false"
+        :show-print="true"
         :show-copy="true"
         :isDeleting="isDeleting"
       />
@@ -47,6 +47,7 @@ import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import PersonalGoodsSteper from '@/components/PersonalGoodsStper/PersonalGoodsSteper.vue'
 import usePageConfig from '@/page-configs/personal_good'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -129,7 +130,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

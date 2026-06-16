@@ -1,13 +1,5 @@
 <template>
-  <AddMoney
-    ref="addMoneyRef"
-    @onAdd="fetchRecord"
-  />
-  <GetMoney
-    ref="getMoneyRef"
-    @onTake="fetchRecord"
-  />
-  <BankAccountSteper
+  <TransactionSteper
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
@@ -30,6 +22,17 @@
     :totalPages="totalPages"
     @onPaginate="onPaginate"
   >
+    <template #transaction_type="{ record }">
+      <v-chip
+        size="small"
+        :color="typeColor(record.transaction_type)"
+      >
+        {{ typeLabel(record.transaction_type) }}
+      </v-chip>
+    </template>
+    <template #created_at="{ record }">
+      {{ formatDate(record.created_at) }}
+    </template>
     <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
@@ -40,80 +43,47 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :isDeleting="isDeleting"
         :show-print="true"
         :show-copy="true"
+        :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
-    </template>
-    <template #taken_amount="{ record }">
-      <div class="d-flex">
-        <v-btn
-          @click="takeMoney(record)"
-          size="16"
-          variant="outlined"
-          icon
-          class="me-2"
-        >
-          <v-tooltip activator="parent">برداشت کردن</v-tooltip>
-          <v-icon>mdi-minus</v-icon>
-        </v-btn>
-        {{ record.taken_amount }}
-      </div>
-    </template>
-    <template #added_amount="{ record }">
-      <div class="d-flex">
-        <v-btn
-          @click="addMoney(record)"
-          size="16"
-          variant="outlined"
-          icon
-          class="me-2"
-        >
-          <v-tooltip activator="parent">اضافه کردن</v-tooltip>
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-        {{ record.added_amount }}
-      </div>
     </template>
   </DataTable>
 </template>
 
 <script setup>
-import AddMoney from '@/components/AddMoney.vue'
-import BankAccountSteper from '@/components/BankAccountSteper/BankAccountSteper.vue'
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import GetMoney from '@/components/GetMoney.vue'
-import usePageConfig from '@/page-configs/bank_accounts'
-import { printRecord as printRecordPdf } from '@core/utils/printRecord'
+import TransactionSteper from '@/components/TransactionSteper/TransactionSteper.vue'
+import usePageConfig from '@/page-configs/transaction'
 import { axios } from '@/plugins/axios-plugin'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
+import moment from 'moment'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
-const { breadCrumbs, headers } = usePageConfig()
+const { breadCrumbs, headers, transactionTypes } = usePageConfig()
 
-const addMoneyRef = ref()
-const getMoneyRef = ref()
 const SteperRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
-const isDeleting = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
+const isDeleting = ref(false)
 const searchBy = ref('id')
 const currentPage = ref(1)
 const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
-  const excludedColums = ['actions', 'profile']
+  const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
 })
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const { data } = await axios.get('bank-accounts', {
+    const { data } = await axios.get('credits-and-debets', {
       params: {
         search: searchValue,
         searchBy: searchBy,
@@ -123,7 +93,7 @@ const fetchRecord = async (searchValue = null, searchBy) => {
     tableRecords.value = data.data
     totalPages.value = data.last_page
   } catch (error) {
-    console.log('error while fetching the date', error)
+    console.log('error while fetching the data', error)
   }
   loading.value = false
 }
@@ -144,7 +114,10 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    await axios.delete('bank-accounts/' + selectedRecord.value?.id)
+    const res = await axios.delete('credits-and-debets/' + selectedRecord.value?.id)
+    if (res.request.status === 206) {
+      fetchRecord()
+    }
   } catch (error) {
     console.log('error while deleting the record', error)
   }
@@ -173,20 +146,32 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
+  printRecordPdf({
+    record,
+    headers,
+    title: breadCrumbs?.[breadCrumbs.length - 1]?.title,
+    formatters: {
+      transaction_type: typeLabel,
+      created_at: formatDate,
+    },
+  })
+}
+
+const typeLabel = type => {
+  return transactionTypes.find(item => item.value === type)?.title ?? type ?? '—'
+}
+
+const typeColor = type => {
+  return transactionTypes.find(item => item.value === type)?.color ?? 'secondary'
+}
+
+const formatDate = date => {
+  return date ? moment(date).format('YYYY-MM-DD') : '—'
 }
 
 const onPaginate = page => {
   currentPage.value = page
   fetchRecord()
-}
-
-const addMoney = record => {
-  addMoneyRef.value.showDialog(record.id)
-}
-
-const takeMoney = record => {
-  getMoneyRef.value.showDialog(record.id)
 }
 
 onMounted(() => {

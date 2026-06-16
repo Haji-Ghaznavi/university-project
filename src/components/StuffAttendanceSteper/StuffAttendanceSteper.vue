@@ -20,28 +20,20 @@ import { axios } from '@/plugins/axios-plugin'
 import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
-import Step1 from './BankAccountStep1.vue'
+import Step1 from './StuffAttendanceStep1.vue'
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
 const doneStep = markRaw(DoneStep)
 
-const steperTitle = ref('ایجاد حساب بانکی')
+const steperTitle = ref('ثبت حاضری')
 const onDone = ref(false)
 const loading = ref(false)
 const defaultPayload = () => ({
   id: null,
-  user_name: '',
-  bank_name: '',
-  account_number: '',
-  currency: '',
-  amount: '',
-  produced_date: '',
-  expired_date: '',
-  taken_amount: '',
-  taken_date: '',
-  added_amount: '',
-  added_date: '',
+  stuff_id: '',
+  date: '',
+  status: 'present',
   description: '',
 })
 
@@ -62,14 +54,13 @@ const showDialog = ref(false)
 const submit = async () => {
   try {
     loading.value = true
-
     if (payload.value.id) {
-      const res = await axios.put('bank-accounts/' + payload.value.id, payload.value)
+      const res = await axios.put('stuff-attendances/' + payload.value.id, payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
     } else {
-      const res = await axios.post('bank-accounts', payload.value)
+      const res = await axios.post('stuff-attendances', payload.value)
       if (res.request.status === 200) {
         onDone.value = true
       }
@@ -87,19 +78,11 @@ const openDialog = () => {
 
 const openEditDialog = record => {
   showDialog.value = true
-  steperTitle.value = 'ویرایش نمودن حساب بانکی '
+  steperTitle.value = 'ویرایش حاضری'
   payload.value.id = record.id
-  payload.value.user_name = record.user_name
-  payload.value.bank_name = record.bank_name
-  payload.value.account_number = record.account_number
-  payload.value.currency = record.currency
-  payload.value.amount = record.amount
-  payload.value.produced_date = record.produced_date
-  payload.value.expired_date = record.expired_date
-  payload.value.taken_amount = record.taken_amount
-  payload.value.taken_date = record.taken_date
-  payload.value.added_amount = record.added_amount
-  payload.value.added_date = record.added_date
+  payload.value.stuff_id = record.stuff_id
+  payload.value.date = record.date
+  payload.value.status = record.status
   payload.value.description = record.description
 }
 

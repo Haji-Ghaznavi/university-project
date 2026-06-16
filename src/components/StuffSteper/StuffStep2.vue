@@ -41,12 +41,15 @@
         cols="12"
         md="6"
       >
-        <v-text-field
+        <v-select
           v-model="payload.currency"
           :rules="[requiredValidator]"
+          :items="currencies"
+          item-title="name"
+          item-value="id"
           prepend-icon="mdi-currency-usd"
           label="واحد پول "
-        ></v-text-field>
+        ></v-select>
       </v-col>
        <v-col
         cols="12"
@@ -58,6 +61,15 @@
           prepend-icon="mdi-document"
           label="ضمانت"
         ></v-text-field>
+      </v-col>
+      <v-col cols="12">
+        <v-textarea
+          v-model="payload.description"
+          prepend-icon="mdi-text"
+          label="توضیحات"
+          rows="2"
+          auto-grow
+        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>
@@ -74,6 +86,24 @@ const props = defineProps({
 })
 
 const formRef = ref()
+const currencies = ref([
+  {
+    id: 'دالر امریکایی',
+    name: 'دالر امریکایی',
+  },
+  {
+    id: 'دالر آسترالیایی',
+    name: 'دالر آسترالیایی',
+  },
+  {
+    id: 'افغانی',
+    name: 'افغانی',
+  },
+  {
+    id: 'یورو',
+    name: 'یورو',
+  },
+])
 
 const validate = async () => {
   const val = await formRef.value.validate()

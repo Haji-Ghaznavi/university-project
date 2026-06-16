@@ -1,14 +1,10 @@
 <template>
-  <AddMoney
-    ref="addMoneyRef"
-    @onAdd="fetchRecord"
-  />
-  <GetMoney
-    ref="getMoneyRef"
-    @onTake="fetchRecord"
-  />
-  <BankAccountSteper
+  <VisaRegistrationSteper
     ref="SteperRef"
+    @fetchRecord="fetchRecord"
+  />
+  <VisaStatusDialog
+    ref="StatusDialogRef"
     @fetchRecord="fetchRecord"
   />
   <ConfirmDialog
@@ -30,6 +26,22 @@
     :totalPages="totalPages"
     @onPaginate="onPaginate"
   >
+    <template #travel_mode="{ record }">
+      {{ travelModeLabel(record.travel_mode) }}
+    </template>
+    <template #visa_done_status="{ record }">
+      <v-chip
+        size="small"
+        variant="tonal"
+        :color="statusColor(record.visa_done_status)"
+        @click="changeStatus(record)"
+      >
+        {{ statusLabel(record.visa_done_status) }}
+      </v-chip>
+    </template>
+    <template #created_at="{ record }">
+      {{ formatDate(record.created_at) }}
+    </template>
     <template #actions="{ record, th }">
       <ActionButton
         @onEdit="editRecord(record)"
@@ -40,80 +52,49 @@
         :show-edit="true"
         :show-delete="true"
         :show-view="false"
-        :isDeleting="isDeleting"
         :show-print="true"
         :show-copy="true"
+        :isDeleting="(selectedRecord == record) & isDeleting ? true : false"
       />
-    </template>
-    <template #taken_amount="{ record }">
-      <div class="d-flex">
-        <v-btn
-          @click="takeMoney(record)"
-          size="16"
-          variant="outlined"
-          icon
-          class="me-2"
-        >
-          <v-tooltip activator="parent">برداشت کردن</v-tooltip>
-          <v-icon>mdi-minus</v-icon>
-        </v-btn>
-        {{ record.taken_amount }}
-      </div>
-    </template>
-    <template #added_amount="{ record }">
-      <div class="d-flex">
-        <v-btn
-          @click="addMoney(record)"
-          size="16"
-          variant="outlined"
-          icon
-          class="me-2"
-        >
-          <v-tooltip activator="parent">اضافه کردن</v-tooltip>
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-        {{ record.added_amount }}
-      </div>
     </template>
   </DataTable>
 </template>
 
 <script setup>
-import AddMoney from '@/components/AddMoney.vue'
-import BankAccountSteper from '@/components/BankAccountSteper/BankAccountSteper.vue'
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
-import GetMoney from '@/components/GetMoney.vue'
-import usePageConfig from '@/page-configs/bank_accounts'
-import { printRecord as printRecordPdf } from '@core/utils/printRecord'
+import VisaRegistrationSteper from '@/components/VisaRegistrationSteper/VisaRegistrationSteper.vue'
+import VisaStatusDialog from '@/components/VisaRegistrationSteper/VisaStatusDialog.vue'
+import usePageConfig from '@/page-configs/visa_registration'
 import { axios } from '@/plugins/axios-plugin'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
+import moment from 'moment'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
-const { breadCrumbs, headers } = usePageConfig()
+const { breadCrumbs, headers, travelModes, visaStatuses } = usePageConfig()
 
-const addMoneyRef = ref()
-const getMoneyRef = ref()
 const SteperRef = ref()
+const StatusDialogRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
-const isDeleting = ref(false)
 const tableRecords = ref([])
 const selectedRecord = ref(null)
+const isDeleting = ref(false)
 const searchBy = ref('id')
 const currentPage = ref(1)
 const totalPages = ref(null)
 
 const filteredSearchColums = computed(() => {
-  const excludedColums = ['actions', 'profile']
+  const excludedColums = ['actions']
   return headers.filter(item => !excludedColums.includes(item.key))
 })
 
 const fetchRecord = async (searchValue = null, searchBy) => {
   try {
     loading.value = true
-    const { data } = await axios.get('bank-accounts', {
+    const { data } = await axios.get('visa-registrations', {
       params: {
         search: searchValue,
         searchBy: searchBy,
@@ -123,7 +104,7 @@ const fetchRecord = async (searchValue = null, searchBy) => {
     tableRecords.value = data.data
     totalPages.value = data.last_page
   } catch (error) {
-    console.log('error while fetching the date', error)
+    console.log('error while fetching the data', error)
   }
   loading.value = false
 }
@@ -144,7 +125,10 @@ const deleteRecord = record => {
 const onConfirm = async () => {
   try {
     isDeleting.value = true
-    await axios.delete('bank-accounts/' + selectedRecord.value?.id)
+    const res = await axios.delete('visa-registrations/' + selectedRecord.value?.id)
+    if (res.request.status === 206) {
+      fetchRecord()
+    }
   } catch (error) {
     console.log('error while deleting the record', error)
   }
@@ -173,20 +157,41 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
+  printRecordPdf({
+    record,
+    headers,
+    title: breadCrumbs?.[breadCrumbs.length - 1]?.title,
+    formatters: {
+      travel_mode: travelModeLabel,
+      visa_done_status: statusLabel,
+      created_at: formatDate,
+    },
+  })
+}
+
+const travelModeLabel = mode => {
+  return travelModes.find(item => item.value === mode)?.title ?? mode ?? '—'
+}
+
+const statusLabel = status => {
+  return visaStatuses.find(item => item.value === status)?.title ?? status ?? '—'
+}
+
+const statusColor = status => {
+  return visaStatuses.find(item => item.value === status)?.color ?? 'secondary'
+}
+
+const changeStatus = record => {
+  StatusDialogRef.value.openDialog(record)
+}
+
+const formatDate = date => {
+  return date ? moment(date).format('YYYY-MM-DD') : '—'
 }
 
 const onPaginate = page => {
   currentPage.value = page
   fetchRecord()
-}
-
-const addMoney = record => {
-  addMoneyRef.value.showDialog(record.id)
-}
-
-const takeMoney = record => {
-  getMoneyRef.value.showDialog(record.id)
 }
 
 onMounted(() => {

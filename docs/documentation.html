@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Ahmad Shah — Project Documentation</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Calibri', Arial, sans-serif;
+    color: #2b2b38; font-size: 12.5px; line-height: 1.6; margin: 0;
+  }
+  .cover {
+    page-break-after: always; height: 245mm; display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    background: #2e2e48; color: #fff; padding: 0 24mm; border-radius: 14px;
+  }
+  .cover .badge { color:#ddd942; font-size:15px; letter-spacing:3px; font-weight:700; }
+  .cover h1 { font-size: 46px; margin: 8px 0 4px; }
+  .cover h2 { font-size: 20px; font-weight: 400; color:#c9c9dd; margin: 0 0 26px; }
+  .cover .meta { font-size: 13px; color:#aeaecb; line-height: 2; border-top:1px solid #4a4a66; padding-top:14px; }
+  h2.sec {
+    color:#2e2e48; font-size: 19px; margin: 26px 0 8px;
+    border-bottom: 2px solid #ddd942; padding-bottom: 5px;
+  }
+  h3 { color:#3a3a5a; font-size: 14.5px; margin: 16px 0 4px; }
+  p { margin: 6px 0; }
+  ul { margin: 6px 0; padding-inline-start: 20px; }
+  li { margin: 3px 0; }
+  code { background:#f3f3f8; padding:1px 5px; border-radius:4px; font-family:'Consolas',monospace; font-size:11.5px; color:#9a3b5e; }
+  pre { background:#f6f6fb; border:1px solid #e6e6f0; border-radius:8px; padding:10px 12px; overflow:auto; font-family:'Consolas',monospace; font-size:11px; line-height:1.5; }
+  table { width:100%; border-collapse:collapse; margin:8px 0; }
+  th, td { border:1px solid #e2e2ee; padding:6px 9px; text-align:left; vertical-align:top; font-size:11.8px; }
+  th { background:#f4f4fa; color:#41415f; }
+  .fa { font-family:'Tahoma',sans-serif; direction: rtl; unicode-bidi: isolate; }
+  .note { background:#fffdf0; border:1px solid #ece7b8; border-radius:8px; padding:9px 12px; margin:10px 0; font-size:11.8px; }
+  .pill { display:inline-block; background:#2e2e48; color:#ddd942; border-radius:20px; padding:2px 10px; font-size:10.5px; font-weight:700; }
+  .toc li { margin:4px 0; }
+  .avoid-break { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">PROJECT DOCUMENTATION</div>
+  <h1>Ahmad Shah</h1>
+  <h2>Company Management System — Frontend</h2>
+  <div class="meta">
+    A Vue 3 + Vuetify single-page admin application for managing a manufacturing/trading
+    business: staff, customers, products, sales, finances, assets and more.<br/>
+    Document version 1.0
+  </div>
+</div>
+
+<h2 class="sec">1. Overview</h2>
+<p>
+  <strong>Ahmad Shah</strong> is an internal back-office (ERP-style) web application for running a
+  company end-to-end. It manages people (users, staff, customers, contacts, investors), inventory
+  and production (products, raw materials, production capacity), finances (sales, payments,
+  expenses, bank accounts, daily transactions), company assets, and operational records (daily
+  tasks, attendance, visa registrations, passwords).
+</p>
+<p>
+  The interface is fully <strong>Persian/Dari and right-to-left (RTL)</strong>. The frontend is a
+  Single Page Application that talks to a separate <strong>Laravel REST API</strong> backend.
+</p>
+
+<h3>Table of contents</h3>
+<ul class="toc">
+  <li>2. Technology stack</li>
+  <li>3. Architecture &amp; the standard module pattern</li>
+  <li>4. Project structure</li>
+  <li>5. Core conventions (API, authentication, validation, i18n)</li>
+  <li>6. Reusable building blocks</li>
+  <li>7. Feature modules</li>
+  <li>8. Special features</li>
+  <li>9. How to add a new module</li>
+  <li>10. Running &amp; building the project</li>
+</ul>
+
+<h2 class="sec">2. Technology Stack</h2>
+<table class="avoid-break">
+  <tr><th>Area</th><th>Technology</th></tr>
+  <tr><td>Framework</td><td>Vue 3 (Composition API, <code>&lt;script setup&gt;</code>)</td></tr>
+  <tr><td>UI library</td><td>Vuetify 3 (Material Design, RTL)</td></tr>
+  <tr><td>Build tool</td><td>Vite</td></tr>
+  <tr><td>Routing</td><td>vue-router with file-based routing (<code>vite-plugin-pages</code>) + layouts</td></tr>
+  <tr><td>State management</td><td>Pinia</td></tr>
+  <tr><td>HTTP client</td><td>Axios (custom instance with interceptors)</td></tr>
+  <tr><td>Localization</td><td>vue-i18n (Persian / English)</td></tr>
+  <tr><td>Notifications</td><td>vue3-toastify</td></tr>
+  <tr><td>Dates</td><td>moment, @vuepic/vue-datepicker</td></tr>
+  <tr><td>Validation</td><td>Vuetify rules + custom validators (<code>requiredValidator</code>)</td></tr>
+  <tr><td>Authorization</td><td>CASL (@casl/ability, @casl/vue)</td></tr>
+  <tr><td>Charts / calendar</td><td>ApexCharts, Chart.js, FullCalendar</td></tr>
+</table>
+<p>
+  Auto-imports are enabled (via <code>unplugin-auto-import</code>): common helpers like
+  <code>ref</code>, <code>computed</code>, <code>onMounted</code>, <code>useI18n</code> are available
+  globally without explicit import. Path aliases include <code>@</code> (src), <code>@core</code>,
+  and <code>@layouts</code>.
+</p>
+
+<h2 class="sec">3. Architecture &amp; the Standard Module Pattern</h2>
+<p>
+  Almost every feature is one CRUD "entity" built from <strong>four coordinated pieces</strong>.
+  This repetition is the heart of the project — once you know one module, you know them all.
+  Using <em>customers</em> as the example:
+</p>
+<table class="avoid-break">
+  <tr><th>Piece</th><th>Location</th><th>Responsibility</th></tr>
+  <tr><td>Page</td><td><code>src/pages/customers.vue</code></td><td>Wires everything together; holds fetch / add / edit / delete / search / paginate logic and the API calls.</td></tr>
+  <tr><td>Page-config</td><td><code>src/page-configs/customer.js</code></td><td>Exports <code>breadCrumbs</code>, table <code>headers</code>, and shared option lists (e.g. statuses, currencies).</td></tr>
+  <tr><td>Stepper</td><td><code>src/components/CustomerSteper/CustomerSteper.vue</code></td><td>The create/edit dialog: default payload, submit (POST/PUT), <code>openDialog</code> / <code>openEditDialog</code>.</td></tr>
+  <tr><td>Step form(s)</td><td><code>.../CustomerStep1.vue</code></td><td>The actual input fields bound to <code>payload</code>, with validation.</td></tr>
+</table>
+<div class="note">
+  Note the project's spelling convention: the dialog components are called <strong>"Steper"</strong>
+  (single P) throughout the codebase, e.g. <code>CustomerSteper</code>, <code>StuffSteper</code>.
+</div>
+
+<h2 class="sec">4. Project Structure</h2>
+<pre>src/
+├─ pages/              One file = one route (file-based routing)
+├─ page-configs/       Per-entity breadcrumbs, table headers, option lists
+├─ components/
+│   ├─ commons/        Shared UI: DataTable, Steper, ActionButton,
+│   │                  ConfirmDialog, BreadCrumbs, ProfileSelector, DoneStep
+│   └─ &lt;Entity&gt;Steper/ Per-entity create/edit dialog + step forms
+├─ layouts/            Page shells (default with sidebar, blank) + DrawerContent (menu)
+├─ plugins/            axios-plugin, authServices, vuetify, i18n, vuelidate
+├─ store/              Pinia stores (authStore)
+├─ router/             Router setup + global auth guard
+├─ translations/       fa.js / en.js
+├─ @core/ , @layouts/  Template internals &amp; helpers (incl. utils/printRecord.js)
+└─ main.js             App bootstrap</pre>
+
+<h2 class="sec">5. Core Conventions</h2>
+
+<h3>API layer</h3>
+<p>
+  All requests go through a single Axios instance (<code>src/plugins/axios-plugin.js</code>) with
+  base URL <code>VITE_API_URL + 'api/'</code> and a Bearer token attached automatically.
+  Endpoints are the plural kebab-case entity name. Response interceptors handle:
+</p>
+<ul>
+  <li><strong>401</strong> → toast error, log out, redirect to <code>/login</code></li>
+  <li><strong>206</strong> → "record deleted" success toast (delete convention)</li>
+  <li><strong>422 / 500</strong> → show the server error message as a toast</li>
+  <li><code>ERR_NETWORK</code> → redirect to a network-error page</li>
+</ul>
+<p>List endpoints return a paginated shape: <code>{ data: [...], last_page: N }</code>.</p>
+
+<h3>Authentication</h3>
+<p>
+  JWT-based. On login, the token and user are stored in <code>localStorage</code> and the Pinia
+  <code>authStore</code>. A global router guard protects any route whose meta contains
+  <code>auth: true</code>, redirecting unauthenticated users to <code>/login</code>.
+</p>
+
+<h3>Validation &amp; forms</h3>
+<p>
+  Forms use Vuetify's <code>v-form</code> with field <code>:rules</code>. The shared
+  <code>requiredValidator</code> enforces required fields. Each step form exposes a
+  <code>validate()</code> method the stepper calls before advancing or submitting.
+</p>
+
+<h3>Localization &amp; RTL</h3>
+<p>
+  The whole UI is Persian and right-to-left. Labels live inline in the components; vue-i18n
+  provides <code>fa.js</code> / <code>en.js</code> dictionaries for shared strings.
+</p>
+
+<h2 class="sec">6. Reusable Building Blocks</h2>
+<table>
+  <tr><th>Component</th><th>Purpose</th></tr>
+  <tr><td><code>DataTable</code></td><td>Generic table driven by <code>headers</code>. Renders <code>record[key]</code> by default, but any column can be customised via a named slot (e.g. <code>#status</code>). Includes loading state and pagination.</td></tr>
+  <tr><td><code>Steper</code></td><td>Multi-step wizard inside a dialog. Renders each step component, runs its <code>validate()</code>, moves between steps, and emits <code>onSubmit</code> on the last step. Shows a "done" step on success.</td></tr>
+  <tr><td><code>ActionButton</code></td><td>Row action buttons — edit, delete, view, copy, print — toggled by <code>show-*</code> props.</td></tr>
+  <tr><td><code>ConfirmDialog</code></td><td>Reusable yes/no confirmation (delete, restore, logout, force-delete).</td></tr>
+  <tr><td><code>BreadCrumbs</code></td><td>Page header with breadcrumb trail, a search box, "search by column" selector, refresh and "add" buttons.</td></tr>
+  <tr><td><code>ProfileSelector</code> / <code>DoneStep</code></td><td>Image/file upload control; final success screen of a stepper.</td></tr>
+</table>
+
+<h2 class="sec">7. Feature Modules</h2>
+<p>The sidebar groups the following modules (Persian title → route):</p>
+<table>
+  <tr><th>Module (Persian)</th><th>Route</th><th>Area</th></tr>
+  <tr><td class="fa">داشبورد</td><td>index</td><td>Dashboard</td></tr>
+  <tr><td class="fa">کاربران</td><td>users</td><td>People</td></tr>
+  <tr><td class="fa">کارمندان</td><td>stuffs</td><td>People (staff)</td></tr>
+  <tr><td class="fa">حاضری کارمندان</td><td>stuff-attendance</td><td>Staff attendance</td></tr>
+  <tr><td class="fa">مشتریان</td><td>customers</td><td>People</td></tr>
+  <tr><td class="fa">مخاطبین</td><td>contacts</td><td>People</td></tr>
+  <tr><td class="fa">محصولات</td><td>products</td><td>Inventory</td></tr>
+  <tr><td class="fa">محصولات فروخته شده</td><td>product-sales</td><td>Sales</td></tr>
+  <tr><td class="fa">مواد خام خریداری/باقی مانده</td><td>raw-materials / remaining-raw-material</td><td>Inventory</td></tr>
+  <tr><td class="fa">ظرفیت تولید روزانه</td><td>production-capacities</td><td>Production</td></tr>
+  <tr><td class="fa">تامین کننده گان</td><td>investors</td><td>Partners</td></tr>
+  <tr><td class="fa">پرداخت معاشات کارمندان</td><td>stuff-payments</td><td>Finance</td></tr>
+  <tr><td class="fa">معاملات روزانه</td><td>daily-transactions</td><td>Finance</td></tr>
+  <tr><td class="fa">دریافت و پرداخت</td><td>transactions</td><td>Finance (credit/debit)</td></tr>
+  <tr><td class="fa">مصارف کارخانه/روزانه</td><td>office-warehouse-expense / daily-expense</td><td>Finance</td></tr>
+  <tr><td class="fa">حسابات بانکی</td><td>bank-accounts</td><td>Finance</td></tr>
+  <tr><td class="fa">دارایی ها / اموال شرکت / اموال شخصی</td><td>estates / company-tools / personal-goods</td><td>Assets</td></tr>
+  <tr><td class="fa">شرکت ها / گزارشات شرکت</td><td>companies / company-reports</td><td>Company</td></tr>
+  <tr><td class="fa">وظایف روزانه</td><td>daily-tasks</td><td>Operations</td></tr>
+  <tr><td class="fa">ثبت ویزای کشور ها</td><td>visa-registrations</td><td>Operations</td></tr>
+  <tr><td class="fa">پسورد ها</td><td>passwords</td><td>Operations</td></tr>
+</table>
+
+<h2 class="sec">8. Special Features</h2>
+
+<h3>Single-record print to PDF</h3>
+<p>
+  A shared utility (<code>src/@core/utils/printRecord.js</code>) renders any single record as a
+  branded, RTL, A4 document and opens the browser print dialog (Save as PDF or print). It is
+  driven by the page's own <code>headers</code>, so labels stay consistent with the table. Enabled
+  on most list pages through the print action button.
+</p>
+
+<h3>Status-change dialogs</h3>
+<p>
+  Several modules expose their status as a coloured, clickable button in the table. Clicking it
+  opens a small dialog to change the status and posts to a dedicated
+  <code>.../change-status</code> endpoint. Used by <strong>Daily Tasks</strong>
+  (new / in&nbsp;progress / done) and <strong>Visa Registrations</strong>
+  (new / in&nbsp;progress / done / cancelled). Statuses are stored with English values and
+  displayed with Persian labels.
+</p>
+
+<h3>Bulk staff attendance</h3>
+<p>
+  The Staff Attendance module (<span class="fa">حاضری کارمندان</span>) supports a daily bulk flow:
+  pick a date, load every staff member at once, mark each as present / absent / leave / late with
+  an optional note, and submit them all in a single request (<code>bulk</code> endpoint). Existing
+  records for the chosen date are pre-filled so the day can be corrected and re-saved. Individual
+  rows can still be edited or deleted.
+</p>
+
+<h3>Shared "description" field</h3>
+<p>
+  Most entities carry a free-text <code>description</code> (<span class="fa">توضیحات</span>)
+  field, shown as a table column and editable in the stepper form.
+</p>
+
+<h2 class="sec">9. How to Add a New Module</h2>
+<p>To add a new entity (e.g. <code>orders</code>), follow the established pattern:</p>
+<ol>
+  <li>Create <code>src/page-configs/order.js</code> with <code>breadCrumbs</code>, <code>headers</code>, and any option lists.</li>
+  <li>Create <code>src/components/OrderSteper/OrderSteper.vue</code> (+ <code>OrderStep1.vue</code>) for create/edit, with a <code>defaultPayload</code> matching the API fields.</li>
+  <li>Create <code>src/pages/orders.vue</code> (copy an existing JSON-payload page such as <code>customers.vue</code>) and point the four Axios calls at the <code>orders</code> endpoint.</li>
+  <li>Add a <code>&lt;VerticalNavLink&gt;</code> entry in <code>src/layouts/components/DrawerContent.vue</code>.</li>
+  <li>Add custom column slots (chips, formatted dates, status buttons) on the page as needed.</li>
+</ol>
+<div class="note">
+  Two API styles exist: <strong>JSON payload</strong> (most modules send the whole
+  <code>payload</code> object) and <strong>multipart/FormData</strong> (modules with file uploads,
+  e.g. staff and users — each field is appended explicitly). Match the style of the entity you copy.
+</div>
+
+<h2 class="sec">10. Running &amp; Building</h2>
+<p>The project uses Yarn. Set <code>VITE_API_URL</code> (the Laravel API base URL) in a
+<code>.env</code> file first.</p>
+<pre># install dependencies
+yarn install
+
+# start dev server (also builds icons)
+yarn dev
+
+# production build
+yarn build
+
+# lint
+yarn lint</pre>
+<p>
+  The dev and build scripts first run <code>build:icons</code> to bundle the Iconify (MDI) icon set.
+</p>
+
+<div class="note" style="margin-top:22px">
+  <strong>Backend note.</strong> This document covers the Vue frontend. It assumes a Laravel REST
+  API exposing the matching plural endpoints (e.g. <code>customers</code>,
+  <code>stuff-attendances</code>, <code>visa-registrations</code>, <code>transactions</code>) plus
+  the special routes <code>.../change-status</code> and the attendance <code>bulk</code> route.
+</div>
+
+</body>
+</html>

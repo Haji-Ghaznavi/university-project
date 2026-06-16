@@ -70,6 +70,14 @@ const upgradeBanner = computed(() => {
 
     <VerticalNavLink
       :item="{
+        title: 'حاضری کارمندان',
+        to: 'stuff-attendance',
+        icon: { icon: 'mdi-calendar-account' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
         title: 'مشتریان',
         to: 'customers',
         icon: { icon: 'mdi-account-multiple-outline' },
@@ -212,13 +220,37 @@ const upgradeBanner = computed(() => {
       }"
     />
 
-      <VerticalNavLink
+    <VerticalNavLink
+      :item="{
+        title: 'ثبت ویزای کشور ها',
+        to: 'visa-registrations',
+        icon: { icon: 'mdi-passport' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'دریافت و پرداخت',
+        to: 'transactions',
+        icon: { icon: 'mdi-cash-sync' },
+      }"
+    />
+
+    <VerticalNavLink
       :item="{
         title: 'توسعه دهندگان',
         to: 'developers',
         icon: { icon: 'mdi-account-multiple-outline' },
       }"
     />
+
+      <!-- <VerticalNavLink
+      :item="{
+        title: 'توسعه دهندگان',
+        to: 'developers',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    /> -->
 
     <!-- <VerticalNavLink
       :item="{
