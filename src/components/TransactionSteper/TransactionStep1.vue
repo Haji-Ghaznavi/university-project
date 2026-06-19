@@ -5,47 +5,43 @@
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.transaction_type"
-          :rules="[requiredValidator]"
-          :items="transactionTypes"
-          item-title="title"
-          item-value="value"
-          prepend-icon="mdi-swap-horizontal"
-          label="نوع داد و گرفت"
-        ></v-select>
-      </v-col>
-      <v-col
-        cols="12"
-        md="6"
-      >
         <v-text-field
-          v-model="payload.amount"
-          type="number"
-          prepend-icon="mdi-cash"
-          label="مقدار"
+          v-model="payload.name"
+          prepend-icon="mdi-account-outline"
+          label="اسم"
+          :rules="[requiredValidator]"
         ></v-text-field>
       </v-col>
       <v-col
         cols="12"
         md="6"
       >
-        <v-select
-          v-model="payload.currency"
-          :items="currencies"
-          item-title="title"
-          item-value="value"
-          prepend-icon="mdi-currency-usd"
-          label="واحد پول"
-        ></v-select>
+        <v-text-field
+          v-model="payload.father_name"
+          prepend-icon="mdi-account-outline"
+          label="اسم پدر"
+          :rules="[requiredValidator]"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.phone_number"
+          prepend-icon="mdi-account-outline"
+          label="شماره تماس"
+          :rules="[requiredValidator]"
+        ></v-text-field>
       </v-col>
       <v-col cols="12">
         <v-textarea
-          v-model="payload.description"
+          v-model="payload.address"
           prepend-icon="mdi-text"
-          label="توضیحات"
+          label="آدرس"
           rows="2"
           auto-grow
+          :rules="[requiredValidator]"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -53,11 +49,9 @@
 </template>
 
 <script setup>
-import usePageConfig from '@/page-configs/transaction'
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
 import { ref } from 'vue'
 
-const { currencies, transactionTypes } = usePageConfig()
 const props = defineProps({
   payload: {
     type: Object,

@@ -26,18 +26,22 @@ axios.interceptors.response.use(
   },
   error => {
     const status = error?.response?.status
+
+    // A request can opt out of the global error handling (redirect / toast)
+    // by passing { skipGlobalError: true } in its axios config.
+    const skipGlobalError = error?.config?.skipGlobalError
     if (status === 401) {
       toast.error('ایمیل ویا رمز عبور اشتباه است!')
       logout()
       router.push('/login')
     }
-    if (error?.code == 'ERR_NETWORK') {
+    if (error?.code == 'ERR_NETWORK' && !skipGlobalError) {
       router.push('/network-error')
     }
-    if (status == 500) {
+    if (status == 500 && !skipGlobalError) {
       toast.error(error?.response?.data ?? 'خطا رخ داد')
     }
-    if (status == 422) {
+    if (status == 422 && !skipGlobalError) {
       const message = error?.response?.data?.message
       toast.error(message ?? 'دیتا اشتباه است')
     }

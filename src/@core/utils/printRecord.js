@@ -1,5 +1,10 @@
 import moment from 'moment'
 
+// 👉 Bundled Vazirmatn font URLs (Vite resolves these to local hashed assets),
+// so the print document renders with Vazirmatn even when offline.
+import vazirmatnArabic from '@/assets/fonts/vazirmatn/vazirmatn-arabic-wght-normal.woff2'
+import vazirmatnLatin from '@/assets/fonts/vazirmatn/vazirmatn-latin-wght-normal.woff2'
+
 // 👉 Columns that should never appear in a printed record
 const EXCLUDED_KEYS = ['actions', 'profile', 'avatar', 'image']
 
@@ -70,6 +75,21 @@ export const printRecord = ({ record, headers = [], title = 'سند', formatters
         <meta charset="utf-8" />
         <title>${escapeHtml(title)}</title>
         <style>
+          @font-face {
+            font-family: 'Vazirmatn';
+            font-weight: 100 900;
+            font-display: swap;
+            src: url('${vazirmatnArabic}') format('woff2-variations');
+            unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC;
+          }
+          @font-face {
+            font-family: 'Vazirmatn';
+            font-weight: 100 900;
+            font-display: swap;
+            src: url('${vazirmatnLatin}') format('woff2-variations');
+            unicode-range: U+0000-00FF, U+2000-206F, U+20AC;
+          }
+
           @page { size: A4; margin: 16mm; }
 
           * { box-sizing: border-box; }

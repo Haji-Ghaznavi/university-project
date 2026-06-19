@@ -5,7 +5,7 @@ const breadCrumbs = [
     href: '/',
   },
   {
-    title: 'دریافت و پرداخت',
+    title: ' وظایف و دریافت و پرداخت',
     disabled: true,
     href: 'transactions',
   },
@@ -21,6 +21,22 @@ const headers = [
     key: 'actions',
   },
   {
+    title: 'اسم',
+    key: 'name',
+  },
+  {
+    title: 'اسم پدر',
+    key: 'father_name',
+  },
+  {
+    title: 'شماره تماس',
+    key: 'phone_number',
+  },
+  {
+    title: 'آدرس',
+    key: 'address',
+  },
+  {
     title: 'نوع داد و گرفت',
     key: 'transaction_type',
   },
@@ -31,6 +47,18 @@ const headers = [
   {
     title: 'واحد پول',
     key: 'currency',
+  },
+  {
+    title: 'وضعیت',
+    key: 'status',
+  },
+  {
+    title: 'اصلاح معامله',
+    key: 'adjustment',
+  },
+  {
+    title: 'نتیجه معامله',
+    key: 'result',
   },
   {
     title: 'تاریخ',
@@ -56,11 +84,30 @@ const transactionTypes = [
   { title: 'دریافت', value: 'recieved', color: 'success' },
 ]
 
+const statusOptions = [
+  {
+    title: 'جدید',
+    value: 'new',
+    color: 'info',
+  },
+  {
+    title: 'در حال اجرا',
+    value: 'in_progress',
+    color: 'warning',
+  },
+  {
+    title: 'اجرا شد',
+    value: 'done',
+    color: 'success',
+  },
+]
+
 export default function usePageConfig() {
   return {
     breadCrumbs,
     headers,
     currencies,
     transactionTypes,
+    statusOptions,
   }
 }

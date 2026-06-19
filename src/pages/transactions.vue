@@ -3,6 +3,14 @@
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
+   <ChangeStatusDialog
+    ref="StatusDialogRef"
+    @fetchRecord="fetchRecord"
+  />
+  <AdjustTransactionDialog
+    ref="AdjustDialogRef"
+    @fetchRecord="fetchRecord"
+  />
   <ConfirmDialog
     ref="ConfirmDialogRef"
     @confirm="onConfirm"
@@ -28,6 +36,35 @@
         :color="typeColor(record.transaction_type)"
       >
         {{ typeLabel(record.transaction_type) }}
+      </v-chip>
+    </template>
+    <template #status="{ record }">
+      <v-chip
+        size="small"
+        variant="tonal"
+        :color="statusColor(record.status)"
+        @click="changeStatus(record)"
+      >
+        {{ statusLabel(record.status) }}
+      </v-chip>
+    </template>
+    <template #adjustment="{ record }">
+      <v-chip
+        size="small"
+        variant="tonal"
+        color="primary"
+        @click="adjustTransaction(record)"
+      >
+        اصلاح معامله
+      </v-chip>
+    </template>
+    <template #result="{ record }">
+      <v-chip
+        size="small"
+        variant="tonal"
+        :color="resultColor(record)"
+      >
+        {{ resultLabel(record) }}
       </v-chip>
     </template>
     <template #created_at="{ record }">
@@ -56,6 +93,8 @@ import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
+import ChangeStatusDialog from '@/components/DailyTaskSteper/ChangeStatusDialog.vue'
+import AdjustTransactionDialog from '@/components/TransactionSteper/AdjustTransactionDialog.vue'
 import TransactionSteper from '@/components/TransactionSteper/TransactionSteper.vue'
 import usePageConfig from '@/page-configs/transaction'
 import { axios } from '@/plugins/axios-plugin'
@@ -63,8 +102,10 @@ import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import moment from 'moment'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
-const { breadCrumbs, headers, transactionTypes } = usePageConfig()
+const { breadCrumbs, headers, transactionTypes, statusOptions } = usePageConfig()
 
+const StatusDialogRef = ref()
+const AdjustDialogRef = ref()
 const SteperRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
@@ -153,6 +194,7 @@ const printRecord = record => {
     formatters: {
       transaction_type: typeLabel,
       created_at: formatDate,
+      status: statusLabel,
     },
   })
 }
@@ -169,6 +211,40 @@ const formatDate = date => {
   return date ? moment(date).format('YYYY-MM-DD') : '—'
 }
 
+const statusColor = status => {
+  return statusOptions.find(item => item.value === status)?.color ?? 'secondary'
+}
+
+const statusLabel = status => {
+  return statusOptions.find(item => item.value === status)?.title ?? status ?? 'انتخاب وضعیت'
+}
+
+const changeStatus = record => {
+  StatusDialogRef.value.openDialog(record)
+}
+
+const adjustTransaction = record => {
+  AdjustDialogRef.value.openDialog(record)
+}
+
+const resultLabel = record => {
+  const amount = Number(record.amount)
+  if (amount < 0) {
+    if (record.transaction_type === 'paid') return 'بده کار'
+    if (record.transaction_type === 'recieved') return 'طلب کار'
+  } else if (amount > 0) {
+    if (record.transaction_type === 'paid') return 'طلب کار'
+    if (record.transaction_type === 'recieved') return 'بده کار'
+  }
+  return '—'
+}
+
+const resultColor = record => {
+  const label = resultLabel(record)
+  if (label === 'طلب کار') return 'success'
+  if (label === 'بده کار') return 'error'
+  return 'secondary'
+}
 const onPaginate = page => {
   currentPage.value = page
   fetchRecord()

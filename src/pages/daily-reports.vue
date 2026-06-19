@@ -91,6 +91,20 @@ const applyStyle = key => {
         title: 'مخاطبین',
       }
 
+    case 'credits_and_debets':
+      return {
+        color: '#7B1FA2',
+        icon: 'mdi-cash-multiple',
+        title: 'دریافت و پرداخت',
+      }
+
+    case 'visa_registration':
+      return {
+        color: '#00695C',
+        icon: 'mdi-passport',
+        title: 'ثبت ویزه',
+      }
+
     case 'customer':
       return {
         color: '#5E35B1',

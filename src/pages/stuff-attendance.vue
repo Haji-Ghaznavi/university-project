@@ -7,6 +7,7 @@
     ref="SteperRef"
     @fetchRecord="fetchRecord"
   />
+  <AbsentReportDialog ref="AbsentReportRef" />
   <ConfirmDialog
     ref="ConfirmDialogRef"
     @confirm="onConfirm"
@@ -44,6 +45,15 @@
         >
           <v-tooltip activator="parent">تازه سازی</v-tooltip>
           <v-icon size="22">mdi-refresh</v-icon>
+        </v-btn>
+        <v-btn
+          color="error"
+          variant="tonal"
+          prepend-icon="mdi-account-alert-outline"
+          class="float-start ms-2"
+          @click="openAbsentReport"
+        >
+          گزارش غیر حاضری
         </v-btn>
         <v-btn
           color="primary"
@@ -97,6 +107,7 @@
 import ActionButton from '@/components/commons/ActionButton.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
+import AbsentReportDialog from '@/components/StuffAttendanceSteper/AbsentReportDialog.vue'
 import AttendanceTakeDialog from '@/components/StuffAttendanceSteper/AttendanceTakeDialog.vue'
 import StuffAttendanceSteper from '@/components/StuffAttendanceSteper/StuffAttendanceSteper.vue'
 import usePageConfig from '@/page-configs/stuff_attendance'
@@ -106,6 +117,7 @@ import { onMounted, ref } from 'vue'
 const { breadCrumbs, headers, statusOptions } = usePageConfig()
 
 const TakeDialogRef = ref()
+const AbsentReportRef = ref()
 const SteperRef = ref()
 const ConfirmDialogRef = ref()
 const loading = ref(false)
@@ -140,6 +152,10 @@ const onFilter = () => {
 
 const takeAttendance = () => {
   TakeDialogRef.value.openDialog()
+}
+
+const openAbsentReport = () => {
+  AbsentReportRef.value.openDialog()
 }
 
 const editRecord = record => {

@@ -21,9 +21,12 @@ import { markRaw, ref } from 'vue'
 import DoneStep from '../commons/DoneStep.vue'
 import Steper from '../commons/Steper.vue'
 import Step1 from './TransactionStep1.vue'
+import Step2 from './TransactionStep2.vue'
+
 
 const emit = defineEmits('fetchRecord')
 const firstStep = markRaw(Step1)
+const secondStep = markRaw(Step2)
 const doneStep = markRaw(DoneStep)
 
 const steperTitle = ref('ثبت دریافت و پرداخت')
@@ -35,6 +38,11 @@ const defaultPayload = () => ({
   amount: null,
   currency: '',
   description: '',
+  name: '',
+  father_name: '',
+  phone_number: '',
+  address: '',
+  payment_reason:null
 })
 
 const payload = ref(defaultPayload())
@@ -42,6 +50,10 @@ const payload = ref(defaultPayload())
 const steps = ref([
   {
     component: firstStep,
+    payload,
+  },
+  {
+    component: secondStep,
     payload,
   },
   {
@@ -84,6 +96,11 @@ const openEditDialog = record => {
   payload.value.amount = record.amount
   payload.value.currency = record.currency
   payload.value.description = record.description
+  payload.value.name = record.name
+  payload.value.father_name = record.father_name
+  payload.value.phone_number = record.phone_number
+  payload.value.address = record.address
+  payload.value.payment_reason = record.payment_reason
 }
 
 const closeDialog = () => {

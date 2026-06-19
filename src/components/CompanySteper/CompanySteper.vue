@@ -46,6 +46,7 @@ const defaultPayload = () => ({
   permission_produced_place: '',
   permission_produced_company: '',
   description: '',
+  paid_amount:null
 })
 
 const payload = ref(defaultPayload())
@@ -108,6 +109,7 @@ const openEditDialog = record => {
   payload.value.permission_produced_place = record.permission_produced_place
   payload.value.permission_produced_company = record.permission_produced_company
   payload.value.description = record.description
+  payload.value.paid_amount = record.paid_amount
 }
 
 const closeDialog = () => {

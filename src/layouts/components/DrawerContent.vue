@@ -207,13 +207,6 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
-        title: 'وظایف روزانه',
-        to: 'daily-tasks',
-        icon: { icon: 'mdi-calendar-check' },
-      }"
-    />
-    <VerticalNavLink
-      :item="{
         title: 'مخاطبین ',
         to: 'contacts',
         icon: { icon: 'mdi-contact' },
@@ -230,7 +223,7 @@ const upgradeBanner = computed(() => {
 
     <VerticalNavLink
       :item="{
-        title: 'دریافت و پرداخت',
+        title: 'وظایف و دریافت و پرداخت',
         to: 'transactions',
         icon: { icon: 'mdi-cash-sync' },
       }"
@@ -241,6 +234,14 @@ const upgradeBanner = computed(() => {
         title: 'توسعه دهندگان',
         to: 'developers',
         icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'پشتیبان گیری',
+        to: 'backup',
+        icon: { icon: 'mdi-database-arrow-down' },
       }"
     />
 
