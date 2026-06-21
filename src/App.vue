@@ -1,4 +1,3 @@
-
 <template>
   <VApp>
     <VLocaleProvider rtl>
@@ -18,8 +17,6 @@ const rtl = computed(() => {
   return store.rtl
 })
 </script>
-
-
 
 <style>
 * {

@@ -1,11 +1,11 @@
 <template>
   <v-card
     class="mx-auto"
-    height="600"
-    width="1000"
+    height="650"
+    width="1100"
   >
     <v-card-title class="text-title-large font-weight-regular justify-space-between">
-      <span>{{ currentTitle }}</span>
+      <span>{{ steperTitle }}</span>
       <v-btn
         @click="emit('onClose')"
         class="float-end mt-1"
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 const emit = defineEmits(['onClose', 'onSubmit'])
 const props = defineProps({
@@ -80,14 +80,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  steperTitle: {
+    type: String,
+    default: '',
+  },
 })
 
 const step = ref(0)
 const stepRefs = ref([])
-
-const currentTitle = computed(() => {
-  return props.steps[step.value]?.title
-})
 
 const onNext = async () => {
   const currentStep = stepRefs.value[step.value]
@@ -96,7 +97,7 @@ const onNext = async () => {
     if (!val) return
   }
 
-  step.value < props.steps?.length - 2 ? step.value++ : emit('onSubmit')
+  step.value < props.steps?.length - 2 ? onNextClick() : emit('onSubmit')
 }
 
 watch(
@@ -107,4 +108,20 @@ watch(
     }
   },
 )
+
+const onload = async () => {
+  const currentStep = stepRefs.value[step.value]
+  if (currentStep?.onLoad) {
+    await currentStep.onLoad()
+  }
+}
+
+const onNextClick = () => {
+  step.value++
+  onload();
+}
+
+onMounted(() => {
+  onload()
+})
 </script>

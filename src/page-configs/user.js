@@ -21,6 +21,10 @@ const headers = [
     key: 'actions',
   },
   {
+    title: 'پروفایل',
+    key: 'profile',
+  },
+  {
     title: 'اسم',
     key: 'name',
   },
@@ -29,12 +33,8 @@ const headers = [
     key: 'last_name',
   },
   {
-    title: 'ایمیل',
-    key: 'email',
-  },
-  {
-    title: 'شماره تماس',
-    key: 'phone_number',
+    title: 'نقش',
+    key: 'role',
   },
 ]
 

@@ -3,6 +3,16 @@
     <v-row>
       <v-col
         cols="12"
+        md="12"
+        class="d-flex justify-center"
+      >
+        <profile-selector
+          @onUpload="handleFileUpload"
+          :uploadedFile="uploadedFile"
+        />
+      </v-col>
+      <v-col
+        cols="12"
         md="6"
       >
         <v-text-field
@@ -23,13 +33,40 @@
           label="تخلص"
         ></v-text-field>
       </v-col>
+
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-select
+          v-model="payload.role"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-shield-key-outline"
+          label="نقش"
+          :items="roles"
+          item-title="name"
+          item-value="id"
+        ></v-select>
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.password"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-lock-outline"
+          label="پسورد"
+        ></v-text-field>
+      </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script setup>
 import { requiredValidator } from '@/plugins/vuelidate/vuelidate'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import ProfileSelector from '../commons/ProfileSelector.vue'
 const props = defineProps({
   payload: {
     type: Object,
@@ -38,7 +75,18 @@ const props = defineProps({
 })
 
 const formRef = ref()
+const uploadedFile = ref(null)
+const roles = ref([
+  { id: 'ادمین', name: 'ادمین' },
+  { id: 'کاربر', name: 'کاربر' },
+])
 
+const handleFileUpload = file => {
+  if (file.target?.files?.length > 0) {
+    props.payload.profile = file.target.files[0]
+    uploadedFile.value = URL.createObjectURL(props.payload.profile)
+  }
+}
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -47,7 +95,16 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
 defineExpose({
   validate,
+  onLoad,
+})
+
+onMounted(() => {
+  if (props.payload.profile) {
+    uploadedFile.value = import.meta.env.VITE_API_URL + 'storage/' + props.payload.profile
+  }
 })
 </script>

@@ -1,10 +1,18 @@
 <template>
   <v-form ref="formRef">
-    <v-text-field
-      v-model="payload.email"
-      :rules="[requiredValidator]"
-      label="ایمیل"
-    ></v-text-field>
+    <v-row>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="payload.name"
+          :rules="[requiredValidator]"
+          prepend-icon="mdi-cart-outline"
+          label="نام محصول"
+        ></v-text-field>
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 
@@ -19,7 +27,6 @@ const props = defineProps({
 })
 
 const formRef = ref()
-
 const validate = async () => {
   const val = await formRef.value.validate()
   if (val.valid) {
@@ -28,7 +35,11 @@ const validate = async () => {
     return false
   }
 }
+
+const onLoad = () => {}
+
 defineExpose({
   validate,
+  onLoad,
 })
 </script>
