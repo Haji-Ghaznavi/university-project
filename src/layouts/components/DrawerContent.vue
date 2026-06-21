@@ -49,14 +49,14 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'روزنامچه',
         to: 'daily-reports',
-        icon: { icon: 'mdi-clock-outline' },
+        icon: { icon: 'mdi-notebook' },
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'کاربران',
         to: 'users',
-        icon: { icon: 'mdi-user-multiple-outline' },
+        icon: { icon: 'mdi-account-details' },
       }"
     />
 
@@ -64,7 +64,15 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'کارمندان',
         to: 'stuffs',
-        icon: { icon: 'mdi-account-multiple-outline' },
+        icon: { icon: 'mdi-account-multiple' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'حاضری کارمندان',
+        to: 'stuff-attendance',
+        icon: { icon: 'mdi-calendar-account' },
       }"
     />
 
@@ -95,14 +103,14 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'مواد خام خریداری شده ',
         to: 'raw-materials',
-        icon: { icon: 'mdi-cube-outline' },
+        icon: { icon: 'mdi-material' },
       }"
     />
      <VerticalNavLink
       :item="{
         title: 'مواد خام باقی مانده',
         to: 'remaining-raw-material',
-        icon: { icon: 'mdi-cube-outline' },
+        icon: { icon: 'mdi-material' },
       }"
     />
     <VerticalNavLink
@@ -114,7 +122,7 @@ const upgradeBanner = computed(() => {
     />
      <VerticalNavLink
       :item="{
-        title: 'پراخت معاشات کامندان',
+        title: 'پراخت معاشات کارمندان',
         to: 'stuff-payments',
         icon: { icon: 'mdi-account-multiple-outline' },
       }"
@@ -199,26 +207,51 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
-        title: 'وظایف روزانه',
-        to: 'daily-tasks',
-        icon: { icon: 'mdi-calendar-check' },
-      }"
-    />
-    <VerticalNavLink
-      :item="{
         title: 'مخاطبین ',
         to: 'contacts',
         icon: { icon: 'mdi-contact' },
       }"
     />
 
-      <VerticalNavLink
+    <VerticalNavLink
+      :item="{
+        title: 'ثبت ویزای کشور ها',
+        to: 'visa-registrations',
+        icon: { icon: 'mdi-passport' },
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: 'وظایف و دریافت و پرداخت',
+        to: 'transactions',
+        icon: { icon: 'mdi-cash-sync' },
+      }"
+    />
+
+    <VerticalNavLink
       :item="{
         title: 'توسعه دهندگان',
         to: 'developers',
         icon: { icon: 'mdi-account-multiple-outline' },
       }"
     />
+
+    <VerticalNavLink
+      :item="{
+        title: 'پشتیبان گیری',
+        to: 'backup',
+        icon: { icon: 'mdi-database-arrow-down' },
+      }"
+    />
+
+      <!-- <VerticalNavLink
+      :item="{
+        title: 'توسعه دهندگان',
+        to: 'developers',
+        icon: { icon: 'mdi-account-multiple-outline' },
+      }"
+    /> -->
 
     <!-- <VerticalNavLink
       :item="{

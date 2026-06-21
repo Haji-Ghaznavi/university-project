@@ -1,4 +1,5 @@
 import useAuth from '@/plugins/authServices'
+import router from '@/router'
 
 import main_axios from 'axios'
 import { toast } from 'vue3-toastify'
@@ -17,13 +18,7 @@ const axios = main_axios.create({
 axios.interceptors.response.use(
   response => {
     const status = response.status
-    if (status == 201) {
-      toast.success('معلومات موفقانه اضافه شد!')
-    } else if (status == 202) {
-      toast.success('معلومات موفقانه ویرایش شد!')
-    } else if (status == 203) {
-      toast.success('معلومات موفقانه بازیابی شد!')
-    } else if (status == 206) {
+    if (status == 206) {
       toast.success('معلومات موفقانه حذف شد!')
     }
 
@@ -31,24 +26,25 @@ axios.interceptors.response.use(
   },
   error => {
     const status = error?.response?.status
-    if (status === 401) {
-      // logout()
-      // router.push('/login') // replace '/login' with the actual login page route
-    }
-    // if (status === 402) {
-    //   toast.error('شما اجازه به این قسمت از سیستم را ندارید!')
 
-    // }
-    // if (error?.code == 'ERR_NETWORK') {
-    //   router.push('/network-error')
-    // }
-    // if (status == 500) {
-    //   toast.error(error?.response?.data??'خطا رخ داد')
-    // }
-    // if (status == 422) {
-    //   const message = error?.response?.data?.message
-    //   toast.error(message??'دیتا اشتباه است')
-    // }
+    // A request can opt out of the global error handling (redirect / toast)
+    // by passing { skipGlobalError: true } in its axios config.
+    const skipGlobalError = error?.config?.skipGlobalError
+    if (status === 401) {
+      toast.error('ایمیل ویا رمز عبور اشتباه است!')
+      logout()
+      router.push('/login')
+    }
+    if (error?.code == 'ERR_NETWORK' && !skipGlobalError) {
+      router.push('/network-error')
+    }
+    if (status == 500 && !skipGlobalError) {
+      toast.error(error?.response?.data ?? 'خطا رخ داد')
+    }
+    if (status == 422 && !skipGlobalError) {
+      const message = error?.response?.data?.message
+      toast.error(message ?? 'دیتا اشتباه است')
+    }
 
     return Promise.reject(error)
   },

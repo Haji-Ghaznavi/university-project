@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.user_name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-user"
           :rules="[requiredValidator]"
           label="دارنده حساب"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.bank_name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-bank"
           label="نام بانک"
         ></v-text-field>
       </v-col>
@@ -31,7 +31,7 @@
         <v-text-field
           v-model="payload.account_number"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-card"
           label="شماره حساب"
         ></v-text-field>
       </v-col>
@@ -45,7 +45,7 @@
           :items="currencies"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول"
         ></v-select>
       </v-col>
@@ -56,7 +56,7 @@
         <v-text-field
           v-model="payload.produced_date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ صادر کارت"
           type="date"
         ></v-text-field>
@@ -68,7 +68,7 @@
         <v-text-field
           v-model="payload.expired_date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-stop"
           label="تاریخ ختم کارت"
           type="date"
         ></v-text-field>
@@ -80,9 +80,18 @@
         <v-text-field
           v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-counter"
           label="مقدار موجود"
         ></v-text-field>
+      </v-col>
+      <v-col cols="12">
+        <v-textarea
+          v-model="payload.description"
+          prepend-icon="mdi-text"
+          label="توضیحات"
+          rows="2"
+          auto-grow
+        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>

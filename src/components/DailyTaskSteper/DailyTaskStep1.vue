@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-tick"
           :rules="[requiredValidator]"
           label="نام وظیفه"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

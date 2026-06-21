@@ -1,14 +1,26 @@
 <template>
-  <daily-report-dialog ref="dailyReportRef"/>
+  <daily-report-dialog ref="dailyReportRef" />
   <div class="pa-4">
-    <v-row v-if="loaded">
+    <div
+      v-if="loadingData"
+      style="width: 100%; height: 100dvh; display: flex; align-items: center; justify-content: center"
+    >
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
+    <v-row v-else>
       <v-col
         cols="12"
         md="3"
         v-for="[key, value] in reports"
         :key="key"
       >
-        <v-card style="cursor: pointer" @click="viewDetails(key)">
+        <v-card
+          style="cursor: pointer"
+          @click="viewDetails(key)"
+        >
           <v-card-title class="d-flex align-center pt-3">
             <v-chip
               variant="tonal"
@@ -25,20 +37,11 @@
           </v-card-title>
 
           <v-card-item class="pt-2 pb-0">
-            <p style="font-size: 24px !important; font-weight: 600 !important">{{ value }}</p>
+            <p style="font-size: 21px !important; font-weight: 600 !important">{{ value }}</p>
           </v-card-item>
         </v-card>
       </v-col>
     </v-row>
-    <div
-      v-else
-      style="width: 100%; height: 100dvh; display: flex; align-items: center; justify-content: center"
-    >
-      <v-progress-circular
-        indeterminate
-        color="primary"
-      ></v-progress-circular>
-    </div>
   </div>
 </template>
 
@@ -48,7 +51,7 @@ import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 
 const reports = ref([])
-const loaded = ref(false)
+const loadingData = ref(false)
 const dailyReportRef = ref()
 
 const applyStyle = key => {
@@ -86,6 +89,20 @@ const applyStyle = key => {
         color: '#00897B',
         icon: 'mdi-card-account-phone',
         title: 'مخاطبین',
+      }
+
+    case 'credits_and_debets':
+      return {
+        color: '#7B1FA2',
+        icon: 'mdi-cash-multiple',
+        title: 'دریافت و پرداخت',
+      }
+
+    case 'visa_registration':
+      return {
+        color: '#00695C',
+        icon: 'mdi-passport',
+        title: 'ثبت ویزه',
       }
 
     case 'customer':
@@ -211,17 +228,17 @@ const applyStyle = key => {
 
 const fetchData = async () => {
   try {
+    loadingData.value = true
     const { data } = await axios.get('daily-reports')
     reports.value = Object.entries(data)
-    loaded.value = true
   } catch (error) {
     console.log('error while fetching the data', error)
   }
+  loadingData.value = false
 }
 
-
-const viewDetails = (item) => {
-  dailyReportRef.value.showDialog(item);
+const viewDetails = item => {
+  dailyReportRef.value.showDialog(item)
 }
 onMounted(() => {
   fetchData()

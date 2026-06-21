@@ -4,8 +4,8 @@ import App from '@/App.vue'
 import i18n from '@/plugins/i18n'
 import vuetify from '@/plugins/vuetify'
 
-import { loadFonts } from '@/plugins/webfontloader'
 import router from '@/router'
+import '@/styles/fonts.css'
 import '@/styles/styles.scss'
 import '@core/scss/index.scss'
 import { createPinia } from 'pinia'
@@ -14,7 +14,6 @@ import { createApp } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 
 import '@vuepic/vue-datepicker/dist/main.css'
-loadFonts()
 
 import Vue3Toasity, { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'

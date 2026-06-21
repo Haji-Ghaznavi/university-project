@@ -36,6 +36,10 @@ const headers = [
     title: 'نقش',
     key: 'role',
   },
+  {
+    title: 'توضیحات',
+    key: 'description',
+  },
 ]
 
 export default function usePageConfig() {

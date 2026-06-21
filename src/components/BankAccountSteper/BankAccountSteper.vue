@@ -42,6 +42,7 @@ const defaultPayload = () => ({
   taken_date: '',
   added_amount: '',
   added_date: '',
+  description: '',
 })
 
 const payload = ref(defaultPayload())
@@ -99,6 +100,7 @@ const openEditDialog = record => {
   payload.value.taken_date = record.taken_date
   payload.value.added_amount = record.added_amount
   payload.value.added_date = record.added_date
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

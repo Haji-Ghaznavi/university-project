@@ -9,7 +9,7 @@
           v-model="payload.customer_id"
           :rules="[requiredValidator]"
           :loading="loadingCustomer"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-card"
           label="مشتری"
           :items="customers"
           item-title="name"
@@ -89,7 +89,7 @@
           v-if="payload.currency != 'افغانی'"
           v-model="payload.currency_price_in_afg"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-currency-usd-circle"
+          prepend-icon="mdi-cash-check"
           label="نرخ ارز به افغانی"
         ></v-text-field>
       </v-col>

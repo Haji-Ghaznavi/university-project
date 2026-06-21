@@ -47,6 +47,7 @@ import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
 import DataTable from '@/components/commons/DataTable.vue'
 import ProductSteper from '@/components/ProductSteper/ProductSteper.vue'
 import usePageConfig from '@/page-configs/product'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -136,7 +137,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

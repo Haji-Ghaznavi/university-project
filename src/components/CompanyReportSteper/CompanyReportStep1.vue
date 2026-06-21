@@ -24,7 +24,7 @@
           v-model="payload.report_type"
           :rules="[requiredValidator]"
           :items="['اول', 'دوم', 'سوم', 'چهارم', 'سالانه']"
-          prepend-icon="mdi-cart-outline"
+          prepend-icon="mdi-graph"
           label="ربع"
         ></v-select>
       </v-col>
@@ -36,7 +36,7 @@
           v-model="payload.activity_type"
           :rules="[requiredValidator]"
           :items="['بلی', 'نخیر']"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-pipe"
           label="نوع فعالیت"
         ></v-select>
       </v-col>

@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.name"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-details"
           :rules="[requiredValidator]"
           label="اسم"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.last_name"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-card"
           label="تخلص"
         ></v-text-field>
       </v-col>
@@ -41,7 +41,7 @@
         <v-text-field
           v-model="payload.address"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-phone-outline"
+          prepend-icon="mdi-location"
           label=" آدرس"
         ></v-text-field>
       </v-col>
@@ -52,12 +52,21 @@
         <v-select
           v-model="payload.category"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-view-list"
+          prepend-icon="mdi-category"
           label="کتگوری"
           :items="categories"
           item-title="name"
           item-value="id"
         ></v-select>
+      </v-col>
+      <v-col cols="12">
+        <v-textarea
+          v-model="payload.description"
+          prepend-icon="mdi-text"
+          label="توضیحات"
+          rows="2"
+          auto-grow
+        ></v-textarea>
       </v-col>
     </v-row>
   </v-form>

@@ -7,7 +7,7 @@
       >
         <v-text-field
           v-model="payload.type"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-shape"
           :rules="[requiredValidator]"
           label="نوع مصرف"
         ></v-text-field>
@@ -19,7 +19,7 @@
         <v-text-field
           v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-cash-minus"
           label="پول مصرف شده"
         ></v-text-field>
       </v-col>
@@ -33,7 +33,7 @@
           :items="currencies"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-currency-usd"
           label="واحد پول"
         ></v-select>
       </v-col>
@@ -45,7 +45,7 @@
         <v-text-field
           v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ"
           type="date"
         ></v-text-field>
@@ -57,7 +57,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

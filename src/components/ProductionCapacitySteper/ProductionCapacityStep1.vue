@@ -9,7 +9,7 @@
           v-model="payload.product_id"
           :rules="[requiredValidator]"
           :loading="loadingProduct"
-          prepend-icon="mdi-cart-outline"
+          prepend-icon="mdi-cart"
           label="محصول"
           :items="products"
           item-title="name"
@@ -23,7 +23,7 @@
         <v-text-field
           v-model="payload.amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-counter"
           label="مقدار"
         ></v-text-field>
       </v-col>
@@ -38,7 +38,7 @@
           :items="units"
           item-title="name"
           item-value="id"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-ruler"
           label="واحد"
         ></v-select>
       </v-col>
@@ -49,7 +49,7 @@
         <v-text-field
           v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ"
           type="date"
         ></v-text-field>
@@ -61,7 +61,7 @@
         <v-text-field
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-text-field>
       </v-col>

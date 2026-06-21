@@ -36,6 +36,7 @@ const defaultPayload = () => ({
   phone_number: '',
   address: '',
   category: '',
+  description: '',
 })
 
 const payload = ref(defaultPayload())
@@ -86,6 +87,7 @@ const openEditDialog = record => {
   payload.value.phone_number = record.phone_number
   payload.value.address = record.address
   payload.value.category = record.category
+  payload.value.description = record.description
 }
 
 const closeDialog = () => {

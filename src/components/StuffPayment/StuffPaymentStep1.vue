@@ -12,7 +12,7 @@
           :loading="loadStuff"
           :item-title="item => item.name + ' ' + item.last_name + ' / معاش ' + item.salary"
           item-value="id"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-account-tie"
           label="کارمند"
         ></v-autocomplete>
       </v-col>
@@ -23,7 +23,7 @@
         <v-text-field
           v-model="payload.paid_amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-cart-outline"
+          prepend-icon="mdi-cash-plus"
           label="مبلغ پرداخت شده"
         ></v-text-field>
       </v-col>
@@ -34,7 +34,7 @@
         <v-text-field
           v-model="payload.remaining_amount"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-cash-minus"
           label="مبلغ باقی مانده"
         ></v-text-field>
       </v-col>
@@ -46,7 +46,7 @@
         <v-text-field
           v-model="payload.paid_date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           label="تاریخ پرداخت"
           type="date"
         ></v-text-field>
@@ -57,7 +57,7 @@
       >
         <v-textarea
           v-model="payload.description"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

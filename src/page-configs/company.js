@@ -70,6 +70,10 @@ const headers = [
     title: 'ارگان صادرکننده جواز',
     key: 'permission_produced_company',
   },
+   {
+    title: 'مبلغ پرداخت',
+    key: 'paid_amount',
+  },
   {
     title: 'توضیحات',
     key: 'description',

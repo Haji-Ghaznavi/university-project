@@ -61,7 +61,7 @@
             class="pe-2"
             size="25"
             >mdi-plus</v-icon
-          >ایجاد کردن</v-btn
+          >اضافه کردن</v-btn
         >
 <<<<<<< HEAD
         <v-btn

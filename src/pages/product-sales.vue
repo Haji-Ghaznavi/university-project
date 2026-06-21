@@ -50,12 +50,13 @@
 import ActionButton from '@/components/commons/ActionButton.vue'
 import BreadCrumbs from '@/components/commons/BreadCrumbs.vue'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
-import DataTable from '@/components/commons/DataTable.vue'
 import ProductSalesSteper from '@/components/ProductSalesSteper/ProductSalesSteper.vue'
 import usePageConfig from '@/page-configs/product_sales'
+import { printRecord as printRecordPdf } from '@core/utils/printRecord'
 import { axios } from '@/plugins/axios-plugin'
 import { onMounted, ref } from 'vue'
 import { toast } from 'vue3-toastify'
+import DataTable from '../components/commons/DataTable.vue'
 const { breadCrumbs, headers } = usePageConfig()
 
 const SteperRef = ref()
@@ -138,7 +139,7 @@ const copyRecord = async (record, th) => {
 }
 
 const printRecord = record => {
-  console.log('record')
+  printRecordPdf({ record, headers, title: breadCrumbs?.[breadCrumbs.length - 1]?.title })
 }
 
 const onPaginate = page => {

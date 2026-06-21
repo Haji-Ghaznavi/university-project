@@ -20,8 +20,9 @@
         <v-text-field
           v-model="payload.quantity"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-account-outline"
+          prepend-icon="mdi-counter"
           label="مقدار"
+          type="number"
         ></v-text-field>
       </v-col>
 
@@ -32,7 +33,7 @@
         <v-select
           v-model="payload.unit"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-shield-key-outline"
+          prepend-icon="mdi-ruler"
           label="واحد"
           :items="units"
           item-title="name"
@@ -46,8 +47,9 @@
         <v-text-field
           v-model="payload.price_per_unit"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-money"
           label="قیمت هر واحد"
+          type="number"
         ></v-text-field>
       </v-col>
 
@@ -73,8 +75,9 @@
           v-if="payload.currency !== 'افغانی'"
           v-model="payload.currency_price_in_afg"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-cash-usd"
           label="نرخ ارز به افغانی"
+          type="number"
         ></v-text-field>
       </v-col>
       <v-col
@@ -84,7 +87,7 @@
         <v-text-field
           v-model="payload.date"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-calendar"
           type="date"
           label="تاریخ "
         ></v-text-field>
@@ -96,7 +99,7 @@
         <v-textarea
           v-model="payload.description"
           :rules="[requiredValidator]"
-          prepend-icon="mdi-lock-outline"
+          prepend-icon="mdi-note"
           label="توضیحات"
         ></v-textarea>
       </v-col>

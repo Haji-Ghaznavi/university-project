@@ -1,40 +1,36 @@
-
-
 <template>
-  <div class="auth-wrapper d-flex align-center justify-center pa-4">
-    <VCard
-      class="auth-card pa-4 pt-7"
-      max-width="448"
-      min-height="500"
+  <div class="d-flex align-center justify-center fill-height">
+    <v-card
+      width="500"
+      class="px-2 py-4"
+      height="500"
     >
-      <VCardText class="pt-2 text-center">
+      <v-card-title class="text-center d-flex flex-column">
         <div v-html="logo" />
 
         <h5
-          class="text-h5 mb-1 px-4"
+          class="text-h5 mb-1"
           style="color: #ddd942"
         >
-          ورود به سیستم مدیریت  
+          ورود به سیستم
         </h5>
-      </VCardText>
+      </v-card-title>
 
-      <VCardText>
-        <VForm>
-          <VRow>
-            <!-- email -->
-            <VCol cols="12">
-              <VTextField
+      <v-card-text>
+        <v-form>
+          <v-row class="pa-0 ma-0">
+            <v-col cols="12">
+              <v-text-field
                 v-model="form.email"
                 dir="ltr"
                 label="ایمل ادرس"
                 type="email"
                 @keydown.enter="submit"
               />
-            </VCol>
+            </v-col>
 
-            <!-- password -->
-            <VCol cols="12">
-              <VTextField
+            <v-col cols="12">
+              <v-text-field
                 v-model="form.password"
                 dir="ltr"
                 label="پسورد"
@@ -43,65 +39,40 @@
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 @keydown.enter="submit"
               />
+            </v-col>
 
-              <VBtn
-                class="mt-8"
+            <v-col cols="12">
+              <v-btn
                 block
-                :loading="loading"
                 @click="submit"
               >
                 ورود به سیستم
-              </VBtn>
-            </VCol>
-          </VRow>
-        </VForm>
-      </VCardText>
-    </VCard>
-
-    <VImg
-      class="auth-footer-mask d-none d-md-block"
-      :src="authThemeMask"
-    />
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
-
-
-
-
 <script setup>
-import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
-import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import logo from '@/assets/logo.svg?raw'
 import useAuth from '@/plugins/authServices'
-import { useTheme } from 'vuetify'
 const form = ref({
   email: '',
   password: '',
-  remember: false,
 })
-const { login, isAuthenticated } = useAuth()
-const vuetifyTheme = useTheme()
-const authThemeMask = computed(() => {
-  return vuetifyTheme.global.name.value === 'light' ? authV1MaskLight : authV1MaskDark
-})
+const { login } = useAuth()
+
 const isPasswordVisible = ref(false)
-const loading = ref(false)
-const submit = async () => {
-  // login(email,password)
-  loading.value = true
-  await login(form.value.email, form.value.password)
-  loading.value = false
+const submit = () => {
+  login(form.value.email, form.value.password)
 }
 </script>
 
 <style lang="scss">
 @use '@core/scss/pages/page-auth.scss';
 </style>
-
-
-
-
-
 
 <route lang="yaml">
 meta:

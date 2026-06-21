@@ -1,19 +1,15 @@
-
-
 <template>
   <ConfirmDialog
     ref="confirmRef"
     @confirm="logout"
   />
   <VBadge v-bind="avatarBadgeProps">
-    <VAvatar
-      style="cursor: pointer"
-      color="primary"
-      variant="tonal"
+    <v-img
+      :src="profile"
+      style="width: 45px; height: 45px ;cursor: pointer;"
+      cover
+      class="rounded-circle"
     >
-      <VImg :src="avatar1" />
-
-      <!-- SECTION Menu -->
       <VMenu
         activator="parent"
         width="230"
@@ -26,13 +22,12 @@
             <template #prepend>
               <VListItemAction start>
                 <VBadge v-bind="avatarBadgeProps">
-                  <VAvatar
-                    color="primary"
-                    size="40"
-                    variant="tonal"
-                  >
-                    <VImg :src="avatar1" />
-                  </VAvatar>
+                  <v-img
+                    :src="profile"
+                    style="width: 45px; height: 45px"
+                    cover
+                    class="rounded-circle"
+                  ></v-img>
                 </VBadge>
               </VListItemAction>
             </template>
@@ -41,29 +36,10 @@
               {{ store.user?.name }}
             </VListItemTitle>
             <VListItemSubtitle class="text-disabled">
-              {{ role }}
+              {{ store.user?.role }}
             </VListItemSubtitle>
           </VListItem>
 
-          <VDivider class="my-2" />
-
-          <!-- 👉 Profile -->
-          <VListItem
-            style="cursor: pointer"
-            to="account-settings"
-          >
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="mdi-account-outline"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>پروفایل</VListItemTitle>
-          </VListItem>
-
-          <!-- Divider -->
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
@@ -80,39 +56,23 @@
           </VListItem>
         </VList>
       </VMenu>
-      <!-- !SECTION -->
-    </VAvatar>
+    </v-img>
   </VBadge>
 </template>
 
-
 <script setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png'
-import { useStoreAuth } from '@/store/authStore'
-import { axios } from '@/plugins/axios-plugin'
 import ConfirmDialog from '@/components/commons/ConfirmDialog.vue'
+import { axios } from '@/plugins/axios-plugin'
+import router from '@/router'
+import { useStoreAuth } from '@/store/authStore'
 import { computed } from 'vue'
 const confirmRef = ref()
 
 const store = useStoreAuth()
 
-const role = computed(() => {
-  let val = ''
-  switch (store.user?.role) {
-    case 'admin':
-      val = 'ادمین'
-      break
-    case 'finance_manager':
-      val = 'مدیر مالی'
-      break
-    case 'finance_manager':
-      val = 'مدیر مالی'
-      break
-    default:
-      break
-  }
-
-  return val
+const profile = computed(() => {
+  return store.user?.profile ? import.meta.env.VITE_API_URL + 'storage/' + store.user?.profile : avatar1
 })
 const avatarBadgeProps = {
   dot: true,
@@ -123,10 +83,11 @@ const avatarBadgeProps = {
   bordered: true,
 }
 
-function logout() {
+async function logout() {
   try {
-    const res = axios.post('logout')
+    const res = await axios.post('logout')
     store.$logout()
+    router.push('/login')
   } catch (error) {
     console.error('error', error)
   }
