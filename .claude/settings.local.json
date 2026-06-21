@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=\"Ahmad-Shah-Documentation.pdf\" \"file:///d:/Ahmad-shah-project/university-project/docs/documentation.html\")",
+      "Bash(echo \"exit: $?\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-sandbox --user-data-dir=\"/c/temp/chrome-pdf-profile\" --no-pdf-header-footer --print-to-pdf=\"d:/Ahmad-shah-project/university-project/docs/Ahmad-Shah-Documentation.pdf\" \"file:///d:/Ahmad-shah-project/university-project/docs/documentation.html\")"
+    ]
+  }
+}
